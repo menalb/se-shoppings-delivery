@@ -1,0 +1,28 @@
+a{
+    color: rgb(18, 33, 64) !important;
+}
+h1 {
+    color: white;
+    background-color: #1e3567;
+    border-bottom: 1px solid #1e3567;
+    box-shadow: 0 0 44px 1px rgb(0 0 0 / 50%);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    height: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+}
+
+.btn{
+    background-color:rgb(18, 33, 64)!important;
+    border-color:black!important;;
+}
+.btn:hover {
+    background-color: lightgray !important;
+    border-color: black !important;
+    color:black!important;    
+}

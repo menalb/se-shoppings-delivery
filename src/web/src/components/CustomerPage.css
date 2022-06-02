@@ -1,0 +1,11 @@
+.standby {
+    background-color: lightyellow;
+}
+.actions{
+
+}
+
+.edit-action{
+    display: flex;
+    justify-content: end;
+}
