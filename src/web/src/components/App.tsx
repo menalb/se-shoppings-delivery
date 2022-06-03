@@ -9,6 +9,7 @@ import { AdminRoutes, ProtectedRoutes, PublicRoutes } from './PrivateRoute';
 import { AuthProvider } from "../context/AuthContext";
 import EditCustomerPage from './EditCustomerPage';
 import NotAuth from './NotAuth';
+import AddCustomerPage from './AddCustomerPage';
 
 function App() {
   return (<>
@@ -28,6 +29,9 @@ function App() {
                 <Route path="/customer/:customerId" element={<CustomerPage />} />
                 <Route path="/edit/:customerId" element={<AdminRoutes />} >
                   <Route path="/edit/:customerId" element={<EditCustomerPage />} />
+                </Route>
+                <Route path="/add" element={<AdminRoutes />} >
+                  <Route path="/add" element={<AddCustomerPage />} />
                 </Route>
               </Route>
 

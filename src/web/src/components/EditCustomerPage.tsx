@@ -57,7 +57,7 @@ function EditCustomerPage() {
 
     return (
         <>
-            <Link to="/customers">&lt;- Elenco</Link>
+            <Link to="/customers">Elenco</Link>
             <Loader isLoading={isLoading}></Loader>
             {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
             {isLoading ? '' :

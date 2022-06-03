@@ -1,8 +1,6 @@
-import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { db } from "../firebase-config";
 import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './CustomerPage.css';

@@ -1,3 +1,27 @@
+.head-container {
+    position: relative;
+}
+
+.buttons div {
+    padding: 0;
+}
+
+.buttons .add {
+    color: white !important;
+}
+
+.buttons .add:hover {
+    color: black !important;
+}
+
+.buttons svg {    
+    width: 1.5rem;
+}
+
+.button-name {
+    padding: 0.5rem;
+}
+
 .search div {
     padding: 0;
 }
@@ -32,4 +56,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@media only screen and (min-width: 992px) {
+    .buttons .add{
+        position: absolute;
+        right: 0;        
+    }
 }

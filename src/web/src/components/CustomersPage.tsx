@@ -17,7 +17,7 @@ function CustomersPage() {
 
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const { currentUser, logout } = useAuth();
+    const { currentUser, logout, roles } = useAuth();
     const [customers, setCustomers] = useState([] as Customer[]);
     const [filtered, setFiltered] = useState([] as Customer[]);
     const isMobile = useCheckMobileScreen();
@@ -25,10 +25,14 @@ function CustomersPage() {
     const fetchCustomers = async () => {
         setIsLoading(true);
 
-        const customers = await customersQuery();      
+        const customers = await customersQuery();
         setCustomers(customers);
         setFiltered(customers);
         setIsLoading(false);
+    }
+
+    const isAdmin = (): boolean => {
+        return !!currentUser && roles.some(r => r === 'admin');
     }
 
     useEffect(() => {
@@ -57,7 +61,22 @@ function CustomersPage() {
     }
 
     return (<>
-        <Container>
+        <Container className="head-container">
+            {isAdmin() ?
+                <Row className="buttons">
+                    <Col xs={4}>
+                        
+                        <Link className="add btn btn-primary mb-4" to="/add" onClick={handleSearch}>
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                            <span className="button-name">
+                                Aggiungi
+                            </span>
+                        </Link>
+                    </Col>
+                </Row>
+                : ''}
             <Row className="search">
                 <Col xs={9} md={4}><FormControl className="mb-6"
                     placeholder="Nome"
