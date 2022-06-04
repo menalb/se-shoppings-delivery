@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Customer } from "../model";
 import './CustomerPage.css';
 import { addCustomer } from "../services/customer-command";
@@ -27,12 +27,14 @@ const AddCustomerPage = () => {
     const [customer, setCustomer] = useState(emptyCustomer)
     const [isUpdateOk, setIsUpdateOk] = useState(false);    
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     async function handleSubmit(c: Customer) {
   
         try {
             setError("")
             await addCustomer(c);
+            navigate("/customers");
         }
         catch (e) {
             console.error(e);

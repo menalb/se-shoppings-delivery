@@ -23,7 +23,7 @@ function Login() {
             setLoading(true)
             if (login) {
                 await login(emailRef.current.value, passwordRef.current.value)
-                navigate("/items")
+                navigate("/customers")
             }
         } catch {
             setError("Failed to log in")
