@@ -9,6 +9,7 @@ import './CustomersPage.css'
 import { Loader } from "./Loader";
 import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../services/utils";
+import { AddButton } from "./Buttons";
 
 function CustomersPage() {
     const navigate = useNavigate();
@@ -64,16 +65,8 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col xs={4}>
-                        
-                        <Link className="add btn btn-primary mb-4" to="/add" onClick={handleSearch}>
-                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                            </svg>
-                            <span className="button-name">
-                                Aggiungi
-                            </span>
-                        </Link>
+                    <Col xs={4}>                        
+                        <AddButton></AddButton>
                     </Col>
                 </Row>
                 : ''}

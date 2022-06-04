@@ -6,22 +6,6 @@
     padding: 0;
 }
 
-.buttons .add {
-    color: white !important;
-}
-
-.buttons .add:hover {
-    color: black !important;
-}
-
-.buttons svg {    
-    width: 1.5rem;
-}
-
-.button-name {
-    padding: 0.5rem;
-}
-
 .search div {
     padding: 0;
 }

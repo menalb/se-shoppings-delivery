@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Card } from "react-bootstrap";
+import { Alert, Card, Col, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { Customer } from "../model";
 import { Loader } from "./Loader";
@@ -7,6 +7,7 @@ import './EditCustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { updateCustomer } from "../services/customer-command";
 import CustomerForm from "./CustomerForm";
+import { ListButton } from "./Buttons";
 
 function EditCustomerPage() {
     const { customerId } = useParams();
@@ -39,6 +40,7 @@ function EditCustomerPage() {
         try {
             if (customerId) {
                 await updateCustomer(c);
+                setCustomer(c);
                 setIsUpdateOk(true);
             }
         }
@@ -55,7 +57,10 @@ function EditCustomerPage() {
 
     return (
         <>
-            <Link to="/customers">Elenco</Link>
+            <div className="buttons">
+                <ListButton></ListButton>
+            </div>
+
             <Loader isLoading={isLoading}></Loader>
             {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
             {isLoading ? '' :

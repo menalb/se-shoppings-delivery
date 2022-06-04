@@ -1,11 +1,13 @@
 .standby {
     background-color: lightyellow;
 }
-.actions{
 
+.actions {
+    display: flex;
+    justify-content: space-between;
 }
 
-.edit-action{
+.edit-action {
     display: flex;
     justify-content: end;
 }

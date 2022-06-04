@@ -5,6 +5,7 @@ import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
+import { EditButton, ListButton } from "./Buttons";
 
 function CustomerPage() {
     const { customerId } = useParams();
@@ -19,7 +20,7 @@ function CustomerPage() {
             if (customer.kind === 'customer') {
                 setCustomer(customer);
             }
-            
+
             setIsLoading(false);
         }
     }
@@ -31,14 +32,18 @@ function CustomerPage() {
 
     return (
         <>
-            <Row className="actions">
-                <Col>
-                    <Link title="Torna alla lista" to="/customers">Elenco</Link>
-                </Col>
-                <Col className="edit-action">
-                    <Link title="Modifica dati" to={"/edit/"+ customerId}>Modifica</Link>
-                </Col>
-            </Row>
+            <div className="actions buttons">
+                <span>
+                    <ListButton></ListButton>
+                </span>
+                <span className="edit-action">
+                    {customerId ?
+                        <EditButton customerId={customerId}></EditButton>
+                        : ''
+                    }
+                </span>
+            </div>
+
             <Loader isLoading={isLoading}></Loader>
 
             {isLoading ? '' :

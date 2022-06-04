@@ -26,3 +26,19 @@ h1 {
     border-color: black !important;
     color:black!important;    
 }
+
+.buttons .link {
+    color: white !important;
+}
+
+.buttons .link:hover {
+    color: black !important;
+}
+
+.buttons svg {
+    width: 1.5rem;
+}
+
+.button-name {
+    padding: 0.5rem;
+}
