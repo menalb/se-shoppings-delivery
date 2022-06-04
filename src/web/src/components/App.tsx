@@ -24,7 +24,7 @@ function App() {
             <Routes>
 
               <Route path="/" element={<ProtectedRoutes />} >
-                {/* <Route path="/" element={<CustomersPage />} /> */}
+                <Route path="/" element={<CustomersPage />} />
                 <Route path="/customers" element={<CustomersPage />} />
                 <Route path="/customer/:customerId" element={<CustomerPage />} />
                 <Route path="/edit/:customerId" element={<AdminRoutes />} >

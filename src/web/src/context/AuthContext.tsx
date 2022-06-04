@@ -22,9 +22,9 @@ const defaultState: IAuth = {
 export const AuthContext = React.createContext(defaultState);
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState({} as User | null)    
+    const [currentUser, setCurrentUser] = useState({} as User | null)
     const [roles, setRoles] = useState([] as string[])
-    
+
     const [loading, setLoading] = useState(true)
 
     function login(email: string, password: string) {
@@ -40,10 +40,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             const roles = docSnap.data().roles as string[];
-            setRoles(roles);            
+            setRoles(roles);
         }
         else {
-            setRoles([] as string[])            
+            setRoles([] as string[])
         }
         setLoading(false)
 
@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     };
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {loading ? <em>Loggin in</em> : !loading && children}            
         </AuthContext.Provider>
     )
 }

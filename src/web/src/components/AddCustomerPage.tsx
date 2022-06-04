@@ -1,109 +1,83 @@
-import { useEffect, useRef, useState } from "react";
-import { Alert, Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Alert, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { Customer } from "../model";
 import './CustomerPage.css';
-import { getCustomer } from "../services/customers-query";
+import { addCustomer } from "../services/customer-command";
+import { getNextCustomerCode } from "../services/customers-query";
+import CustomerForm from "./CustomerForm";
 
-function AddCustomerPage() {
-    const [customer, setCustomer] = useState({} as Customer)
-    const [isUpdateOk, setIsUpdateOk] = useState(false);
-    const [error, setError] = useState("")
+const AddCustomerPage = () => {
+    const emptyCustomer: Customer = {
+        kind: 'customer',
+        id: '',
+        name: '',
+        area: '',
+        address: '',
+        code: 0,
+        creationDate: new Date(Date.now()),
+        familyStructure: '',
+        linkMaps: '',
+        customerId: 0,
+        note: '',
+        phone: '',
+        reference: '',
+        standby: false,
+    }
+    const [customer, setCustomer] = useState(emptyCustomer)
+    const [isUpdateOk, setIsUpdateOk] = useState(false);    
+    const [error, setError] = useState("");
 
-    const fetchCustomer = async () => {
+    async function handleSubmit(c: Customer) {
+  
+        try {
+            setError("")
+            await addCustomer(c);
+        }
+        catch (e) {
+            console.error(e);
+            setError('Creazione fallita');
+            setIsUpdateOk(false);
+        }
     }
 
-    async function handleSubmit(e: any) {
-        e.preventDefault();
-
-
-        //await updateCustomer(customer);
-        setIsUpdateOk(true);
-
-    }
-
-    const handleChange = (event: React.ChangeEvent<any>) => {
+    const handleChange = (event: React.ChangeEvent<any>) => { 
         setIsUpdateOk(false);
-        const { target } = event;
-        const { name } = target;
-        const value = name === "standby" ? target.checked : target.value;
+    }
+   
+    const nextCustomerCode = async () => {
+        const code = await getNextCustomerCode();
 
         setCustomer({
             ...customer,
-            [name]: value,
+            code: code
         });
-    };
+    }
 
-    // useEffect(() => {
-    //     fetchCustomer();
-
-    // }, [customerId]);
+    useEffect(() => {
+        if (!(customer.code && customer.code > 0)) {
+            nextCustomerCode();
+        }
+    }, []);
 
     return (
         <>
             <Link to="/customers">Elenco</Link>
 
             {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
-
             <Card>
                 <Card.Body>
-                    <h2 className="text-center mb-4">{customer.name}</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     {isUpdateOk ?
                         <p className="update-ok">
                             <em>Aggiornameto completato con successo</em>
                         </p> : ''}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="name">
-                            <Form.Label>Nome</Form.Label>
-                            <Form.Control name="name" onChange={handleChange} value={customer.name} type="text" required />
-                        </Form.Group>
-                        <Form.Group id="area">
-                            <Form.Label>Zona</Form.Label>
-                            <Form.Control name="area" onChange={handleChange} value={customer.area} type="text" />
-                        </Form.Group>
-                        <Form.Group id="address">
-                            <Form.Label>Indirizzo</Form.Label>
-                            <Form.Control name="address" onChange={handleChange} value={customer.address} type="text" />
-                        </Form.Group>
-                        <Form.Group id="phone">
-                            <Form.Label>Telefono</Form.Label>
-                            <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
-                        </Form.Group>
-                        <Form.Group id="reference">
-                            <Form.Label>Referente</Form.Label>
-                            <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
-                        </Form.Group>
-                        <Form.Group id="note">
-                            <Form.Label>Richieste Particolari</Form.Label>
-                            <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
-                        </Form.Group>
-                        <Form.Group id="linkMaps">
-                            <Form.Label>GoogleMaps link</Form.Label>
-                            <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
-                        </Form.Group>
-                        <Form.Group id="reference">
-                            <Form.Label>Stand By</Form.Label>
-                            <Form.Check
-                                type="switch"
-                                id="standby"
-                                label=""
-                                name="standby"
-                                defaultChecked={customer.standby ? customer.standby : false}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                        <hr />
-                        <Button className="w-100" type="submit">
-                            Salva
-                        </Button>
-                    </Form>
+                    <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange}></CustomerForm>
                 </Card.Body>
             </Card>
 
         </>
     )
 }
-
 
 export default AddCustomerPage;

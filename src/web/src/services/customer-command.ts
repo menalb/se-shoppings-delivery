@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { Customer } from "../model";
 
@@ -12,4 +12,23 @@ export const updateCustomer = async (customer: Customer): Promise<void> => {
             standby: customer.standby ? customer.standby : false
         }
     );
+}
+
+export const addCustomer = async (customer: Customer): Promise<Customer> => {
+    const collectionRef = collection(db, 'customers');
+
+    const docRef = await addDoc(collectionRef,
+        {
+            ...customer,
+            creationDate: customer.creationDate ? customer.creationDate : Date.now(),
+            standby: customer.standby ? customer.standby : false
+        }
+    );
+
+    console.log(docRef.id);
+    
+    return ({
+        ...customer,
+        id: docRef.id
+    });
 }
