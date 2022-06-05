@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react"
+import { Loader } from "../components/Loader";
 import { auth, db, logInWithEmailAndPassword } from "../firebase-config";
 
 interface Props {
@@ -69,7 +70,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     };
     return (
         <AuthContext.Provider value={value}>
-            {loading ? <em>Loggin in</em> : !loading && children}            
+            {loading ? <Loader isLoading={loading}></Loader> : !loading && children}            
         </AuthContext.Provider>
     )
 }

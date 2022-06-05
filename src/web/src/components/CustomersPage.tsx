@@ -11,12 +11,10 @@ import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../services/utils";
 import { AddButton } from "./Buttons";
 
-function CustomersPage() {
-    const navigate = useNavigate();
+function CustomersPage() {    
 
     const searchTextRef = useRef({} as HTMLInputElement)
-
-    const [error, setError] = useState("");
+    
     const [isLoading, setIsLoading] = useState(false);
     const { currentUser, logout, roles } = useAuth();
     const [customers, setCustomers] = useState([] as Customer[]);
@@ -39,19 +37,7 @@ function CustomersPage() {
     useEffect(() => {
         fetchCustomers();
     }, [currentUser]);
-
-    // async function handleLogout() {
-    //     setError("")
-
-    //     if (logout) {
-    //         try {
-    //             await logout()
-    //             navigate("/login")
-    //         } catch {
-    //             setError("Failed to log out")
-    //         }
-    //     }
-    // }
+   
     const handleOnCheangeSearch = () => {
         handleSearch();
     }
@@ -65,7 +51,7 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col xs={4}>                        
+                    <Col xs={6}>                        
                         <AddButton></AddButton>
                     </Col>
                 </Row>
@@ -83,13 +69,13 @@ function CustomersPage() {
             </Row>
         </Container>
         <Loader isLoading={isLoading}></Loader>
-        <ListGroup>
+        <ListGroup as="ul">
             {!isMobile ?
-                <ListGroup.Item key={'header'}>
+                <ListGroup.Item as="li" key={'header'}>
                     <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
                 </ListGroup.Item>
                 : ''}
-            {filtered.map((e, index) => (<ListGroup.Item key={index} className={e.standby ? 'standby' : ''} >
+            {filtered.map((e, index) => (<ListGroup.Item as="li" key={index} className={e.standby ? 'standby' : ''} >
                 {isMobile ?
                     <CustomerListItem customer={e} ></CustomerListItem>
                     :
@@ -97,12 +83,7 @@ function CustomersPage() {
                 }
 
             </ListGroup.Item>))}
-        </ListGroup>
-        {/* <div className="w-100 text-center mt-2">
-            <Button variant="link" onClick={handleLogout}>
-                Log Out
-            </Button>
-        </div> */}
+        </ListGroup>        
     </>
     )
 }

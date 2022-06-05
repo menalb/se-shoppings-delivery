@@ -10,12 +10,21 @@ import { AuthProvider } from "../context/AuthContext";
 import EditCustomerPage from './EditCustomerPage';
 import NotAuth from './NotAuth';
 import AddCustomerPage from './AddCustomerPage';
+import UserProfilePage from './UserProfilePage';
+import { UserProfileButton } from './Buttons';
 
 function App() {
   return (<>
     <h1>
-      <img className='logo' src={logo} aria-hidden="true" alt="Logo Comunita Sant'Egidio" />
-      Consegna Spesa
+      <a href="/" title="Home" className='page-title'>
+        <img className='logo' src={logo} aria-hidden="true" alt="Logo Comunita Sant'Egidio" />
+        <span className='text'>
+          Consegna Spesa
+        </span>
+      </a>
+      <span className='user-profile'>
+        <UserProfileButton></UserProfileButton>
+      </span>
     </h1>
     <Container>
       <div>
@@ -25,6 +34,7 @@ function App() {
 
               <Route path="/" element={<ProtectedRoutes />} >
                 <Route path="/" element={<CustomersPage />} />
+                <Route path="/profile" element={<UserProfilePage />} />
                 <Route path="/customers" element={<CustomersPage />} />
                 <Route path="/customer/:customerId" element={<CustomerPage />} />
                 <Route path="/edit/:customerId" element={<AdminRoutes />} >

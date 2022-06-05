@@ -1,4 +1,5 @@
 .loader {
     display: flex;
     justify-content: center;
+    color: rgb(18, 33, 64);
 }
