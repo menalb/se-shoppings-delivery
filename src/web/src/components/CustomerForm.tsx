@@ -90,6 +90,14 @@ const CustomerForm = (props: CustomerFormprops) => {
                 <Form.Label>Componenti Famiglia</Form.Label>
                 <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
             </Form.Group>
+            <Form.Group id="adults">
+                <Form.Label>Adulti</Form.Label>
+                <Form.Control name="adults" onChange={handleChange} value={customer.adults} type="number" />
+            </Form.Group>
+            <Form.Group id="children">
+                <Form.Label>Bambini</Form.Label>
+                <Form.Control name="children" onChange={handleChange} value={customer.children} type="number" />
+            </Form.Group>
             <Form.Group id="note">
                 <Form.Label>Richieste Particolari</Form.Label>
                 <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />

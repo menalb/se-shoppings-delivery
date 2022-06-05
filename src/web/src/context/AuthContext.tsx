@@ -53,12 +53,12 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
-            if (user) {
-                setUserRoles(user.uid);
+            if (user) {                
+                setUserRoles(user.uid);                
             }
             else {
                 setLoading(false)
-            }
+            }            
         })
 
         return unsubscribe

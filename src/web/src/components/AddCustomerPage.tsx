@@ -18,6 +18,8 @@ const AddCustomerPage = () => {
         code: 0,
         creationDate: new Date(Date.now()),
         familyStructure: '',
+        children: 0,
+        adults: 0,
         linkMaps: '',
         customerId: 0,
         note: '',
@@ -26,12 +28,12 @@ const AddCustomerPage = () => {
         standby: false,
     }
     const [customer, setCustomer] = useState(emptyCustomer)
-    const [isUpdateOk, setIsUpdateOk] = useState(false);    
+    const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     async function handleSubmit(c: Customer) {
-  
+
         try {
             setError("")
             await addCustomer(c);
@@ -44,10 +46,10 @@ const AddCustomerPage = () => {
         }
     }
 
-    const handleChange = (event: React.ChangeEvent<any>) => { 
+    const handleChange = (event: React.ChangeEvent<any>) => {
         setIsUpdateOk(false);
     }
-   
+
     const nextCustomerCode = async () => {
         const code = await getNextCustomerCode();
 

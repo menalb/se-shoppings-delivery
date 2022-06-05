@@ -9,6 +9,8 @@ export interface Customer {
     creationDate?: Date,
     reference?: string,
     familyStructure?: string,
+    adults?: number,
+    children?: number,
     note?: string,
     address?: string,
     phone?: string,

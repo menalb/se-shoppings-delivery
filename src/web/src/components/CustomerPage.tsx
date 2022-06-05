@@ -95,6 +95,18 @@ function CustomerPage() {
                                 <b>{customer.familyStructure ? customer.familyStructure : ' '}</b>
                             </Row>
                             <Row>
+                                Adulti
+                            </Row>
+                            <Row>
+                                <b>{customer.adults ? customer.adults : ' '}</b>
+                            </Row>
+                            <Row>
+                                Bambini
+                            </Row>
+                            <Row>
+                                <b>{customer.children ? customer.children : ' '}</b>
+                            </Row>
+                            <Row>
                                 Richieste Particolari
                             </Row>
                             <Row>

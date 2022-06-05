@@ -45,6 +45,8 @@ const map = (data: DocumentData, id: string): Customer => ({
     note: data.note ? data.note : '',
     address: data.address,
     familyStructure: data.familyStructure ? data.familyStructure : '',
+    adults: data.adults ? data.adults : 0,
+    children: data.children ? data.children : 0,
     standby: data.standby,
     linkMaps: data.linkMaps,
 });
