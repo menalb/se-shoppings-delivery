@@ -75,3 +75,9 @@ h1 {
 .user-profile svg {
     color: white !important;
 }
+
+@media only screen and (max-width: 992px) {
+    body{
+        overflow-y: hidden;
+    }
+}

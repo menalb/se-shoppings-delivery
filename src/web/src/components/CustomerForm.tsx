@@ -5,6 +5,7 @@ import './CustomerForm.css'
 
 interface CustomerFormprops {
     customer: Customer,
+    disabled: boolean,
     handleChange: (event: React.ChangeEvent<any>) => void,
     handleSubmit: (customer: Customer) => void,
 };
@@ -57,69 +58,74 @@ const CustomerForm = (props: CustomerFormprops) => {
     }, [props.customer])
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group id="name">
-                <Form.Label>Nome</Form.Label>
-                <Form.Control name="name" onChange={handleChange} value={customer.name} type="text" required
-                    isInvalid={errors.has('name')}
-                />
-                <Form.Control.Feedback type='invalid'>
-                    {errors.get('name')}
-                </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group id="code">
-                <Form.Label>Tessera</Form.Label>
-                <Form.Control name="code" onChange={handleChange} value={customer.code} type="number" />
-            </Form.Group>
-            <Form.Group id="area">
-                <Form.Label>Zona</Form.Label>
-                <Form.Control name="area" onChange={handleChange} value={customer.area} type="text" />
-            </Form.Group>
-            <Form.Group id="reference">
-                <Form.Label>Referente</Form.Label>
-                <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
-            </Form.Group>
-            <Form.Group id="homeDelivery">
-                <Form.Label>Viene lui</Form.Label>
-                <Form.Check name="homeDelivery" onChange={handleChange} checked={customer.homeDelivery} type="switch" />
-            </Form.Group>
-            <Form.Group id="address">
-                <Form.Label>Indirizzo</Form.Label>
-                <Form.Control name="address" onChange={handleChange} value={customer.address} type="text" />
-            </Form.Group>
-            <Form.Group id="phone">
-                <Form.Label>Telefono</Form.Label>
-                <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
-            </Form.Group>
-            <Form.Group id="familyStructure">
-                <Form.Label>Componenti Famiglia</Form.Label>
-                <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
-            </Form.Group>
-            <Form.Group id="adults">
-                <Form.Label>Adulti</Form.Label>
-                <Form.Control name="adults" onChange={handleChange} value={customer.adults} type="number" />
-            </Form.Group>
-            <Form.Group id="children">
-                <Form.Label>Bambini</Form.Label>
-                <Form.Control name="children" onChange={handleChange} value={customer.children} type="number" />
-            </Form.Group>
-            <Form.Group id="note">
-                <Form.Label>Richieste Particolari</Form.Label>
-                <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
-            </Form.Group>
-            <Form.Group id="linkMaps">
-                <Form.Label>GoogleMaps link</Form.Label>
-                <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
-            </Form.Group>
-            <Form.Group id="standby">
-                <Form.Label>Stand By</Form.Label>                
-                <Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" />
-            </Form.Group>
-            <hr />
-            <Button className="w-100" type="submit">
-                Salva
-            </Button>
-        </Form>);
+        <>
+            <Form onSubmit={handleSubmit}>
+                <fieldset disabled={props.disabled}>
+                    <Form.Group id="name">
+                        <Form.Label>Nome</Form.Label>
+                        <Form.Control name="name" onChange={handleChange} value={customer.name} type="text" required
+                            isInvalid={errors.has('name')}
+                        />
+                        <Form.Control.Feedback type='invalid'>
+                            {errors.get('name')}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group id="code">
+                        <Form.Label>Tessera</Form.Label>
+                        <Form.Control name="code" onChange={handleChange} value={customer.code} type="number" />
+                    </Form.Group>
+                    <Form.Group id="area">
+                        <Form.Label>Zona</Form.Label>
+                        <Form.Control name="area" onChange={handleChange} value={customer.area} type="text" />
+                    </Form.Group>
+                    <Form.Group id="reference">
+                        <Form.Label>Referente</Form.Label>
+                        <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
+                    </Form.Group>
+                    <Form.Group id="homeDelivery">
+                        <Form.Label>Viene lui</Form.Label>
+                        <Form.Check name="homeDelivery" onChange={handleChange} checked={customer.homeDelivery} type="switch" />
+                    </Form.Group>
+                    <Form.Group id="address">
+                        <Form.Label>Indirizzo</Form.Label>
+                        <Form.Control name="address" onChange={handleChange} value={customer.address} type="text" />
+                    </Form.Group>
+                    <Form.Group id="phone">
+                        <Form.Label>Telefono</Form.Label>
+                        <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
+                    </Form.Group>
+                    <Form.Group id="familyStructure">
+                        <Form.Label>Componenti Famiglia</Form.Label>
+                        <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
+                    </Form.Group>
+                    <Form.Group id="adults">
+                        <Form.Label>Adulti</Form.Label>
+                        <Form.Control name="adults" onChange={handleChange} value={customer.adults} type="number" />
+                    </Form.Group>
+                    <Form.Group id="children">
+                        <Form.Label>Bambini</Form.Label>
+                        <Form.Control name="children" onChange={handleChange} value={customer.children} type="number" />
+                    </Form.Group>
+                    <Form.Group id="note">
+                        <Form.Label>Richieste Particolari</Form.Label>
+                        <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
+                    </Form.Group>
+                    <Form.Group id="linkMaps">
+                        <Form.Label>GoogleMaps link</Form.Label>
+                        <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
+                    </Form.Group>
+                    <Form.Group id="standby">
+                        <Form.Label>Stand By</Form.Label>
+                        <Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" />
+                    </Form.Group>
+                </fieldset>
+                <div className="submit">
+                    <Button type="submit">
+                        Salva
+                    </Button>
+                </div>
+            </Form>
+        </>);
 }
 
 export default CustomerForm;

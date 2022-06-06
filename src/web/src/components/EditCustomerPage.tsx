@@ -13,6 +13,7 @@ function EditCustomerPage() {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState({} as Customer)
     const [isLoading, setIsLoading] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [error, setError] = useState("")
 
@@ -36,7 +37,8 @@ function EditCustomerPage() {
 
 
     async function handleSubmit(c: Customer) {
-
+        
+        setIsUpdating(true);
         try {
             if (customerId) {
                 await updateCustomer(c);
@@ -49,6 +51,7 @@ function EditCustomerPage() {
             setError('Aggiornamento fallito');
             setIsUpdateOk(false);
         }
+        setIsUpdating(false);
     }
 
     const handleChange = (event: React.ChangeEvent<any>) => {
@@ -61,7 +64,7 @@ function EditCustomerPage() {
                 <ListButton></ListButton>
             </div>
 
-            <Loader isLoading={isLoading}></Loader>
+            <Loader isLoading={isLoading || isUpdating}></Loader>
             {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
             {isLoading ? '' :
                 <Card>
@@ -72,7 +75,7 @@ function EditCustomerPage() {
                             <p className="update-ok">
                                 <em>Aggiornameto completato con successo</em>
                             </p> : ''}
-                        <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange}></CustomerForm>
+                        <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></CustomerForm>
                     </Card.Body>
                 </Card>
             }

@@ -30,11 +30,13 @@ const AddCustomerPage = () => {
     }
     const [customer, setCustomer] = useState(emptyCustomer)
     const [isUpdateOk, setIsUpdateOk] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     async function handleSubmit(c: Customer) {
 
+        setIsUpdating(true);
         try {
             setError("")
             await addCustomer(c);
@@ -45,6 +47,7 @@ const AddCustomerPage = () => {
             setError('Creazione fallita');
             setIsUpdateOk(false);
         }
+        setIsUpdating(false);
     }
 
     const handleChange = (event: React.ChangeEvent<any>) => {
@@ -80,7 +83,7 @@ const AddCustomerPage = () => {
                         <p className="update-ok">
                             <em>Aggiornameto completato con successo</em>
                         </p> : ''}
-                    <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange}></CustomerForm>
+                    <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></CustomerForm>
                 </Card.Body>
             </Card>
 
