@@ -7,7 +7,7 @@ import './EditCustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { updateCustomer } from "../services/customer-command";
 import CustomerForm from "./CustomerForm";
-import { ListButton } from "./Buttons";
+import { ListCutomersButton } from "./Buttons";
 
 function EditCustomerPage() {
     const { customerId } = useParams();
@@ -61,7 +61,7 @@ function EditCustomerPage() {
     return (
         <>
             <div className="buttons">
-                <ListButton></ListButton>
+                <ListCutomersButton></ListCutomersButton>
             </div>
 
             <Loader isLoading={isLoading || isUpdating}></Loader>

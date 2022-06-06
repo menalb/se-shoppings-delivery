@@ -5,7 +5,7 @@ import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
-import { EditButton, ListButton } from "./Buttons";
+import { EditButton, ListCutomersButton } from "./Buttons";
 
 function CustomerPage() {
     const { customerId } = useParams();
@@ -34,7 +34,7 @@ function CustomerPage() {
         <>
             <div className="actions buttons">
                 <span>
-                    <ListButton></ListButton>
+                    <ListCutomersButton></ListCutomersButton>
                 </span>
                 <span className="edit-action">
                     {customerId ?

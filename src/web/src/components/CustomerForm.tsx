@@ -3,14 +3,14 @@ import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Customer } from "../model";
 import './CustomerForm.css'
 
-interface CustomerFormprops {
+interface CustomerFormProps {
     customer: Customer,
     disabled: boolean,
     handleChange: (event: React.ChangeEvent<any>) => void,
     handleSubmit: (customer: Customer) => void,
 };
 
-const CustomerForm = (props: CustomerFormprops) => {
+const CustomerForm = (props: CustomerFormProps) => {
     const [customer, setCustomer] = useState(props.customer);
     const [errors, setErrors] = useState(new Map<string, string>());
 

@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { db } from "../firebase-config";
-import { Link, useNavigate } from "react-router-dom";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { Button, Col, Container, FormControl, ListGroup, Row } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import { Customer } from "../model";
@@ -11,12 +9,12 @@ import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../services/utils";
 import { AddButton } from "./Buttons";
 
-function CustomersPage() {    
+function CustomersPage() {
 
     const searchTextRef = useRef({} as HTMLInputElement)
-    
+
     const [isLoading, setIsLoading] = useState(false);
-    const { currentUser, logout, roles } = useAuth();
+    const { currentUser, roles } = useAuth();
     const [customers, setCustomers] = useState([] as Customer[]);
     const [filtered, setFiltered] = useState([] as Customer[]);
     const isMobile = useCheckMobileScreen();
@@ -37,7 +35,7 @@ function CustomersPage() {
     useEffect(() => {
         fetchCustomers();
     }, [currentUser]);
-   
+
     const handleOnCheangeSearch = () => {
         handleSearch();
     }
@@ -51,8 +49,11 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col xs={6}>                        
-                        <AddButton></AddButton>
+                    <Col xs={6}>
+                        <AddButton to={"/add"}></AddButton>
+                    </Col>
+                    <Col xs={4}>
+                        <Link to="/deliveries" title="Giri consegna spesa">Giri</Link>
                     </Col>
                 </Row>
                 : ''}
@@ -83,7 +84,7 @@ function CustomersPage() {
                 }
 
             </ListGroup.Item>))}
-        </ListGroup>        
+        </ListGroup>
     </>
     )
 }
