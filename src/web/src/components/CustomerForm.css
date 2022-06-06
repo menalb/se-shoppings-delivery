@@ -2,18 +2,24 @@
     font-size: 1.5em;
 }
 
-.submit {    
+.submit {
     border-top: 1px solid rgba(0, 0, 0, .125);
     padding: 1rem;
 }
 
 
 @media only screen and (max-width: 992px) {
+
     form {
-            margin-bottom: 2rem;
-            overflow-y: scroll;
-            height: 55vh;
-        }
+        margin-bottom: 2rem;
+        overflow-y: scroll;
+        height: 55vh;
+    }
+
+    form fieldset {
+        padding-bottom: 1rem;
+    }
+
     .form-switch {
         text-align: center;
 
@@ -34,7 +40,7 @@
 }
 
 @media only screen and (max-width: 700px) {
-.submit {
+    .submit {
         position: fixed;
         bottom: 0.125rem;
         text-align: center;
@@ -44,7 +50,7 @@
 }
 
 @media only screen and (max-width: 575px) {
-    
+
 
     .submit {
         border-top: 1px solid rgba(0, 0, 0, .125);
