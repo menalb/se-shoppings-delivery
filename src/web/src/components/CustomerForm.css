@@ -1,0 +1,10 @@
+.form-switch {
+    font-size: 1.5em;
+}
+
+@media only screen and (max-width: 992px) {
+    .form-switch {
+        text-align: center;
+
+    }
+}

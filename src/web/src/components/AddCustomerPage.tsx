@@ -25,6 +25,7 @@ const AddCustomerPage = () => {
         note: '',
         phone: '',
         reference: '',
+        homeDelivery: false,
         standby: false,
     }
     const [customer, setCustomer] = useState(emptyCustomer)

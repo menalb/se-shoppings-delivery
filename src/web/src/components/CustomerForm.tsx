@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Customer } from "../model";
+import './CustomerForm.css'
 
 interface CustomerFormprops {
     customer: Customer,
@@ -16,7 +17,7 @@ const CustomerForm = (props: CustomerFormprops) => {
 
         const { target } = event;
         const { name } = target;
-        const value = name === "standby" ? target.checked : target.value;
+        const value = name === "standby" || name === "homeDelivery" ? target.checked : target.value;
 
         setCustomer({
             ...customer,
@@ -78,6 +79,10 @@ const CustomerForm = (props: CustomerFormprops) => {
                 <Form.Label>Referente</Form.Label>
                 <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
             </Form.Group>
+            <Form.Group id="homeDelivery">
+                <Form.Label>Viene lui</Form.Label>
+                <Form.Check name="homeDelivery" onChange={handleChange} checked={customer.homeDelivery} type="switch" />
+            </Form.Group>
             <Form.Group id="address">
                 <Form.Label>Indirizzo</Form.Label>
                 <Form.Control name="address" onChange={handleChange} value={customer.address} type="text" />
@@ -106,16 +111,9 @@ const CustomerForm = (props: CustomerFormprops) => {
                 <Form.Label>GoogleMaps link</Form.Label>
                 <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
             </Form.Group>
-            <Form.Group id="reference">
-                <Form.Label>Stand By</Form.Label>
-                <Form.Check
-                    type="switch"
-                    id="standby"
-                    label=""
-                    name="standby"
-                    defaultChecked={customer.standby ? customer.standby : false}
-                    onChange={handleChange}
-                />
+            <Form.Group id="standby">
+                <Form.Label>Stand By</Form.Label>                
+                <Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" />
             </Form.Group>
             <hr />
             <Button className="w-100" type="submit">

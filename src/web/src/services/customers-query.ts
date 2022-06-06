@@ -1,4 +1,4 @@
-import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query, QueryDocumentSnapshot, QuerySnapshot, SnapshotOptions, where } from "firebase/firestore";
+import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { Customer, NotFound } from "../model";
 
@@ -40,6 +40,7 @@ const map = (data: DocumentData, id: string): Customer => ({
     name: data.name,
     creationDate: data.creationDdate,
     reference: data.reference,
+    homeDelivery: data.homeDelivery ? data.homeDelivery : false,
     phone: data.phone,
     area: data.area,
     note: data.note ? data.note : '',
@@ -47,6 +48,6 @@ const map = (data: DocumentData, id: string): Customer => ({
     familyStructure: data.familyStructure ? data.familyStructure : '',
     adults: data.adults ? data.adults : 0,
     children: data.children ? data.children : 0,
-    standby: data.standby,
+    standby: data.standby,    
     linkMaps: data.linkMaps,
 });

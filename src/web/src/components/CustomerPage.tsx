@@ -71,6 +71,12 @@ function CustomerPage() {
                                 <b>{customer.reference}</b>
                             </Row>
                             <Row>
+                                Viene lui
+                            </Row>
+                            <Row>
+                                <b>{!!customer.homeDelivery ? 'SI' : 'NO'}</b>
+                            </Row>
+                            <Row>
                                 Indirizzo
                             </Row>
                             <Row>
