@@ -59,7 +59,7 @@ const CustomerForm = (props: CustomerFormprops) => {
 
     return (
         <>
-            <Form onSubmit={handleSubmit}>
+            <Form className="customer-form" onSubmit={handleSubmit}>
                 <fieldset disabled={props.disabled}>
                     <Form.Group id="name">
                         <Form.Label>Nome</Form.Label>
