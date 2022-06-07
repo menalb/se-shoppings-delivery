@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Delivery, formatDateCalendar, formatDeliveryCode } from "../model";
+import { Customer, Delivery, formatDateCalendar, formatDeliveryCode } from "../model";
+import { CustomersList } from "./CustomersList";
 import './DeliveryForm.css'
 
 interface DeliveryFormProps {
@@ -11,8 +12,10 @@ interface DeliveryFormProps {
 };
 
 export const DeliveryForm = (props: DeliveryFormProps) => {
+    const [customers, setCustomers] = useState([] as Customer[]);
     const [delivery, setDelivery] = useState(props.delivery);
     const [errors, setErrors] = useState(new Map<string, string>());
+
 
     const handleChange = (event: React.ChangeEvent<any>) => {
 
@@ -80,6 +83,7 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
                         <Form.Control name="note" as="textarea" onChange={handleChange} value={delivery.note} type="text" />
                     </Col>
                 </Form.Group>
+                <CustomersList></CustomersList>
             </fieldset>
             <div className="submit">
                 <Button type="submit">

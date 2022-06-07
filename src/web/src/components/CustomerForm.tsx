@@ -14,6 +14,10 @@ const CustomerForm = (props: CustomerFormProps) => {
     const [customer, setCustomer] = useState(props.customer);
     const [errors, setErrors] = useState(new Map<string, string>());
 
+    useEffect(() => {
+        
+    },[]);
+
     const handleChange = (event: React.ChangeEvent<any>) => {
 
         const { target } = event;
@@ -118,6 +122,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                         <Form.Label>Stand By</Form.Label>
                         <Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" />
                     </Form.Group>
+
                 </fieldset>
                 <div className="submit">
                     <Button type="submit">

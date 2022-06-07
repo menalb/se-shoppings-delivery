@@ -1,20 +1,28 @@
 import { useEffect, useRef, useState } from "react";
+import { Container, Row, Col, ListGroup, FormControl, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Button, Col, Container, FormControl, ListGroup, Row } from "react-bootstrap";
-import { useAuth } from "../context/AuthContext";
 import { Customer } from "../model";
-import './CustomersPage.css'
-import { Loader } from "./Loader";
 import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../services/utils";
-import { AddButton, DeliveriesButton } from "./Buttons";
+import { Loader } from "./Loader";
 
-function CustomersPage() {
+export const CustomersList = () => {
 
     const searchTextRef = useRef({} as HTMLInputElement)
-
+    const fake: Customer[] = [{
+        id: '',
+        kind: 'customer',
+        code: 123,
+        name: 'dd'
+    },
+    {
+        id: '',
+        kind: 'customer',
+        code: 456,
+        name: 'aaa'
+    }];
     const [isLoading, setIsLoading] = useState(false);
-    const { currentUser, roles } = useAuth();
+    const [includeStandby, setIncludeStandby] = useState(false);
     const [customers, setCustomers] = useState([] as Customer[]);
     const [filtered, setFiltered] = useState([] as Customer[]);
     const isMobile = useCheckMobileScreen();
@@ -24,70 +32,83 @@ function CustomersPage() {
 
         const customers = await customersQuery();
         setCustomers(customers);
-        setFiltered(customers);
+        
         setIsLoading(false);
     }
-
-    const isAdmin = (): boolean => {
-        return !!currentUser && roles.some(r => r === 'admin');
-    }
-
-    useEffect(() => {
-        fetchCustomers();
-    }, [currentUser]);
 
     const handleOnCheangeSearch = () => {
         handleSearch();
     }
 
     const handleSearch = () => {
-        const filtered = customers.filter(c => c.name.toLocaleLowerCase().includes(searchTextRef.current.value.toLocaleLowerCase()));
+        let filtered = customers.filter(c => c.name.toLocaleLowerCase().includes(searchTextRef.current.value.toLocaleLowerCase()));
+
+        if (!includeStandby) {
+
+            filtered = filtered.filter(c => c.standby ? !c.standby : true);
+        }
+
         setFiltered(filtered);
     }
 
-    return (<>
-        <Container className="head-container">
-            {isAdmin() ?
-                <Row className="buttons">
-                    <Col xs={6}>
-                        <AddButton to={"/add"}></AddButton>
-                    </Col>
-                    <Col xs={4}>                        
-                        <DeliveriesButton></DeliveriesButton>
+    const handleChangeStandby = () => {
+        setIncludeStandby(!includeStandby);
+    }
+
+    useEffect(() => {
+        fetchCustomers();
+        console.log('load');
+    }, []);
+
+    useEffect(() => {
+        handleSearch();
+    }, [includeStandby, customers]);
+
+
+    return (
+        <>
+            <Container>
+                <Row className="search">
+                    <Col xs={9} md={4}><FormControl className="mb-6"
+                        placeholder="Nome"
+                        aria-label="Nome"
+                        ref={searchTextRef}
+                        onChange={handleOnCheangeSearch}
+                    /></Col>
+                    <Col xs={2}>
+                        <Button className="mb-4" onClick={handleSearch}>Cerca</Button>
                     </Col>
                 </Row>
-                : ''}
-            <Row className="search">
-                <Col xs={9} md={4}><FormControl className="mb-6"
-                    placeholder="Nome"
-                    aria-label="Nome"
-                    ref={searchTextRef}
-                    onChange={handleOnCheangeSearch}
-                /></Col>
-                <Col xs={2}>
-                    <Button className="mb-4" onClick={handleSearch}>Cerca</Button>
-                </Col>
-            </Row>
-        </Container>
-        <Loader isLoading={isLoading}></Loader>
-        <ListGroup as="ul">
-            {!isMobile ?
-                <ListGroup.Item as="li" key={'header'}>
-                    <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
-                </ListGroup.Item>
-                : ''}
-            {filtered.map((e, index) => (<ListGroup.Item as="li" key={index} className={e.standby ? 'standby' : ''} >
-                {isMobile ?
-                    <CustomerListItem customer={e} ></CustomerListItem>
-                    :
-                    <CustomerListItemLarge customer={e} ></CustomerListItemLarge>
-                }
+            </Container>
+            <Container>
+                <Form.Group id="standby" as={Row} className="text-left">
+                    <Form.Label column xs="4" lg="2" xl="1">Stand By</Form.Label>
+                    <Col xs="6" md="4">
+                        <Form.Check name="standby" onChange={handleChangeStandby} checked={includeStandby} type="switch" />
+                    </Col>
+                </Form.Group>
 
-            </ListGroup.Item>))}
-        </ListGroup>
-    </>
-    )
+            </Container>
+            <Loader isLoading={isLoading}></Loader>
+            <ListGroup as="ul">
+                {!isMobile ?
+                    <ListGroup.Item as="li" key={'header'}>
+                        <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
+                    </ListGroup.Item>
+                    : ''}
+                {filtered.map((e, index) => (<ListGroup.Item as="li" key={index} className={e.standby ? 'standby' : ''} >
+                    {isMobile ?
+                        <CustomerListItem customer={e} ></CustomerListItem>
+                        :
+                        <CustomerListItemLarge customer={e} ></CustomerListItemLarge>
+                    }
+
+                </ListGroup.Item>))}
+            </ListGroup>
+        </>
+    );
 }
+
 
 const CustomerListItem = (props: { customer: Customer }) => {
     const customer = props.customer;
@@ -151,6 +172,3 @@ const CustomerListItemLarge = (props: { customer: Customer }) => {
         </span>
     );
 }
-
-
-export default CustomersPage;
