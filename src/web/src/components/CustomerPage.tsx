@@ -6,10 +6,12 @@ import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { EditButton, ListButton } from "./Buttons";
+import { useAuth } from "../context/AuthContext";
 
 function CustomerPage() {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState({} as Customer)
+    const { currentUser, roles } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchCustomer = async () => {
@@ -37,7 +39,7 @@ function CustomerPage() {
                     <ListButton></ListButton>
                 </span>
                 <span className="edit-action">
-                    {customerId ?
+                    {customerId && currentUser && roles.some(r => r === 'admin') ?
                         <EditButton customerId={customerId}></EditButton>
                         : ''
                     }

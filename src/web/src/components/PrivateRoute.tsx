@@ -6,7 +6,8 @@ export const PublicRoutes = (props: any) => {
     const auth = useAuth()
 
     if (!!(auth.currentUser)) {
-        return auth.roles.some(r => r === 'operator') ? <Navigate to="/customers" /> : <Navigate to="/no-auth" />;
+        //return auth.roles.some(r => r === 'operator') ? <Navigate to="/customers" /> : <Navigate to="/no-auth" />;
+        return <Navigate to="/customers" />;
     }    
 
     return <Outlet />
