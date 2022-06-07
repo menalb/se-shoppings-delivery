@@ -7,7 +7,7 @@ import './CustomersPage.css'
 import { Loader } from "./Loader";
 import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../services/utils";
-import { AddButton } from "./Buttons";
+import { AddButton, DeliveriesButton } from "./Buttons";
 
 function CustomersPage() {
 
@@ -53,7 +53,8 @@ function CustomersPage() {
                         <AddButton to={"/add"}></AddButton>
                     </Col>
                     <Col xs={4}>
-                        <Link to="/deliveries" title="Giri consegna spesa">Giri</Link>
+                        {/* <Link to="/deliveries" title="Giri consegna spesa">Giri</Link> */}
+                        <DeliveriesButton></DeliveriesButton>
                     </Col>
                 </Row>
                 : ''}

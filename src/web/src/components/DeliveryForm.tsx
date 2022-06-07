@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { Delivery, formatDateCalendar, formatDeliveryCode } from "../model";
 import './DeliveryForm.css'
 
@@ -13,7 +13,7 @@ interface DeliveryFormProps {
 export const DeliveryForm = (props: DeliveryFormProps) => {
     const [delivery, setDelivery] = useState(props.delivery);
     const [errors, setErrors] = useState(new Map<string, string>());
-        
+
     const handleChange = (event: React.ChangeEvent<any>) => {
 
         const { target } = event;
@@ -62,9 +62,9 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
         <Form onSubmit={handleSubmit} className="delivery-form">
             <fieldset disabled={props.disabled}>
                 <Form.Group as={Row} className="mb-3" id="day">
-                    <Form.Label column sm="2">Data</Form.Label>
+                    <Form.Label column sm="2" xs="12">Data</Form.Label>
 
-                    <Col sm="10">
+                    <Col sm="10" xs="12">
                         <Form.Control name="day" onChange={handleChange} value={formatDateCalendar(delivery.day)} type="date" required
                             isInvalid={errors.has('day')}
                         />
@@ -73,7 +73,19 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
                         {errors.get('day')}
                     </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group as={Row} className="mb-3" id="note">
+                    <Form.Label column sm="2" xs="12">Note</Form.Label>
+
+                    <Col sm="10" xs="12">
+                        <Form.Control name="note" as="textarea" onChange={handleChange} value={delivery.note} type="text" />
+                    </Col>
+                </Form.Group>
             </fieldset>
+            <div className="submit">
+                <Button type="submit">
+                    Salva
+                </Button>
+            </div>
         </Form>
     )
 }

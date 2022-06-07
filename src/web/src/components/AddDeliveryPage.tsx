@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Delivery, formatDeliveryCode } from "../model";
+import { addDelivery } from "../services/delivery-command";
 import { ListDeliveriesButton } from "./Buttons"
 import { DeliveryForm } from "./DeliveryForm";
 
@@ -14,6 +15,7 @@ export const AddDeliveryPage = () => {
         code: formatDeliveryCode(toDay),
         day: new Date(Date.now()),
         creationDate: new Date(Date.now()),
+        note: '',
     };
 
     const [delivery, setDelivery] = useState(emptyDelivery)
@@ -27,7 +29,7 @@ export const AddDeliveryPage = () => {
         setIsUpdating(true);
         try {
             setError("")
-            //await addCustomer(c);
+            await addDelivery(d);
             navigate("/deliveries");
         }
         catch (e) {

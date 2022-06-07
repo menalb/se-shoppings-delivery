@@ -1,7 +1,8 @@
-
-export interface Customer {
+export interface Customer extends CustomerBase {
     kind: 'customer',
     id: string,
+}
+export interface CustomerBase {
     name: string,
     customerId?: number,
     code?: number,
@@ -19,17 +20,21 @@ export interface Customer {
     linkMaps?: string,
 }
 
+export interface CustomerApi extends CustomerBase { }
 
-export interface NotFound {
-    kind: 'not-found'
+
+export interface Delivery extends DeliveryBase {
+    kind: 'delivery',
+    id: string
 }
 
-export interface Delivery {
-    kind: 'delivery',
-    id: string,
+export interface DeliveryApi extends DeliveryBase { }
+
+interface DeliveryBase {
     code: string,
     day: Date,
     creationDate: Date,
+    note: string,
 }
 
 export const formatDeliveryCode = (day: Date): string =>
@@ -38,3 +43,9 @@ export const formatDeliveryCode = (day: Date): string =>
 
 export const formatDateCalendar = (day: Date): string =>
     `${day.getFullYear()}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${day.getDate().toString().padStart(2, '0')}`;
+
+
+
+export interface NotFound {
+    kind: 'not-found'
+}
