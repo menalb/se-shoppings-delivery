@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { db } from "../firebase-config";
-import { Link, useNavigate } from "react-router-dom";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+
+import { Link } from "react-router-dom";
 import { Button, Col, Container, FormControl, ListGroup, Row } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import { Customer } from "../model";
@@ -51,7 +50,7 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col xs={6}>                        
+                    <Col xs={12}>                        
                         <AddButton></AddButton>
                     </Col>
                 </Row>
@@ -69,7 +68,7 @@ function CustomersPage() {
             </Row>
         </Container>
         <Loader isLoading={isLoading}></Loader>
-        <ListGroup as="ul">
+        <ListGroup as="ul" className="customers-list">
             {!isMobile ?
                 <ListGroup.Item as="li" key={'header'}>
                     <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
@@ -83,7 +82,7 @@ function CustomersPage() {
                 }
 
             </ListGroup.Item>))}
-        </ListGroup>        
+        </ListGroup>
     </>
     )
 }

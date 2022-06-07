@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.buttons div {
+.head-container .buttons div {
     padding: 0;
 }
 
@@ -42,9 +42,32 @@
     text-overflow: ellipsis;
 }
 
+.customers-list {
+    padding-bottom: 2rem;
+}
+
 @media only screen and (min-width: 992px) {
-    .buttons .add{
+    .head-container .buttons .add{
         position: absolute;
-        right: 0;        
+        right:0;
     }
+}
+
+@media only screen and (max-width: 992px) {
+    .head-container .buttons {
+        position: fixed;
+        right: 0;
+        left:0;
+        bottom: 0;
+        background-color: white;
+        border-top: 1px solid lightgray;
+        z-index: 99;
+        vertical-align: middle;
+        display: flex;
+        justify-items: flex-end;
+    }
+    .head-container .buttons div{
+        margin-top: 1rem;
+        margin-left: 1rem;
+    } 
 }
