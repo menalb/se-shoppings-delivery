@@ -49,11 +49,11 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col xs={6}>
-                        <AddButton to={"/add"}></AddButton>
-                    </Col>
-                    <Col xs={4}>                        
+                    <Col className="bottom-action bottom-action-left">
                         <DeliveriesButton></DeliveriesButton>
+                    </Col>
+                    <Col className="bottom-action bottom-action-right">
+                        <AddButton></AddButton>
                     </Col>
                 </Row>
                 : ''}
@@ -70,7 +70,7 @@ function CustomersPage() {
             </Row>
         </Container>
         <Loader isLoading={isLoading}></Loader>
-        <ListGroup as="ul">
+        <ListGroup as="ul" className="customers-list">
             {!isMobile ?
                 <ListGroup.Item as="li" key={'header'}>
                     <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
@@ -110,17 +110,17 @@ const CustomerListItemLargeHeader = () => {
         <span className="customer-item">
             <span className={"customer-item"}>
                 <b>Name</b></span>
-            <span className="area" title="Zona">
+            <span className="area" title="Zona in cui abita">
                 <b>Zona</b>
             </span>
-            <span title="Indirizzo">
+            <span title="Indirizzo consegna spesa">
                 <b>Indirizzo</b>
             </span>
-            <span title="Referente">
+            <span title="Persona Referente">
                 <b>Referente</b>
             </span>
 
-            <span className="area" title="Zona">
+            <span className="area" title="Teleforno fi riferimento">
                 <b>Telefono</b>
             </span>
         </span>

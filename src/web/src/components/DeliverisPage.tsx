@@ -1,6 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
-import { AddButton } from "./Buttons";
+import { AddDeliveryButton } from "./Buttons";
 
 export const DeliveriesPage = () => {
 
@@ -16,7 +16,7 @@ export const DeliveriesPage = () => {
         {isAdmin() ?
             <Row className="buttons">
                 <Col xs={6}>
-                    <AddButton to={"/add-delivery"}></AddButton>
+                    <AddDeliveryButton></AddDeliveryButton>
                 </Col>
             </Row>
             : ''}

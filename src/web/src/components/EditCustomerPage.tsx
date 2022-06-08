@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Alert, Card, Col, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './EditCustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { updateCustomer } from "../services/customer-command";
 import CustomerForm from "./CustomerForm";
-import { ListCutomersButton } from "./Buttons";
 
 function EditCustomerPage() {
     const { customerId } = useParams();
@@ -37,7 +36,7 @@ function EditCustomerPage() {
 
 
     async function handleSubmit(c: Customer) {
-        
+
         setIsUpdating(true);
         try {
             if (customerId) {
@@ -60,10 +59,6 @@ function EditCustomerPage() {
 
     return (
         <>
-            <div className="buttons">
-                <ListCutomersButton></ListCutomersButton>
-            </div>
-
             <Loader isLoading={isLoading || isUpdating}></Loader>
             {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
             {isLoading ? '' :
