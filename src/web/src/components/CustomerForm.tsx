@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Card, Form } from "react-bootstrap";
+import { Alert, Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { Customer } from "../model";
 import './CustomerForm.css'
 
@@ -63,8 +64,8 @@ const CustomerForm = (props: CustomerFormprops) => {
                 <fieldset disabled={props.disabled}>
                     <Form.Group id="name">
                         <Form.Label>Nome
-                        <Form.Control  name="name" onChange={handleChange} value={customer.name} type="text" required
-                            isInvalid={errors.has('name')}
+                            <Form.Control name="name" onChange={handleChange} value={customer.name} type="text" required
+                                isInvalid={errors.has('name')}
                             />
                         </Form.Label>
                         <Form.Control.Feedback type='invalid'>
@@ -132,11 +133,21 @@ const CustomerForm = (props: CustomerFormprops) => {
                         </Form.Label>
                     </Form.Group>
                 </fieldset>
-                <div className="submit">
-                    <Button type="submit">
-                        Salva
-                    </Button>
-                </div>
+
+                <Row className="bottom-actions buttons">
+                    <Col className="bottom-action bottom-action-left">
+                        <Link className=" link btn btn-primary" title="Annulla modifica e torna alla lista" to={"/customers"}>
+                            <span className="button-name">
+                                Annulla
+                            </span>
+                        </Link>
+                    </Col>
+                    <Col className="bottom-action bottom-action-right">
+                        <Button type="submit">
+                            Salva
+                        </Button>
+                    </Col>
+                </Row>
             </Form>
         </>);
 }

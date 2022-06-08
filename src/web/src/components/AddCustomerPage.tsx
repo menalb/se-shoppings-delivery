@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Alert, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Customer } from "../model";
 import './CustomerPage.css';
 import { addCustomer } from "../services/customer-command";
 import { getNextCustomerCode } from "../services/customers-query";
 import CustomerForm from "./CustomerForm";
-import { ListButton } from "./Buttons";
 
 const AddCustomerPage = () => {
     const emptyCustomer: Customer = {
@@ -71,10 +70,6 @@ const AddCustomerPage = () => {
 
     return (
         <>
-            <div className="buttons">
-                <ListButton></ListButton>
-            </div>
-
             {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
             <Card>
                 <Card.Body>

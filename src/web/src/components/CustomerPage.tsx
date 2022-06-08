@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './CustomerPage.css';
@@ -13,6 +13,7 @@ function CustomerPage() {
     const [customer, setCustomer] = useState({} as Customer)
     const { currentUser, roles } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const fetchCustomer = async () => {
         if (customerId) {
@@ -27,6 +28,9 @@ function CustomerPage() {
         }
     }
 
+    const handleEdit = () => navigate("/edit/" + customerId);
+    const handleCancel = () => navigate('/customers');
+
     useEffect(() => {
         fetchCustomer();
 
@@ -34,7 +38,7 @@ function CustomerPage() {
 
     return (
         <>
-            <div className="actions buttons">
+            {/* <div className="actions buttons">
                 <span>
                     <ListButton></ListButton>
                 </span>
@@ -44,7 +48,7 @@ function CustomerPage() {
                         : ''
                     }
                 </span>
-            </div>
+            </div> */}
 
             <Loader isLoading={isLoading}></Loader>
 
@@ -121,6 +125,22 @@ function CustomerPage() {
                                 <b>{customer.note ? customer.note : ' '}</b>
                             </Row>
 
+                            <Row className="bottom-actions buttons">
+                                <Col className="bottom-action bottom-action-left">
+                                    <Link className=" link btn btn-primary" title="Annulla modifica e torna alla lista" to={"/customers"}>
+                                        <span className="button-name">
+                                            Annulla
+                                        </span>
+                                    </Link>
+                                </Col>
+                                <Col className="bottom-action bottom-action-right">
+                                    <Link className=" link btn btn-primary" title="Modifica dati" to={"/edit/" + customerId}>
+                                        <span className="button-name">
+                                            Modifica
+                                        </span>
+                                    </Link>
+                                </Col>
+                            </Row>
                         </Container>
                     </Card.Body>
                 </Card>

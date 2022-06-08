@@ -71,16 +71,16 @@
         margin-left: 1rem;
     } 
 
-    .head-container .cutomers-action{
+    .bottom-action{
         margin:0.5rem!important;        
         display: flex;
         justify-content: flex-end;
         align-items: center;
     }
-    .head-container .cutomers-action-right{
+    .bottom-action-right{
         padding-right: 1rem!important;
     }
-    .head-container .cutomers-action-left{
+    .bottom-action-left{
         padding-left: 1rem!important;
     }
 }

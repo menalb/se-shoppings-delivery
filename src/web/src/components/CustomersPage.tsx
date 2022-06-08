@@ -50,10 +50,10 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col className="cutomers-action cutomers-action-left">
+                    <Col className="bottom-action bottom-action-left">
 
                     </Col>
-                    <Col className="cutomers-action cutomers-action-right">
+                    <Col className="bottom-action bottom-action-right">
                         <AddButton></AddButton>
                     </Col>
                 </Row>

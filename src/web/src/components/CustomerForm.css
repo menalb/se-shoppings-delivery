@@ -2,18 +2,12 @@
     font-size: 1.5em;
 }
 
-.submit {
-    border-top: 1px solid rgba(0, 0, 0, .125);
-    padding: 1rem;
-}
-
-
 @media only screen and (max-width: 992px) {
 
     .customer-form {
         margin-bottom: 2rem;
         overflow-y: scroll;
-        /* height: 55vh; */
+
     }
 
     .customer-form fieldset {
@@ -23,49 +17,5 @@
     .form-switch {
         text-align: center;
 
-    }
-
-    .submit {
-        border-top: none;
-        position: fixed;
-        bottom: 0.5rem;
-        text-align: center;
-        right: 2rem;
-        left: 2rem;
-    }
-
-    .submit button {
-        width: 50%;
-    }
-}
-
-@media only screen and (max-width: 700px) {
-    .submit {
-        position: fixed;
-        bottom: 0.125rem;
-        text-align: center;
-        right: 4rem;
-        left: 4rem;
-    }
-}
-
-@media only screen and (max-width: 575px) {
-
-
-    .submit {
-        border-top: 1px solid rgba(0, 0, 0, .125);
-        background-color: white;
-        position: fixed;
-        /* bottom: 0.125rem; */
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        /* right: 1.5rem;
-        left: 1.5rem; */
-    }
-
-    .submit button {
-        width: 100%;
-    }
+    }  
 }
