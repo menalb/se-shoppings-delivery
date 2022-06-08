@@ -50,7 +50,10 @@ function CustomersPage() {
         <Container className="head-container">
             {isAdmin() ?
                 <Row className="buttons">
-                    <Col xs={12}>                        
+                    <Col className="cutomers-action cutomers-action-left">
+
+                    </Col>
+                    <Col className="cutomers-action cutomers-action-right">
                         <AddButton></AddButton>
                     </Col>
                 </Row>
@@ -108,17 +111,17 @@ const CustomerListItemLargeHeader = () => {
         <span className="customer-item">
             <span className={"customer-item"}>
                 <b>Name</b></span>
-            <span className="area" title="Zona">
+            <span className="area" title="Zona in cui abita">
                 <b>Zona</b>
             </span>
-            <span title="Indirizzo">
+            <span title="Indirizzo consegna spesa">
                 <b>Indirizzo</b>
             </span>
-            <span title="Referente">
+            <span title="Persona Referente">
                 <b>Referente</b>
             </span>
 
-            <span className="area" title="Zona">
+            <span className="area" title="Teleforno fi riferimento">
                 <b>Telefono</b>
             </span>
         </span>
