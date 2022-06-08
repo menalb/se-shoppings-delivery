@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
+import { Loader } from "./Loader";
 
 
 function Login() {
@@ -10,9 +11,9 @@ function Login() {
 
     const emailRef = useRef({} as HTMLInputElement)
     const passwordRef = useRef({} as HTMLInputElement)
-    const { login } = useAuth()
+    const { currentUser, login } = useAuth()
     const [error, setError] = useState("")
-    const [loading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(false)
     const navigate = useNavigate();
 
     async function handleSubmit(e: any) {
@@ -22,8 +23,8 @@ function Login() {
             setError("")
             setLoading(true)
             if (login) {
-                await login(emailRef.current.value, passwordRef.current.value)
-                navigate("/customers")
+                await login(emailRef.current.value, passwordRef.current.value);
+                navigate("/customers");
             }
         } catch {
             setError("Failed to log in")
@@ -32,11 +33,18 @@ function Login() {
         setLoading(false)
     }
 
+    useEffect(() => {
+        if (currentUser) {
+            navigate("/customers");   
+        }
+    },[currentUser])
+
     return (
         <>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Log In</h2>
+                    <Loader isLoading={isLoading}></Loader>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
@@ -48,7 +56,7 @@ function Login() {
                             <Form.Control type="password" ref={passwordRef} required />
                         </Form.Group>
                         <div className="buttons">
-                            <Button disabled={loading} className="w-100" type="submit">
+                            <Button disabled={isLoading} className="w-100" type="submit">
                                 Log In
                             </Button>
                         </div>
