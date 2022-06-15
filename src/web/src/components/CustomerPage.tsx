@@ -5,7 +5,6 @@ import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
-import { EditButton, ListButton } from "./Buttons";
 import { useAuth } from "../context/AuthContext";
 
 function CustomerPage() {

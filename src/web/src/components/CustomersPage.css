@@ -36,6 +36,12 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.customer-item-select {
+    display: grid;
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
 .customer-link a .area {
     white-space: nowrap;
     overflow: hidden;
@@ -83,4 +89,13 @@
     .bottom-action-left{
         padding-left: 1rem!important;
     }
+
+    
+.customer-item {    
+    grid-template-columns: 1fr 1fr;
+}
+
+.customer-item-select {    
+    grid-template-columns: 1fr 1fr 1fr;
+}
 }
