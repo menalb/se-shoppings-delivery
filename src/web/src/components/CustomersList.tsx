@@ -34,7 +34,7 @@ export const CustomersList = () => {
     const [filtered, setFiltered] = useState([] as CustomersListSelect[]);
     const [canSelect, setCanSelect] = useState(true);
     const isMobile = useCheckMobileScreen();
-   
+
     const fetchCustomers = async () => {
         setIsLoading(true);
 
@@ -99,8 +99,17 @@ export const CustomersList = () => {
                     <Col xs="6" md="4">
                         <Form.Check name="standby" onChange={handleChangeStandby} checked={includeStandby} type="switch" />
                     </Col>
-                </Form.Group>
+                    {canSelect ?
+                        <>
+                            <Col xs="4" md="2" className="text-left text-md-end">
+                                Selezionati:
+                            </Col>
+                            <Col xs="6" md="4" className="text-center text-md-start">
+                                <b>{filtered.reduce((n, val) => n + (val.selected ? 1 : 0), 0)}</b>/{customers.length}
+                            </Col> </>
+                        : ''}
 
+                </Form.Group>
             </Container>
             <Loader isLoading={isLoading}></Loader>
             <ListGroup as="ul">
