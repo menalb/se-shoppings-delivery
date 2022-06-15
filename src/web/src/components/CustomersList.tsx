@@ -34,13 +34,7 @@ export const CustomersList = () => {
     const [filtered, setFiltered] = useState([] as CustomersListSelect[]);
     const [canSelect, setCanSelect] = useState(true);
     const isMobile = useCheckMobileScreen();
-
-    const [selectedCustomers, handleSelection] = useReducer((state: Customer[], customer: Customer): Customer[] =>
-        state.some(c => c.id == customer.id)
-            ? state.filter(c => c.id !== customer.id)
-            : [...state, customer],
-        [] as Customer[]);
-
+   
     const fetchCustomers = async () => {
         setIsLoading(true);
 
@@ -54,6 +48,10 @@ export const CustomersList = () => {
     const handleOnCheangeSearch = () => {
         handleSearch();
     }
+
+    const handleSelection = (customer: Customer) => {
+        setCustomers(customers.map(c => ({ ...c, selected: c.id == customer.id ? !c.selected : c.selected })));
+    };
 
     const handleSearch = () => {
         let filtered = customers.filter(c => c.name.toLocaleLowerCase().includes(searchTextRef.current.value.toLocaleLowerCase()));
@@ -81,9 +79,7 @@ export const CustomersList = () => {
 
 
     return (
-        <><div>
-            {selectedCustomers.map(c => <span key={c.id}>{c.id} - {c.name}</span>)}
-        </div>
+        <>
             <Container>
                 <Row className="search">
                     <Col xs={9} md={4}><FormControl className="mb-6"
