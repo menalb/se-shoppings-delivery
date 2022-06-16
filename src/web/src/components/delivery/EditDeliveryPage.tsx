@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
-import { Alert, Card } from "react-bootstrap";
+import { Alert, Card} from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { Customer } from "../model";
-import { Loader } from "./Loader";
-import './EditCustomerPage.css';
-import { getCustomer } from "../services/customers-query";
-import { updateCustomer } from "../services/customer-command";
-import CustomerForm from "./CustomerForm";
+import { useAuth } from "../../context/AuthContext";
+import { Delivery } from "../../model";
+import { updateDelivery } from "../../services/delivery-command";
+import { getDelivery } from "../../services/delivery-query";
+import { Loader } from "./../Loader";
+import { DeliveryForm } from "./DeliveryForm";
 
-function EditCustomerPage() {
-    const { customerId } = useParams();
-    const [customer, setCustomer] = useState({} as Customer)
+
+function EditDeliveryPage() {
+    const { deliveryId } = useParams();
+    const [delivery, setDelivery] = useState({} as Delivery)
     const [isLoading, setIsLoading] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const [isUpdateOk, setIsUpdateOk] = useState(false);
+    const { currentUser, roles } = useAuth();
     const [error, setError] = useState("")
 
-    const fetchCustomer = async () => {
-        if (customerId) {
+    const fetchDelivery = async () => {
+        if (deliveryId) {
             setIsLoading(true);
 
-            const customer = await getCustomer(customerId);
-            if (customer.kind === 'customer') {
-                setCustomer(customer);
+            const delivery = await getDelivery(deliveryId);
+            if (delivery.kind === 'delivery') {
+                setDelivery(delivery);
             }
 
             setIsLoading(false);
@@ -30,18 +32,18 @@ function EditCustomerPage() {
     }
 
     useEffect(() => {
-        fetchCustomer();
+        fetchDelivery();
 
-    }, [customerId]);
+    }, [deliveryId]);
 
 
-    async function handleSubmit(c: Customer) {
+    async function handleSubmit(d: Delivery) {
 
         setIsUpdating(true);
         try {
-            if (customerId) {
-                await updateCustomer(c);
-                setCustomer(c);
+            if (deliveryId && currentUser) {
+                await updateDelivery(d, currentUser.uid);
+                setDelivery(d);
                 setIsUpdateOk(true);
             }
         }
@@ -60,17 +62,16 @@ function EditCustomerPage() {
     return (
         <>
             <Loader isLoading={isLoading || isUpdating}></Loader>
-            {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
             {isLoading ? '' :
                 <Card>
                     <Card.Body>
-                        <h2 className="text-center mb-4">{customer.name}</h2>
+                        <h2 className="text-center mb-4">{delivery.code}</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
                         {isUpdateOk ?
                             <p className="update-ok">
                                 <em>Aggiornameto completato con successo</em>
                             </p> : ''}
-                        <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></CustomerForm>
+                        <DeliveryForm delivery={delivery} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></DeliveryForm>
                     </Card.Body>
                 </Card>
             }
@@ -78,4 +79,4 @@ function EditCustomerPage() {
     )
 }
 
-export default EditCustomerPage;
+export default EditDeliveryPage;

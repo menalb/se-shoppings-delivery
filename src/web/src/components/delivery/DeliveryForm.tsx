@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Customer, Delivery, formatDateCalendar, formatDeliveryCode } from "../model";
-import { CustomersList } from "./CustomersList";
+import { Link } from "react-router-dom";
+import { Customer, Delivery, formatDateCalendar, formatDeliveryCode } from "../../model";
 import './DeliveryForm.css'
 
 interface DeliveryFormProps {
@@ -83,13 +83,21 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
                         <Form.Control name="note" as="textarea" onChange={handleChange} value={delivery.note} type="text" />
                     </Col>
                 </Form.Group>
-                <CustomersList></CustomersList>
-            </fieldset>
-            <div className="submit">
-                <Button type="submit">
-                    Salva
-                </Button>
-            </div>
+            </fieldset>            
+            <Row className="bottom-actions buttons">
+                <Col className="bottom-action bottom-action-left">
+                    <Link className=" link btn btn-primary" title="Annulla modifica e torna alla lista" to={"/deliveries"}>
+                        <span className="button-name">
+                            Annulla
+                        </span>
+                    </Link>
+                </Col>
+                <Col className="bottom-action bottom-action-right">
+                    <Button type="submit">
+                        Salva
+                    </Button>
+                </Col>
+            </Row>
         </Form>
     )
 }

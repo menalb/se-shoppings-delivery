@@ -12,8 +12,9 @@ import NotAuth from './NotAuth';
 import AddCustomerPage from './AddCustomerPage';
 import UserProfilePage from './UserProfilePage';
 import { UserProfileButton } from './Buttons';
-import { DeliveriesPage } from './DeliverisPage';
-import { AddDeliveryPage } from './AddDeliveryPage';
+import { DeliveriesPage } from './delivery/DeliveriesPage';
+import { AddDeliveryPage } from './delivery/AddDeliveryPage';
+import EditDeliveryPage from './delivery/EditDeliveryPage';
 
 function App() {
   return (<>
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/" element={<AdminRoutes />} >
                   <Route path="/add" element={<AddCustomerPage />} />
                   <Route path="/add-delivery" element={<AddDeliveryPage />} />
+                  <Route path="/edit-delivery/:deliveryId" element={<EditDeliveryPage />} ></Route>
                 </Route>
               </Route>
 

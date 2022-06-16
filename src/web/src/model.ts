@@ -28,7 +28,7 @@ export interface Delivery extends DeliveryBase {
     id: string
 }
 
-export interface DeliveryApi extends DeliveryBase { }
+export type DeliveryApi = DeliveryBase & { userId?: string }
 
 interface DeliveryBase {
     code: string,
@@ -37,12 +37,14 @@ interface DeliveryBase {
     note: string,
 }
 
-export const formatDeliveryCode = (day: Date): string =>
-    `${day.getDate().toString().padStart(2, '0')}-${(day.getMonth() + 1).toString().padStart(2, '0')
-    }-${day.getFullYear()}`;
+export const formatDeliveryCode = (day?: Date): string =>
+    day ?
+        `${day.getDate().toString().padStart(2, '0')}-${(day.getMonth() + 1).toString().padStart(2, '0')
+        }-${day.getFullYear()}` : '';
 
 export const formatDateCalendar = (day: Date): string =>
-    `${day.getFullYear()}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${day.getDate().toString().padStart(2, '0')}`;
+    day ?
+        `${day.getFullYear()}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${day.getDate().toString().padStart(2, '0')}` : '';
 
 
 

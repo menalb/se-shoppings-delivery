@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Alert, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Delivery, formatDeliveryCode } from "../model";
-import { addDelivery } from "../services/delivery-command";
-import { ListDeliveriesButton } from "./Buttons"
+import { useAuth } from "../../context/AuthContext";
+import { Delivery, formatDeliveryCode } from "../../model";
+import { addDelivery } from "../../services/delivery-command";
 import { DeliveryForm } from "./DeliveryForm";
+
 
 export const AddDeliveryPage = () => {
 
@@ -22,14 +23,16 @@ export const AddDeliveryPage = () => {
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const [error, setError] = useState("");
+    const { currentUser, roles } = useAuth();
     const navigate = useNavigate();
 
     async function handleSubmit(d: Delivery) {
 
+
         setIsUpdating(true);
         try {
             setError("")
-            await addDelivery(d);
+            await addDelivery(d, currentUser?.uid ?? '');
             navigate("/deliveries");
         }
         catch (e) {
@@ -47,10 +50,6 @@ export const AddDeliveryPage = () => {
 
     return (
         <>
-            <div className="buttons">
-                <ListDeliveriesButton></ListDeliveriesButton>
-            </div>
-
             <Card>
                 <Card.Body>
                     {error && <Alert variant="danger">{error}</Alert>}
@@ -59,6 +58,7 @@ export const AddDeliveryPage = () => {
                             <em>Aggiornameto completato con successo</em>
                         </p> : ''}
                     <DeliveryForm delivery={delivery} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></DeliveryForm>
+
                 </Card.Body>
             </Card>
         </>
