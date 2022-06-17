@@ -6,13 +6,15 @@ import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { useAuth } from "../context/AuthContext";
+import { CustomerDeliveryModal } from "./delivery/CustomerDelivery";
 
 function CustomerPage() {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState({} as Customer)
     const { currentUser, roles } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
+
+    const [deliveryShow, setDeliveryShow] = useState(false);
 
     const fetchCustomer = async () => {
         if (customerId) {
@@ -27,9 +29,6 @@ function CustomerPage() {
         }
     }
 
-    const handleEdit = () => navigate("/edit/" + customerId);
-    const handleCancel = () => navigate('/customers');
-
     useEffect(() => {
         fetchCustomer();
 
@@ -37,24 +36,23 @@ function CustomerPage() {
 
     return (
         <>
-            {/* <div className="actions buttons">
-                <span>
-                    <ListCutomersButton></ListCutomersButton>
-                </span>
-                <span className="edit-action">
-                    {customerId && currentUser && roles.some(r => r === 'admin') ?
-                        <EditButton customerId={customerId}></EditButton>
-                        : ''
-                    }
-                </span>
-            </div> */}
-
             <Loader isLoading={isLoading}></Loader>
 
             {isLoading ? '' :
-                <Card>
+                <Card className="customer-page">
                     <Card.Body>
-                        <h2 className="text-center mb-4">{customer.name}</h2>
+                        <h2 className="text-lg-center mb-4">
+                            <span>
+                                {customer.name}
+                            </span>
+                            <span className="buttons">
+                                <Button variant="primary" onClick={() => setDeliveryShow(true)}>
+                                    <span className="button-name">
+                                        Consegna
+                                    </span>
+                                </Button>
+                            </span>
+                        </h2>
                         {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
                         <Container>
                             <Row>
@@ -132,7 +130,7 @@ function CustomerPage() {
                                         </span>
                                     </Link>
                                 </Col>
-                                <Col className="button-action utton-action-right">
+                                <Col className="button-action button-action-right">
                                     <Link className=" link btn btn-primary" title="Modifica dati" to={"/edit/" + customerId}>
                                         <span className="button-name">
                                             Modifica
@@ -141,8 +139,9 @@ function CustomerPage() {
                                 </Col>
                             </Row>
                         </Container>
+                        <CustomerDeliveryModal show={deliveryShow} onHide={() => setDeliveryShow(false)} />
                     </Card.Body>
-                </Card>
+                </Card>                
             }
         </>
     )

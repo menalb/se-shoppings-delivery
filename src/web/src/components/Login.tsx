@@ -41,7 +41,7 @@ function Login() {
 
     return (
         <>
-            <Card>
+            <Card className="login">
                 <Card.Body>
                     <h2 className="text-center mb-4">Log In</h2>
                     <Loader isLoading={isLoading}></Loader>

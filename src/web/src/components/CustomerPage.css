@@ -1,13 +1,22 @@
 .standby {
-    background-color: lightyellow;
+  background-color: lightyellow;
 }
 
 .actions {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .edit-action {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.customer-page h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.customer-page h2 .buttons {
+  margin: 0;
 }
