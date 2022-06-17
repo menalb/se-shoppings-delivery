@@ -1,6 +1,7 @@
 export interface Customer extends CustomerBase {
     kind: 'customer',
     id: string,
+    deliveries?: CustomerDelivery[]
 }
 export interface CustomerBase {
     name: string,
@@ -20,8 +21,9 @@ export interface CustomerBase {
     linkMaps?: string,
 }
 
-export interface CustomerApi extends CustomerBase { }
-
+export interface CustomerApi extends CustomerBase {
+    deliveries?: CustomerDelivery[]
+ }
 
 export interface Delivery extends DeliveryBase {
     kind: 'delivery',
@@ -40,7 +42,14 @@ interface DeliveryBase {
 export interface CustomerDelivery {
     deliveryId: string,
     customerId: string,
-    note: string
+    note: string;
+    userId?: string;
+    creationDate?: Date,
+}
+
+export interface CustomerDeliveryApi extends CustomerDelivery {
+    userId: string;
+    creationDate?: Date,
 }
 
 export const formatDeliveryCode = (day?: Date): string =>

@@ -31,10 +31,6 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
     }
 
     useEffect(() => {
-        fetchDeliveries();
-    }, []);
-
-    useEffect(() => {
         if (deliveries && deliveries.length > 0) {
             setCustomerDelivery({ ...customerDelivery, deliveryId: deliveries[0].id, customerId: props.customerId });
         }
@@ -73,6 +69,9 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
 
     const onShow = (): void => {
         setCustomerDelivery({ deliveryId: '', customerId: props.customerId, note: '' });
+        fetchDeliveries();
+        setIsUpdating(false);
+        setError('');
     }
 
     return (

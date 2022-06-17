@@ -1,6 +1,7 @@
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { Customer, CustomerApi, CustomerDelivery } from "../model";
+import { getCustomer } from "./customers-query";
 
 export const updateCustomer = async (customer: Customer): Promise<void> => {
     const docRef = doc(db, 'customers', customer.id);
@@ -31,6 +32,25 @@ export const logDelivery = async (delivery: CustomerDelivery, userId: string): P
     console.log('customerId', delivery.customerId);
     console.log('deliveryId', delivery.deliveryId);
     console.log('note', delivery.note);
+    
+    const deliveryToStore = { ...delivery, userId: userId, creationDate: new Date(Date.now()) };
+    
+    const customer = await getCustomer(delivery.customerId);
+    if (customer.kind === 'customer') {
+        const model: CustomerApi = mapToApi(customer);
+
+        if (model.deliveries && model.deliveries.length > 0) {
+            model.deliveries.filter(d => d.deliveryId !== delivery.deliveryId).push(deliveryToStore);
+        }
+        else {
+            model.deliveries = [deliveryToStore];
+        }
+
+
+        const docRef = doc(db, 'customers', delivery.customerId);
+
+        await setDoc(docRef, model);
+    }
 }
 
 const mapToApi = (customer: Customer): CustomerApi => ({
@@ -49,4 +69,5 @@ const mapToApi = (customer: Customer): CustomerApi => ({
     children: customer.children ? customer.children : 0,
     standby: customer.standby ? customer.standby : false,
     linkMaps: customer.linkMaps,
+    deliveries: customer.deliveries,
 });
