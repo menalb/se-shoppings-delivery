@@ -48,15 +48,15 @@ export const DeliveriesPage = () => {
                 </ListGroup.Item>
             )}
         </ListGroup>
-        <Row className="bottom-actions buttons">
-            <Col className="bottom-action bottom-action-left">
+        <Row className="actions-row buttons">
+            <Col className="button-action button-action-left">
                 <Link className=" link btn btn-primary" title="Annulla modifica e torna alla lista" to={"/customers"}>
                     <span className="button-name">
                         Annulla
                     </span>
                 </Link>
             </Col>
-            <Col className="bottom-action bottom-action-right">
+            <Col className="button-action button-action-right">
                 {isAdmin() ?
                     <AddDeliveryButton></AddDeliveryButton>
                     : ''}

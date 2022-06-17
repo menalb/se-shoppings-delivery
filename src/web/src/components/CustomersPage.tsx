@@ -46,13 +46,13 @@ function CustomersPage() {
     }
 
     return (<>
-        <Container className="head-container">
+        <Container className="head-container customers-page-actions">
             {isAdmin() ?
-                <Row className="buttons">
-                    <Col className="bottom-action bottom-action-left">
+                <Row className="actions-row buttons">
+                    <Col className="button-action button-action-left">
                         <DeliveriesButton></DeliveriesButton>
                     </Col>
-                    <Col className="bottom-action bottom-action-right">
+                    <Col className="button-action button-action-right">
                         <AddButton></AddButton>
                     </Col>
                 </Row>

@@ -80,7 +80,7 @@ h1 {
 
 @media only screen and (max-width: 992px) {
 
-    .bottom-actions {
+    .actions-row {
         border-top: 1px solid rgba(0, 0, 0, .125);
         background-color: white;
         position: fixed;
@@ -91,24 +91,25 @@ h1 {
         padding: 0;
     }
 
-    .bottom-actions button {
+    .actions-row button {
         width: 100%;
     }
     
-    .bottom-actions a {
+    .actions-row a {
         width: 100%;
     }
 }
 
 @media only screen and (min-width: 993px) {
-    .bottom-actions {        
+    .actions-row {        
         padding-top: 2rem;        
+        text-align: center;
     }
-    .bottom-actions button {
-        width: 50%;
+    .actions-row button {
+        width: 10rem;
     }
     
-    .bottom-actions a {
-        width: 50%;
+    .actions-row a {
+        width: 10rem;
     }
 }
