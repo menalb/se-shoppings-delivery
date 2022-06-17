@@ -37,6 +37,12 @@ interface DeliveryBase {
     note: string,
 }
 
+export interface CustomerDelivery {
+    deliveryId: string,
+    customerId: string,
+    note: string
+}
+
 export const formatDeliveryCode = (day?: Date): string =>
     day ?
         `${day.getDate().toString().padStart(2, '0')}-${(day.getMonth() + 1).toString().padStart(2, '0')

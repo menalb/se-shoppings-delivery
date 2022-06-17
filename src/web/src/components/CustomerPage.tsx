@@ -6,7 +6,7 @@ import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { useAuth } from "../context/AuthContext";
-import { CustomerDeliveryModal } from "./delivery/CustomerDelivery";
+import { CustomerDeliveryModal } from "./delivery/CustomerDeliveryModal";
 
 function CustomerPage() {
     const { customerId } = useParams();
@@ -46,11 +46,17 @@ function CustomerPage() {
                                 {customer.name}
                             </span>
                             <span className="buttons">
-                                <Button variant="primary" onClick={() => setDeliveryShow(true)}>
-                                    <span className="button-name">
-                                        Consegna
-                                    </span>
-                                </Button>
+                                {currentUser ? <>
+                                    <Button variant="primary" onClick={() => setDeliveryShow(true)}>
+                                        <span className="button-name">
+                                            Consegna
+                                        </span>
+                                    </Button>
+
+                                    <CustomerDeliveryModal show={deliveryShow} onHide={() => setDeliveryShow(false)} customerId={customerId ?? ''} />
+                                </>
+                                    : ''
+                                }
                             </span>
                         </h2>
                         {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
@@ -139,9 +145,8 @@ function CustomerPage() {
                                 </Col>
                             </Row>
                         </Container>
-                        <CustomerDeliveryModal show={deliveryShow} onHide={() => setDeliveryShow(false)} />
                     </Card.Body>
-                </Card>                
+                </Card>
             }
         </>
     )

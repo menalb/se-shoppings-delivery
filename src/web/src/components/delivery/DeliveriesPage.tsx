@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, ListGroup, Row } from "react-bootstrap";
+import { Col, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Delivery } from "../../model";
@@ -21,7 +21,6 @@ export const DeliveriesPage = () => {
         setIsLoading(true);
 
         const deliveries = await deliveriesQuery();
-        console.log(deliveries)
         setDeliveries(deliveries);
         // setFiltered(customers);
         setIsLoading(false);

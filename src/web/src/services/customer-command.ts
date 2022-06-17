@@ -1,6 +1,6 @@
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { Customer, CustomerApi } from "../model";
+import { Customer, CustomerApi, CustomerDelivery } from "../model";
 
 export const updateCustomer = async (customer: Customer): Promise<void> => {
     const docRef = doc(db, 'customers', customer.id);
@@ -24,6 +24,13 @@ export const addCustomer = async (customer: Customer): Promise<Customer> => {
         kind: 'customer',
         id: docRef.id
     });
+}
+
+export const logDelivery = async (delivery: CustomerDelivery, userId: string): Promise<void> => {
+    console.log('userId:', userId);
+    console.log('customerId', delivery.customerId);
+    console.log('deliveryId', delivery.deliveryId);
+    console.log('note', delivery.note);
 }
 
 const mapToApi = (customer: Customer): CustomerApi => ({
