@@ -1,6 +1,7 @@
 import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { Customer, NotFound } from "../model";
+import { Customer, CustomerDelivery, NotFound } from "../model";
+import { secondsToDate } from "./delivery-query";
 
 export const customersQuery = async (): Promise<Customer[]> => {
     const q = query(collection(db, 'customers'), orderBy('name', 'asc'));
@@ -22,6 +23,7 @@ export const getNextCustomerCode = async (): Promise<number> => {
 
 export const getCustomer = async (customerId: string): Promise<Customer | NotFound> => {
     const docRef = doc(db, 'customers', customerId);
+
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         return map(docSnap.data(), customerId);
@@ -48,6 +50,28 @@ const map = (data: DocumentData, id: string): Customer => ({
     familyStructure: data.familyStructure ? data.familyStructure : '',
     adults: data.adults ? data.adults : 0,
     children: data.children ? data.children : 0,
-    standby: data.standby,    
+    standby: data.standby,
     linkMaps: data.linkMaps,
+    deliveries: data.deliveries ? mapCustomerDeliveries(data.deliveries) : []
+});
+
+const mapCustomerDeliveries = (deliveries: any): CustomerDelivery[] => {
+    return (deliveries.map(mapCustomerDelivery) as CustomerDelivery[]).sort((a, b) => {
+        if (a.deliveryDate > b.deliveryDate) {
+            return -1;
+        }
+
+        if (a.deliveryDate < b.deliveryDate) {
+            return 1;
+        }
+        return 0;
+    });
+}
+const mapCustomerDelivery = (data: any): CustomerDelivery => ({
+    creationDate: secondsToDate(data.creationDate.seconds),
+    deliveryDate: secondsToDate(data.deliveryDate.seconds),
+    note: data.note,
+    customerId: data.customerId,
+    deliveredBy: data.deliveredBy ? data.deliveredBy : '',
+    deliveryId: data.deliveryId
 });

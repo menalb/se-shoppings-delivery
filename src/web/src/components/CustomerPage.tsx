@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Customer } from "../model";
 import { Loader } from "./Loader";
 import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { useAuth } from "../context/AuthContext";
 import { CustomerDeliveryModal } from "./delivery/CustomerDeliveryModal";
+import { CustomerDeliveriesComponent } from "./CustomerDeliveriesComponent";
 
 function CustomerPage() {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState({} as Customer)
     const { currentUser, roles } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const [refreshCustomerData, setRefreshCustomerData] = useState(false);
 
     const [deliveryShow, setDeliveryShow] = useState(false);
 
@@ -34,6 +36,11 @@ function CustomerPage() {
 
     }, [customerId]);
 
+    const onSave = () => {
+        fetchCustomer();
+        setDeliveryShow(false)
+    }
+
     return (
         <>
             <Loader isLoading={isLoading}></Loader>
@@ -53,7 +60,12 @@ function CustomerPage() {
                                         </span>
                                     </Button>
 
-                                    <CustomerDeliveryModal show={deliveryShow} onHide={() => setDeliveryShow(false)} customerId={customerId ?? ''} />
+                                    <CustomerDeliveryModal
+                                        show={deliveryShow}
+                                        onHide={() => setDeliveryShow(false)}
+                                        onSave={onSave}
+                                        customerId={customerId ?? ''}
+                                    />
                                 </>
                                     : ''
                                 }
@@ -127,7 +139,10 @@ function CustomerPage() {
                             <Row>
                                 <b>{customer.note ? customer.note : ' '}</b>
                             </Row>
-
+                            {customer.deliveries && customer.deliveries.length > 0 ?
+                                <CustomerDeliveriesComponent customerDeliveries={customer.deliveries} />
+                                : ''
+                            }
                             <Row className="actions-row buttons">
                                 <Col className="button-action button-action-left">
                                     <Link className=" link btn btn-primary" title="Annulla modifica e torna alla lista" to={"/customers"}>

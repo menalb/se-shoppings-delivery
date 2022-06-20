@@ -32,4 +32,4 @@ const map = (data: DocumentData, id: string): Delivery => ({
 });
 
 
-const secondsToDate = (seconds: number): Date => new Date(seconds * 1000);
+export const secondsToDate = (seconds: number): Date => new Date(seconds * 1000);

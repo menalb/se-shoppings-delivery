@@ -23,7 +23,7 @@ export interface CustomerBase {
 
 export interface CustomerApi extends CustomerBase {
     deliveries?: CustomerDelivery[]
- }
+}
 
 export interface Delivery extends DeliveryBase {
     kind: 'delivery',
@@ -43,7 +43,9 @@ export interface CustomerDelivery {
     deliveryId: string,
     customerId: string,
     note: string;
-    userId?: string;
+    userId?: string,
+    deliveryDate: Date,
+    deliveredBy: string,
     creationDate?: Date,
 }
 

@@ -28,19 +28,15 @@ export const addCustomer = async (customer: Customer): Promise<Customer> => {
 }
 
 export const logDelivery = async (delivery: CustomerDelivery, userId: string): Promise<void> => {
-    console.log('userId:', userId);
-    console.log('customerId', delivery.customerId);
-    console.log('deliveryId', delivery.deliveryId);
-    console.log('note', delivery.note);
-    
     const deliveryToStore = { ...delivery, userId: userId, creationDate: new Date(Date.now()) };
-    
+
     const customer = await getCustomer(delivery.customerId);
     if (customer.kind === 'customer') {
         const model: CustomerApi = mapToApi(customer);
 
         if (model.deliveries && model.deliveries.length > 0) {
-            model.deliveries.filter(d => d.deliveryId !== delivery.deliveryId).push(deliveryToStore);
+            model.deliveries = model.deliveries.filter(d => d.deliveryId !== delivery.deliveryId);
+            model.deliveries.push(deliveryToStore);
         }
         else {
             model.deliveries = [deliveryToStore];
