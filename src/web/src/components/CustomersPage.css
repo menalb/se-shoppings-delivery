@@ -33,13 +33,13 @@
 .customer-item {
   display: grid;
   width: 95%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.125fr;
 }
 
 .customer-item-select {
   display: grid;
   width: 95%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.125fr;
 }
 
 .customer-link a .area {

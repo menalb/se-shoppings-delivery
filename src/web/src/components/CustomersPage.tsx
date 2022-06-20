@@ -123,12 +123,19 @@ const CustomerListItemLargeHeader = () => {
             <span className="area" title="Teleforno fi riferimento">
                 <b>Telefono</b>
             </span>
+
+            <span className="latestDelivery" title="Data ultima consegna">
+                <b>Consegna</b>
+            </span>
         </span>
     );
 }
 
 const CustomerListItemLarge = (props: { customer: Customer }) => {
     const customer = props.customer;
+    const deliveryDateFormatted = () =>
+        customer.deliveries && customer.deliveries.length > 0 ? customer.deliveries[0].deliveryDate.toDateString() : '';
+
     return (
         <span className="customer-link">
             <Link to={"/customer/" + customer.id} className={"customer-item"}>
@@ -146,9 +153,12 @@ const CustomerListItemLarge = (props: { customer: Customer }) => {
                 <span title={'Telefono: ' + (customer.phone ? customer.phone : '')}>
                     {customer.phone ? customer.phone : ''}
                 </span>
-            </Link>
-            {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
+                <span title={'Ultima consegna: ' + deliveryDateFormatted()}>
+                {deliveryDateFormatted()}
         </span>
+            </Link >
+    { customer.standby ? <em title="Attualmente in standby">[S]</em> : '' }
+        </span >
     );
 }
 
