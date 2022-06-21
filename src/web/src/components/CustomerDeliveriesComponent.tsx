@@ -1,22 +1,28 @@
-import { ListGroup } from "react-bootstrap"
+import { Col, ListGroup, Row } from "react-bootstrap"
 import { CustomerDelivery } from "../model"
+import './CustomerDeliveriesComponent.css'
 
 export const CustomerDeliveriesComponent = (props: { customerDeliveries: CustomerDelivery[] }) => {
     return (
-        <ListGroup as="ul" >
+        <ListGroup as="ul" variant="flush" className="deliveries-list" >
             {props.customerDeliveries.map(cd =>
 
                 <ListGroup.Item as="li" key={cd.deliveryId}>
-                    <p>
-                        Consegna del : <b>{cd.deliveryDate.toDateString()}</b>
-                    </p>
-                    <p>
-                        Effettuata da: <b>{cd.deliveredBy}</b>
-                    </p>
-                    <p>
-                        Note: {cd.note}
-                    </p>
-
+                    <Row>
+                        <Col xs={5} lg={2}>
+                            <b title="Consegna del">{cd.deliveryDate.toDateString()}</b>
+                        </Col>
+                        <Col xs={4} lg={2}>
+                            Effettuata da:
+                        </Col>
+                        <Col>
+                            <b>{cd.deliveredBy}</b>
+                        </Col>
+                    </Row>                   
+                    <Row>
+                        <Col xs={4} lg={2}>Note:</Col>
+                        <Col>{cd.note}</Col>
+                    </Row>
                 </ListGroup.Item>
             )}
         </ListGroup>

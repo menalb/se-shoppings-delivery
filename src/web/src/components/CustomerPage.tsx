@@ -139,9 +139,11 @@ function CustomerPage() {
                             <Row>
                                 <b>{customer.note ? customer.note : ' '}</b>
                             </Row>
+                            <h3 className="text-center">Consegne</h3>
+
                             {customer.deliveries && customer.deliveries.length > 0 ?
-                                <CustomerDeliveriesComponent customerDeliveries={customer.deliveries} />
-                                : ''
+                                <Row><CustomerDeliveriesComponent customerDeliveries={customer.deliveries} /></Row>
+                                : <em>Nessuna consegna disponibile</em>
                             }
                             <Row className="actions-row buttons">
                                 <Col className="button-action button-action-left">
