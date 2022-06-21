@@ -120,7 +120,7 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
             centered>
             <Modal.Header closeButton={true} onHide={props.onHide}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Consegna {customerDelivery.deliveredBy}
+                    Consegna {customerDelivery.deliveryId}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -131,23 +131,23 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
                         <em>Aggiornameto completato con successo</em>
                     </p> : ''}
                 <Form>
-                    <Form.Group as={Row} className="mb-3" id="day">
+                    <Form.Group as={Row} className="mb-3" controlId="day">
                         <Form.Label column sm="2" xs="12">Data</Form.Label>
 
                         <Col sm="10" xs="12">
-                            <Form.Select id="deliveryId" name="deliveryId" aria-label="Seleziona data di consegna" onChange={handleChange} value={customerDelivery.deliveryId}>
+                            <Form.Select name="deliveryId" aria-label="Seleziona data di consegna" onChange={handleChange} value={customerDelivery.deliveryId}>
                                 {deliveries.map(d => <option key={d.id} value={d.id}>{d.day.toDateString()}</option>)}
                             </Form.Select>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" id="deliveredBy">
+                    <Form.Group as={Row} className="mb-3" controlId="deliveredBy">
                         <Form.Label column sm="2" xs="12">Effettuata da</Form.Label>
 
                         <Col sm="10" xs="12">
                             <Form.Control name="deliveredBy" onChange={handleChange} value={customerDelivery.deliveredBy} type="text" />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" id="note">
+                    <Form.Group as={Row} className="mb-3" controlId="note">
                         <Form.Label column sm="2" xs="12">Note</Form.Label>
 
                         <Col sm="10" xs="12">

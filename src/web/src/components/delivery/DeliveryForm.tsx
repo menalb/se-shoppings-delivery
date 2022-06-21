@@ -64,7 +64,7 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
     return (
         <Form onSubmit={handleSubmit} className="delivery-form">
             <fieldset disabled={props.disabled}>
-                <Form.Group as={Row} className="mb-3" id="day">
+                <Form.Group as={Row} className="mb-3" controlId="day">
                     <Form.Label column sm="2" xs="12">Data</Form.Label>
 
                     <Col sm="10" xs="12">
@@ -76,7 +76,7 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
                         {errors.get('day')}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Row} className="mb-3" id="note">
+                <Form.Group as={Row} className="mb-3" controlId="note">
                     <Form.Label column sm="2" xs="12">Note</Form.Label>
 
                     <Col sm="10" xs="12">

@@ -16,8 +16,8 @@ const CustomerForm = (props: CustomerFormProps) => {
     const [errors, setErrors] = useState(new Map<string, string>());
 
     useEffect(() => {
-        
-    },[]);
+
+    }, []);
 
     const handleChange = (event: React.ChangeEvent<any>) => {
 
@@ -66,72 +66,81 @@ const CustomerForm = (props: CustomerFormProps) => {
         <>
             <Form className="customer-form" onSubmit={handleSubmit}>
                 <fieldset disabled={props.disabled}>
-                    <Form.Group id="name">
-                        <Form.Label>Nome
+                    <Form.Group controlId="name" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Nome</Form.Label>
+                        <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="name" onChange={handleChange} value={customer.name} type="text" required
                                 isInvalid={errors.has('name')}
                             />
-                        </Form.Label>
+                        </Col>
                         <Form.Control.Feedback type='invalid'>
                             {errors.get('name')}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group id="code">
-                        <Form.Label>Tessera
+                    <Form.Group controlId="code" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Tessera</Form.Label>
+                        <Col xs={6} lg={4} xl={2}>
                             <Form.Control name="code" onChange={handleChange} value={customer.code} type="number" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="area">
-                        <Form.Label>Zona
+                    <Form.Group controlId="area" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Zona</Form.Label>
+                        <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="area" onChange={handleChange} value={customer.area} type="text" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="reference">
-                        <Form.Label>Referente
+                    <Form.Group controlId="reference" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Referente</Form.Label>
+                        <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="homeDelivery">
-                        <Form.Label>Viene lui
+                    <Form.Group controlId="homeDelivery" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Viene lui</Form.Label>
+                        <Col xs={6} lg={4} xl={2}>
                             <Form.Check name="homeDelivery" onChange={handleChange} checked={customer.homeDelivery} type="switch" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="address">
-                        <Form.Label>Indirizzo
+                    <Form.Group controlId="address" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Indirizzo</Form.Label>
+                        <Col xs={8} lg={4} xl={6}>
                             <Form.Control name="address" onChange={handleChange} value={customer.address} type="text" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="phone">
-                        <Form.Label>Telefono
+                    <Form.Group controlId="phone" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Telefono</Form.Label>
+                        <Col xs={6} lg={4} xl={2}>
                             <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="familyStructure">
-                        <Form.Label>Componenti Famiglia
+                    <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
+                        <Form.Label column xs={12}>Componenti Famiglia</Form.Label>
+                        <Col xs={12}>
                             <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
-                        </Form.Label>
+                        </Col>
+
                     </Form.Group>
-                    <Form.Group id="adults">
-                        <Form.Label>Adulti
+                    <Form.Group controlId="adults" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Adulti</Form.Label>
+                        <Col xs={4} lg={2} xl={1}>
                             <Form.Control name="adults" onChange={handleChange} value={customer.adults} type="number" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="children">
-                        <Form.Label>Bambini
+                    <Form.Group controlId="children" as={Row} className="mb-3" >
+                        <Form.Label column xs={3} lg={2} xl={1}>Bambini</Form.Label>
+                        <Col xs={4} lg={2} xl={1}>
                             <Form.Control name="children" onChange={handleChange} value={customer.children} type="number" />
-                        </Form.Label>
+                        </Col>
                     </Form.Group>
-                    <Form.Group id="note">
-                        <Form.Label>Richieste Particolari
-                            <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
-                        </Form.Label>
+                    <Form.Group controlId="note">
+                        <Form.Label>Richieste Particolari</Form.Label>
+                        <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
                     </Form.Group>
-                    <Form.Group id="linkMaps">
-                        <Form.Label>GoogleMaps link
-                            <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
-                        </Form.Label>
+                    <Form.Group controlId="linkMaps">
+                        <Form.Label>GoogleMaps link</Form.Label>
+                        <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
                     </Form.Group>
-                    <Form.Group id="standby">
+                    <Form.Group controlId="standby">
                         <Form.Label>Stand By
                             <Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" />
                         </Form.Label>
