@@ -1,0 +1,4 @@
+.customer-delivery-actions.modal-footer{
+display: flex;
+justify-content: space-between;
+}

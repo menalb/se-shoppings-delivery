@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap"
 import { useAuth } from "../../context/AuthContext";
 import { CustomerDelivery, Delivery } from "../../model";
-import { logDelivery } from "../../services/customer-command";
+import { logDelivery, removeDelivery } from "../../services/customer-command";
 import { deliveriesQuery } from "../../services/delivery-query";
 import { Loader } from "../Loader";
 
+import './CustomerDeliveryModal.css'
 export interface CustomerDeliveryModalProps {
     onHide: () => void;
     onSave: () => void;
@@ -35,7 +36,7 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
 
     useEffect(() => {
         setCustomerDelivery(props.delivery);
-     }, [props.delivery]);
+    }, [props.delivery]);
 
     useEffect(() => {
 
@@ -58,6 +59,22 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
         try {
             if (currentUser) {
                 await logDelivery(customerDelivery, currentUser?.uid);
+                props.onSave();
+            }
+        }
+        catch (e) {
+            console.error(e);
+            setError('Aggiornamento fallito');
+            setIsUpdateOk(false);
+        }
+        setIsUpdating(false);
+    }
+
+    async function remove() {
+
+        try {
+            if (currentUser) {
+                await removeDelivery(customerDelivery, currentUser?.uid);
                 props.onSave();
             }
         }
@@ -139,8 +156,9 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="customer-delivery-actions">
                 <Button onClick={props.onHide}>Annulla</Button>
+                <Button onClick={remove}>Elimina</Button>
                 <Button onClick={save}>Save</Button>
             </Modal.Footer>
         </Modal>

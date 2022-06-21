@@ -48,6 +48,7 @@ function CustomerPage() {
 
     const onSave = () => {
         fetchCustomer();
+        setDeliveryToEdit(emptyCustomerDelivery);
         setDeliveryShow(false)
     }
 
