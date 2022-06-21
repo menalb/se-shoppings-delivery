@@ -156,9 +156,9 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            <Modal.Footer className="customer-delivery-actions">
+            <Modal.Footer className="customer-delivery-actions buttons">
                 <Button onClick={props.onHide}>Annulla</Button>
-                <Button onClick={remove}>Elimina</Button>
+                <Button className="btn-secondary" onClick={remove}>Elimina</Button>
                 <Button onClick={save}>Save</Button>
             </Modal.Footer>
         </Modal>
