@@ -1,20 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { Customer } from "../model";
+import { Customer, CustomerDelivery } from "../model";
 import { Loader } from "./Loader";
-import './CustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { useAuth } from "../context/AuthContext";
 import { CustomerDeliveryModal } from "./delivery/CustomerDeliveryModal";
 import { CustomerDeliveriesComponent } from "./CustomerDeliveriesComponent";
 
+import './CustomerPage.css';
+
 function CustomerPage() {
     const { customerId } = useParams();
+
+    const emptyCustomerDelivery: CustomerDelivery = {
+        deliveryId: '',
+        customerId: customerId ?? '',
+        note: '',
+        deliveredBy: '',
+        deliveryDate: new Date(Date.now())
+    };
+
     const [customer, setCustomer] = useState({} as Customer)
-    const { currentUser, roles } = useAuth();
+    const { currentUser } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const [refreshCustomerData, setRefreshCustomerData] = useState(false);
+
+    const [deliveryToEdit, setDeliveryToEdit] = useState(emptyCustomerDelivery);
 
     const [deliveryShow, setDeliveryShow] = useState(false);
 
@@ -33,12 +44,16 @@ function CustomerPage() {
 
     useEffect(() => {
         fetchCustomer();
-
     }, [customerId]);
 
     const onSave = () => {
         fetchCustomer();
         setDeliveryShow(false)
+    }
+
+    const deliveryClick = (cd: CustomerDelivery) => {
+        setDeliveryToEdit(cd);
+        setDeliveryShow(true);
     }
 
     return (
@@ -65,6 +80,7 @@ function CustomerPage() {
                                         onHide={() => setDeliveryShow(false)}
                                         onSave={onSave}
                                         customerId={customerId ?? ''}
+                                        delivery={deliveryToEdit}
                                     />
                                 </>
                                     : ''
@@ -139,10 +155,12 @@ function CustomerPage() {
                             <Row>
                                 <b>{customer.note ? customer.note : ' '}</b>
                             </Row>
-                            <h3 className="text-center">Consegne</h3>
-
+                            <h3 className="text-center">Consegne ({customer.deliveries ? customer.deliveries.length : 0})</h3>
+                            <Row>
+                                <em className="text-center">Selezionare la riga per modificare</em>
+                            </Row>
                             {customer.deliveries && customer.deliveries.length > 0 ?
-                                <Row><CustomerDeliveriesComponent customerDeliveries={customer.deliveries} /></Row>
+                                <Row><CustomerDeliveriesComponent customerDeliveries={customer.deliveries} onDeliveryClick={cd => deliveryClick(cd)} /></Row>
                                 : <em>Nessuna consegna disponibile</em>
                             }
                             <Row className="actions-row buttons">

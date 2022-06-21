@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap"
-import { propTypes } from "react-bootstrap/esm/Image";
 import { useAuth } from "../../context/AuthContext";
 import { CustomerDelivery, Delivery } from "../../model";
 import { logDelivery } from "../../services/customer-command";
@@ -12,24 +11,17 @@ export interface CustomerDeliveryModalProps {
     onSave: () => void;
     show: boolean;
     customerId: string;
+    delivery: CustomerDelivery;
 }
-
 
 
 export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
 
-    const empty = {
-        deliveryId: '',
-        customerId: props.customerId,
-        note: '',
-        deliveredBy: '',
-        deliveryDate: new Date(Date.now())
-    };
-
-    const { currentUser, roles } = useAuth();
+    const { currentUser } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [deliveries, setDeliveries] = useState([] as Delivery[]);
-    const [customerDelivery, setCustomerDelivery] = useState(empty);
+    const [customerDelivery, setCustomerDelivery] = useState(props.delivery);
+
     const [isUpdating, setIsUpdating] = useState(false);
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [error, setError] = useState("")
@@ -42,6 +34,12 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
     }
 
     useEffect(() => {
+        setCustomerDelivery(props.delivery);
+     }, [props.delivery]);
+
+    useEffect(() => {
+
+        if (customerDelivery.deliveryId !== '') return;
         if (deliveries && deliveries.length > 0) {
             setCustomerDelivery({
                 ...customerDelivery,
@@ -90,7 +88,6 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
     };
 
     const onShow = (): void => {
-        setCustomerDelivery(empty);
         fetchDeliveries();
         setIsUpdating(false);
         setError('');
@@ -106,7 +103,7 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
             centered>
             <Modal.Header closeButton={true} onHide={props.onHide}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Consegna
+                    Consegna {customerDelivery.deliveredBy}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

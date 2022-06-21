@@ -28,7 +28,7 @@ const map = (data: DocumentData, id: string): Delivery => ({
     day: secondsToDate(data.day.seconds),
     id: id,
     kind: 'delivery',
-    note: data.note
+    note: data.note ?? ''
 });
 
 
