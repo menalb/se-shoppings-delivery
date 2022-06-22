@@ -113,7 +113,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                             <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
                         </Col>
                     </Form.Group>
-                    <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
+                    {/* <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
                         <Form.Label column xs={12}>Componenti Famiglia</Form.Label>
                         <Col xs={12}>
                             <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
@@ -135,10 +135,12 @@ const CustomerForm = (props: CustomerFormProps) => {
                     <Form.Group controlId="note">
                         <Form.Label>Richieste Particolari</Form.Label>
                         <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group controlId="linkMaps">
-                        <Form.Label>GoogleMaps link</Form.Label>
-                        <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
+                        <Form.Label column xs={10} >GoogleMaps link</Form.Label>
+                        <Col xs={10}>
+                            <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
+                        </Col>
                     </Form.Group>
                     <Form.Group controlId="standby">
                         <Form.Label>Stand By
@@ -152,7 +154,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                     <Col className="button-action button-action-left">
                         <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco" to={"/customers"}>
                             <span className="button-name">
-                                Torna a elenco
+                                Elenco
                             </span>
                         </Link>
                     </Col>

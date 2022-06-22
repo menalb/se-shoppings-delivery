@@ -49,9 +49,9 @@ export const DeliveriesPage = () => {
         </ListGroup>
         <Row className="actions-row buttons">
             <Col className="button-action button-action-left">
-                <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco" to={"/customers"}>
+                <Link className=" link btn btn-secondary" title="Torna all'elenco delle persone" to={"/customers"}>
                     <span className="button-name">
-                        Torna a elenco
+                        Elenco Persone
                     </span>
                 </Link>
             </Col>

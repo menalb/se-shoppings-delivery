@@ -1,21 +1,21 @@
 .form-switch {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 @media only screen and (max-width: 992px) {
+  .customer-form {
+    margin-bottom: 2rem;
+    overflow-y: scroll;
+  }
 
-    .customer-form {
-        margin-bottom: 2rem;
-        overflow-y: scroll;
+  .customer-form fieldset {
+    padding-bottom: 2rem;
+  }
 
-    }
-
-    .customer-form fieldset {
-        padding-bottom: 2rem;
-    }
-
-    .form-switch {
-        text-align: center;
-
-    }  
+  .customer-form fieldset .row {
+    width: 98%;
+  }
+  .form-switch {
+    text-align: center;
+  }
 }

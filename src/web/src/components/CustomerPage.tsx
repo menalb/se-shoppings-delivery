@@ -168,15 +168,15 @@ function CustomerPage() {
                         <Container>
                             <Row className="actions-row buttons">
                                 <Col className="button-action button-action-left">
-                                    <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco" to={"/customers"}>
+                                    <Link className=" link btn btn-secondary" title="Torna all'elenco delle persone" to={"/customers"}>
                                         <span className="button-name">
-                                            Torna a elenco
+                                            Elenco Persone
                                         </span>
                                     </Link>
                                 </Col>
                                 <Col className="button-action button-action-right">
                                     <Link className=" link btn btn-primary" title="Modifica dati" to={"/edit/" + customerId}>
-                                        <span className="button-name">
+                                        <span className="button-name" title="Salva modifiche persona">
                                             Modifica
                                         </span>
                                     </Link>

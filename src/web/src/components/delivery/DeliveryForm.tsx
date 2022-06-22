@@ -86,14 +86,14 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
             </fieldset>            
             <Row className="actions-row buttons">
                 <Col className="button-action button-action-left">
-                    <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco'" to={"/deliveries"}>
+                    <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco dei giri" to={"/deliveries"}>
                         <span className="button-name">
-                            Torna a elenco
+                            Elenco Giri
                         </span>
                     </Link>
                 </Col>
                 <Col className="button-action button-action-right">
-                    <Button type="submit">
+                    <Button type="submit" title="Salva modifica a giro">
                         Salva
                     </Button>
                 </Col>
