@@ -1,10 +1,10 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import { Container, Row, Col, ListGroup, FormControl, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Customer } from "../model";
-import { customersQuery } from "../services/customers-query";
-import { useCheckMobileScreen } from "../services/utils";
-import { Loader } from "./Loader";
+import { Customer } from "../../model";
+import { customersQuery } from "../../services/customers-query";
+import { useCheckMobileScreen } from "../../services/utils";
+import { Loader } from "./../Loader";
 import './CustomersList.css';
 
 

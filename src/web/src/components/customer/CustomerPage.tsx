@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { Customer, CustomerDelivery } from "../model";
-import { Loader } from "./Loader";
-import { getCustomer } from "../services/customers-query";
-import { useAuth } from "../context/AuthContext";
-import { CustomerDeliveryModal } from "./delivery/CustomerDeliveryModal";
+import { Customer, CustomerDelivery } from "../../model";
+import { Loader } from "./../Loader";
+import { getCustomer } from "../../services/customers-query";
+import { useAuth } from "../../context/AuthContext";
+import { CustomerDeliveryModal } from "./CustomerDeliveryModal";
 import { CustomerDeliveriesComponent } from "./CustomerDeliveriesComponent";
 
 import './CustomerPage.css';
-import { ButtonActionsComponent, PrimaryLinkComponent, SaveCancelButtonsComponent, SecondaryLinkComponent } from "./ActionButtons";
+import { ButtonActionsComponent, PrimaryLinkComponent, SaveCancelButtonsComponent, SecondaryLinkComponent } from "./../ActionButtons";
 
 function CustomerPage() {
     const { customerId } = useParams();
