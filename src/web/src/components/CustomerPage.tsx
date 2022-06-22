@@ -9,6 +9,7 @@ import { CustomerDeliveryModal } from "./delivery/CustomerDeliveryModal";
 import { CustomerDeliveriesComponent } from "./CustomerDeliveriesComponent";
 
 import './CustomerPage.css';
+import { ButtonActionsComponent, PrimaryLinkComponent, SaveCancelButtonsComponent, SecondaryLinkComponent } from "./ActionButtons";
 
 function CustomerPage() {
     const { customerId } = useParams();
@@ -166,22 +167,11 @@ function CustomerPage() {
                             }
                         </Container>
                         <Container>
-                            <Row className="actions-row buttons">
-                                <Col className="button-action button-action-left">
-                                    <Link className=" link btn btn-secondary" title="Torna all'elenco delle persone" to={"/customers"}>
-                                        <span className="button-name">
-                                            Elenco Persone
-                                        </span>
-                                    </Link>
-                                </Col>
-                                <Col className="button-action button-action-right">
-                                    <Link className=" link btn btn-primary" title="Modifica dati" to={"/edit/" + customerId}>
-                                        <span className="button-name" title="Salva modifiche persona">
-                                            Modifica
-                                        </span>
-                                    </Link>
-                                </Col>
-                            </Row>
+                            
+                            <ButtonActionsComponent
+                                left={<SecondaryLinkComponent link={"/customers"} text={'Elenco Persone'} title={`Torna all'elenco delle persone`} />}
+                                right={<PrimaryLinkComponent link={`/edit/${customerId}`} text={'Modifica'} title={`Modifica Persona`} />}
+                            />
                         </Container>
                     </Card.Body>
                 </Card>

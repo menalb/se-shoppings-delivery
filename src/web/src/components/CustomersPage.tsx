@@ -8,6 +8,7 @@ import { Loader } from "./Loader";
 import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../services/utils";
 import { AddButton, DeliveriesButton } from "./Buttons";
+import { ButtonActionsComponent } from "./ActionButtons";
 
 function CustomersPage() {
 
@@ -48,14 +49,10 @@ function CustomersPage() {
     return (<>
         <Container className="head-container customers-page-actions">
             {isAdmin() ?
-                <Row className="actions-row buttons">
-                    <Col className="button-action button-action-left">
-                        <DeliveriesButton></DeliveriesButton>
-                    </Col>
-                    <Col className="button-action button-action-right">
-                        <AddButton></AddButton>
-                    </Col>
-                </Row>
+                <ButtonActionsComponent
+                    left={<DeliveriesButton />}
+                    right={<AddButton />}
+                />
                 : ''}
             <Row className="search">
                 <Col xs={9} md={4}><FormControl className="mb-6"
@@ -154,10 +151,10 @@ const CustomerListItemLarge = (props: { customer: Customer }) => {
                     {customer.phone ? customer.phone : ''}
                 </span>
                 <span title={'Ultima consegna: ' + deliveryDateFormatted()}>
-                {deliveryDateFormatted()}
-        </span>
+                    {deliveryDateFormatted()}
+                </span>
             </Link >
-    { customer.standby ? <em title="Attualmente in standby">[S]</em> : '' }
+            {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
         </span >
     );
 }

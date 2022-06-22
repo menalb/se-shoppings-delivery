@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Delivery } from "../../model";
 import { deliveriesQuery } from "../../services/delivery-query";
+import { ButtonActionsComponent, SecondaryLinkComponent } from "../ActionButtons";
 import { Loader } from "../Loader";
 import { AddDeliveryButton } from "./../Buttons";
 
@@ -47,19 +48,11 @@ export const DeliveriesPage = () => {
                 </ListGroup.Item>
             )}
         </ListGroup>
-        <Row className="actions-row buttons">
-            <Col className="button-action button-action-left">
-                <Link className=" link btn btn-secondary" title="Torna all'elenco delle persone" to={"/customers"}>
-                    <span className="button-name">
-                        Elenco Persone
-                    </span>
-                </Link>
-            </Col>
-            <Col className="button-action button-action-right">
-                {isAdmin() ?
-                    <AddDeliveryButton></AddDeliveryButton>
-                    : ''}
-            </Col>
-        </Row>
+        <ButtonActionsComponent
+            left={<SecondaryLinkComponent link="/customers" text="Elenco Persone" title="Torna all'elenco delle persone" />}
+            right={isAdmin() ?
+                <AddDeliveryButton></AddDeliveryButton>
+                : <></>}
+        />
     </>)
 }

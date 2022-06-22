@@ -57,7 +57,12 @@ export const AddDeliveryPage = () => {
                         <p className="update-ok">
                             <em>Aggiornameto completato con successo</em>
                         </p> : ''}
-                    <DeliveryForm delivery={delivery} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></DeliveryForm>
+                    <DeliveryForm
+                        delivery={delivery}
+                        handleSubmit={handleSubmit}
+                        handleChange={handleChange}
+                        disabled={isUpdating}
+                    />                         
 
                 </Card.Body>
             </Card>

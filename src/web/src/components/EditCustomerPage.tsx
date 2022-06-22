@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Alert, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { Customer } from "../model";
 import { Loader } from "./Loader";
-import './EditCustomerPage.css';
 import { getCustomer } from "../services/customers-query";
 import { updateCustomer } from "../services/customer-command";
 import CustomerForm from "./CustomerForm";
+import { SaveCancelButtonsComponent } from "./ActionButtons";
+
+import './EditCustomerPage.css';
 
 function EditCustomerPage() {
     const { customerId } = useParams();
@@ -15,6 +17,7 @@ function EditCustomerPage() {
     const [isUpdating, setIsUpdating] = useState(false);
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [error, setError] = useState("")
+    const navigate = useNavigate();
 
     const fetchCustomer = async () => {
         if (customerId) {
@@ -43,6 +46,7 @@ function EditCustomerPage() {
                 await updateCustomer(c);
                 setCustomer(c);
                 setIsUpdateOk(true);
+                navigate(`/customer/${c.id}`);
             }
         }
         catch (e) {
@@ -70,7 +74,19 @@ function EditCustomerPage() {
                             <p className="update-ok">
                                 <em>Aggiornameto completato con successo</em>
                             </p> : ''}
-                        <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></CustomerForm>
+                        <CustomerForm
+                            customer={customer}
+                            handleSubmit={handleSubmit}
+                            handleChange={handleChange}
+                            disabled={isUpdating}
+                            SaveCancelButtons={<SaveCancelButtonsComponent
+                                cancel={
+                                    { link: `/customer/${customer.id}`, text: 'Annulla', title: `Annulla modifica e torna ai dettagli persona` }
+                                }
+                                submit={{ text: 'Salva', title: 'Salva modifiche persona' }}
+                            />}
+                        ></CustomerForm>
+
                     </Card.Body>
                 </Card>
             }

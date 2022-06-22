@@ -6,27 +6,10 @@ import './CustomerPage.css';
 import { addCustomer } from "../services/customer-command";
 import { getNextCustomerCode } from "../services/customers-query";
 import CustomerForm from "./CustomerForm";
+import { SaveCancelButtonsComponent } from "./ActionButtons";
 
 const AddCustomerPage = () => {
-    const emptyCustomer: Customer = {
-        kind: 'customer',
-        id: '',
-        name: '',
-        area: '',
-        address: '',
-        code: 0,
-        creationDate: new Date(Date.now()),
-        familyStructure: '',
-        children: 0,
-        adults: 0,
-        linkMaps: '',
-        customerId: 0,
-        note: '',
-        phone: '',
-        reference: '',
-        homeDelivery: false,
-        standby: false,
-    }
+  
     const [customer, setCustomer] = useState(emptyCustomer)
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
@@ -78,7 +61,19 @@ const AddCustomerPage = () => {
                         <p className="update-ok">
                             <em>Aggiornameto completato con successo</em>
                         </p> : ''}
-                    <CustomerForm customer={customer} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></CustomerForm>
+                    <CustomerForm
+                        customer={customer}
+                        handleSubmit={handleSubmit}
+                        handleChange={handleChange}
+                        disabled={isUpdating}
+                        SaveCancelButtons={<SaveCancelButtonsComponent
+                            cancel={
+                                { link: '/customers', text: 'Annulla', title: `Annulla e torna all'elenco delle persone` }
+                            }
+                            submit={{ text: 'Salva', title: 'Salva nuova persona' }}
+                        />}
+                    ></CustomerForm>
+
                 </Card.Body>
             </Card>
 
@@ -87,3 +82,23 @@ const AddCustomerPage = () => {
 }
 
 export default AddCustomerPage;
+
+const emptyCustomer: Customer = {
+    kind: 'customer',
+    id: '',
+    name: '',
+    area: '',
+    address: '',
+    code: 0,
+    creationDate: new Date(Date.now()),
+    familyStructure: '',
+    children: 0,
+    adults: 0,
+    linkMaps: '',
+    customerId: 0,
+    note: '',
+    phone: '',
+    reference: '',
+    homeDelivery: false,
+    standby: false,
+}

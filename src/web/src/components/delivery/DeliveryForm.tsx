@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Customer, Delivery, formatDateCalendar, formatDeliveryCode } from "../../model";
+import { SaveCancelButtonsComponent } from "../ActionButtons";
 import './DeliveryForm.css'
 
 interface DeliveryFormProps {
@@ -82,22 +83,14 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
                     <Col sm="10" xs="12">
                         <Form.Control name="note" as="textarea" onChange={handleChange} value={delivery.note} type="text" />
                     </Col>
-                </Form.Group>
-            </fieldset>            
-            <Row className="actions-row buttons">
-                <Col className="button-action button-action-left">
-                    <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco dei giri" to={"/deliveries"}>
-                        <span className="button-name">
-                            Elenco Giri
-                        </span>
-                    </Link>
-                </Col>
-                <Col className="button-action button-action-right">
-                    <Button type="submit" title="Salva modifica a giro">
-                        Salva
-                    </Button>
-                </Col>
-            </Row>
+                </Form.Group>                
+            </fieldset>      
+            <SaveCancelButtonsComponent
+                cancel={
+                    { link: `/deliveries`, text: 'Annulla', title: `Annulla e torna alla lista dei giri` }
+                }
+                submit={{ text: 'Salva', title: 'Salva modifiche giro' }}
+            />    
         </Form>
     )
 }
