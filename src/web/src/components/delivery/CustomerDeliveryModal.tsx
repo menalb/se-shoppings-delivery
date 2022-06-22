@@ -120,7 +120,7 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
             centered>
             <Modal.Header closeButton={true} onHide={props.onHide}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Consegna {customerDelivery.deliveryId}
+                    Consegna
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

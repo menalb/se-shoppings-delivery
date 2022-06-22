@@ -89,7 +89,7 @@ function CustomerPage() {
                             </span>
                         </h2>
                         {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
-                        <Container>
+                        <Container className="content">
                             <Row>
                                 Tessera
                             </Row>
@@ -164,6 +164,8 @@ function CustomerPage() {
                                 <Row><CustomerDeliveriesComponent customerDeliveries={customer.deliveries} onDeliveryClick={cd => deliveryClick(cd)} /></Row>
                                 : <em>Nessuna consegna disponibile</em>
                             }
+                        </Container>
+                        <Container>
                             <Row className="actions-row buttons">
                                 <Col className="button-action button-action-left">
                                     <Link className=" link btn btn-secondary" title="Annulla modifica e torna all'elenco" to={"/customers"}>
