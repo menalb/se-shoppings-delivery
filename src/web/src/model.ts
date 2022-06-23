@@ -1,15 +1,3 @@
-
-
-export interface Delivery {
-    kind: 'delivery',
-    id: string,
-    code: string,
-    day: Date,
-    creationDate: Date,
-    note: string,
-}
-
-
 export const formatDeliveryCode = (day?: Date): string =>
     day ?
         `${day.getDate().toString().padStart(2, '0')}-${(day.getMonth() + 1).toString().padStart(2, '0')

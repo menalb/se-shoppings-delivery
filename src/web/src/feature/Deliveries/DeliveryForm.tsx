@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-
-import { Delivery, formatDateCalendar, formatDeliveryCode } from "../../model";
+import { Delivery } from "./model";
+import { formatDateCalendar, formatDeliveryCode } from "../../model";
 import { SaveCancelButtonsComponent } from "../ActionButtons";
 import { Customer } from "../Customers/model";
 import './DeliveryForm.css'

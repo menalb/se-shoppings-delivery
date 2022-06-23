@@ -12,9 +12,9 @@ import NotAuth from './NotAuth';
 import AddCustomerPage from './Customers/Add/AddCustomerPage';
 import UserProfilePage from './UserProfilePage';
 import { UserProfileButton } from './Buttons';
-import { DeliveriesPage } from './delivery/DeliveriesPage';
-import { AddDeliveryPage } from './delivery/AddDeliveryPage';
-import EditDeliveryPage from './delivery/EditDeliveryPage';
+import { DeliveriesPage } from './Deliveries/DeliveriesPage';
+import { AddDeliveryPage } from './Deliveries/AddDeliveryPage';
+import EditDeliveryPage from './Deliveries/EditDeliveryPage';
 
 function App() {
   return (<>

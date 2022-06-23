@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase-config";
+import { db } from "../../../firebase-config";
 import { Delivery } from "../model";
 
 export const updateDelivery = async (delivery: Delivery, userId: string): Promise<void> => {
