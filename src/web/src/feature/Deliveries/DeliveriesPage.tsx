@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import { Delivery } from "./model";
 import { deliveriesQuery } from "./services/delivery-query";
 import { ButtonActionsComponent, SecondaryLinkComponent } from "../ActionButtons";
 import { Loader } from "../Loader";
 import { AddDeliveryButton } from "../Buttons";
+import { useAuth } from "../../context";
 
 export const DeliveriesPage = () => {
 

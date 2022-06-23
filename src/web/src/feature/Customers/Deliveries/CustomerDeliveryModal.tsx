@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap"
-import { useAuth } from "../../../context/AuthContext";
 import { CustomerDelivery } from "../model";
 import { logDelivery, removeDelivery } from "../services/customer-command";
-import { deliveriesQuery } from "../../../feature/Deliveries/services/delivery-query"
+import { deliveriesQuery, Delivery } from "../../Deliveries";
 import { Loader } from "../../Loader";
+import { useAuth } from "../../../context";
 
 import './CustomerDeliveryModal.css'
-import { Delivery } from "../../../feature/Deliveries/model";
-export interface CustomerDeliveryModalProps {
+
+interface CustomerDeliveryModalProps {
     onHide: () => void;
     onSave: () => void;
     show: boolean;

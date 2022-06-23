@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, FormControl, ListGroup, Row } from "react-bootstrap";
-import { useAuth } from "../../../context/AuthContext";
 import { Customer } from "../model";
 import { Loader } from "../../Loader";
 import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../../../services/utils";
 import { AddButton, DeliveriesButton } from "../../Buttons";
 import { ButtonActionsComponent } from "../../ActionButtons";
+import { useAuth } from "../../../context";
 
 import './CustomersPage.css'
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Alert, Card} from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import { Delivery } from "./model";
 import { updateDelivery } from "./services/delivery-command";
 import { getDelivery } from "./services/delivery-query";
 import { Loader } from "../Loader";
 import { DeliveryForm } from "./DeliveryForm";
+import { useAuth } from "../../context";
 
 
 function EditDeliveryPage() {
