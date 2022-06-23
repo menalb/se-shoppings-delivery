@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { Customer, Delivery, formatDateCalendar, formatDeliveryCode } from "../../model";
+import { Col, Form, Row } from "react-bootstrap";
+
+import { Delivery, formatDateCalendar, formatDeliveryCode } from "../../model";
 import { SaveCancelButtonsComponent } from "../ActionButtons";
+import { Customer } from "../Customers/model";
 import './DeliveryForm.css'
 
 interface DeliveryFormProps {
@@ -83,14 +84,14 @@ export const DeliveryForm = (props: DeliveryFormProps) => {
                     <Col sm="10" xs="12">
                         <Form.Control name="note" as="textarea" onChange={handleChange} value={delivery.note} type="text" />
                     </Col>
-                </Form.Group>                
-            </fieldset>      
+                </Form.Group>
+            </fieldset>
             <SaveCancelButtonsComponent
                 cancel={
                     { link: `/deliveries`, text: 'Annulla', title: `Annulla e torna alla lista dei giri` }
                 }
                 submit={{ text: 'Salva', title: 'Salva modifiche giro' }}
-            />    
+            />
         </Form>
     )
 }

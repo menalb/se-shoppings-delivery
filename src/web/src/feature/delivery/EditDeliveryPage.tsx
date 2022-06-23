@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { Delivery } from "../../model";
 import { updateDelivery } from "../../services/delivery-command";
 import { getDelivery } from "../../services/delivery-query";
-import { Loader } from "./../Loader";
+import { Loader } from "../Loader";
 import { DeliveryForm } from "./DeliveryForm";
 
 

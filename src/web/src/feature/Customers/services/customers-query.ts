@@ -1,7 +1,8 @@
 import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db } from "../firebase-config";
-import { Customer, CustomerDelivery, NotFound } from "../model";
-import { secondsToDate } from "./delivery-query";
+import { db } from "../../../firebase-config";
+import { NotFound, secondsToDate } from "../../../model";
+import { Customer, CustomerDelivery } from "../model";
+
 
 export const customersQuery = async (): Promise<Customer[]> => {
     const q = query(collection(db, 'customers'), orderBy('name', 'asc'));

@@ -1,5 +1,5 @@
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase-config";
+import { db } from "../../../firebase-config";
 import { Customer, CustomerDelivery } from "../model";
 import { getCustomer } from "./customers-query";
 

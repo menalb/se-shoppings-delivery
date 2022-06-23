@@ -6,7 +6,7 @@ import { Delivery } from "../../model";
 import { deliveriesQuery } from "../../services/delivery-query";
 import { ButtonActionsComponent, SecondaryLinkComponent } from "../ActionButtons";
 import { Loader } from "../Loader";
-import { AddDeliveryButton } from "./../Buttons";
+import { AddDeliveryButton } from "../Buttons";
 
 export const DeliveriesPage = () => {
 

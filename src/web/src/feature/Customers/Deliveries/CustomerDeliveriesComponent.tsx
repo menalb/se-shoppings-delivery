@@ -1,5 +1,5 @@
 import { Col, ListGroup, Row } from "react-bootstrap"
-import { CustomerDelivery } from "../../model"
+import { CustomerDelivery } from "../model"
 import './CustomerDeliveriesComponent.css'
 
 export const CustomerDeliveriesComponent = (props: { customerDeliveries: CustomerDelivery[], onDeliveryClick: (cd: CustomerDelivery) => void; }) => {

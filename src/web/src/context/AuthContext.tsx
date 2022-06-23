@@ -1,7 +1,7 @@
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react"
-import { Loader } from "../components/Loader";
+import { Loader } from "../feature/Loader";
 import { auth, db, logInWithEmailAndPassword } from "../firebase-config";
 
 interface Props {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import { Customer } from "../../model";
+import { Customer } from "./model";
+
 import './CustomerForm.css'
 
 interface CustomerFormProps {

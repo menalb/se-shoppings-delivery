@@ -1,6 +1,6 @@
 import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { Delivery, NotFound } from "../model";
+import { Delivery, NotFound, secondsToDate } from "../model";
 
 export const deliveriesQuery = async (): Promise<Delivery[]> => {
     const q = query(collection(db, 'deliveries'), orderBy('day', 'desc'));
@@ -30,6 +30,3 @@ const map = (data: DocumentData, id: string): Delivery => ({
     kind: 'delivery',
     note: data.note ?? ''
 });
-
-
-export const secondsToDate = (seconds: number): Date => new Date(seconds * 1000);

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Alert, Card } from "react-bootstrap";
 import { useParams,useNavigate } from "react-router-dom";
-import { Loader } from "./../Loader";
-import { getCustomer } from "../../services/customers-query";
-import { updateCustomer } from "../../services/customer-command";
-import CustomerForm from "./CustomerForm";
-import { SaveCancelButtonsComponent } from "./../ActionButtons";
-import { Customer } from "../../model";
+import { Loader } from "../../Loader";
+import { getCustomer } from "../services/customers-query";
+import { updateCustomer } from "../services/customer-command";
+import CustomerForm from "../CustomerForm";
+import { SaveCancelButtonsComponent } from "../../ActionButtons";
+import { Customer } from "../model";
 
 import './EditCustomerPage.css';
 
