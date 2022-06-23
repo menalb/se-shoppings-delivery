@@ -53,6 +53,11 @@ function CustomerPage() {
         setDeliveryShow(false)
     }
 
+    const newDeliveryClick = () => { 
+        setDeliveryToEdit(emptyCustomerDelivery);
+        setDeliveryShow(true);
+    }
+
     const deliveryClick = (cd: CustomerDelivery) => {
         setDeliveryToEdit(cd);
         setDeliveryShow(true);
@@ -71,7 +76,7 @@ function CustomerPage() {
                             </span>
                             <span className="buttons">
                                 {currentUser ? <>
-                                    <Button variant="primary" onClick={() => setDeliveryShow(true)}>
+                                    <Button variant="primary" onClick={() => newDeliveryClick()}>
                                         <span className="button-name">
                                             Consegna
                                         </span>
@@ -83,6 +88,7 @@ function CustomerPage() {
                                         onSave={onSave}
                                         customerId={customerId ?? ''}
                                         delivery={deliveryToEdit}
+                                        canDelete={deliveryToEdit.deliveryId !== ''}
                                     />
                                 </>
                                     : ''
@@ -92,7 +98,7 @@ function CustomerPage() {
                         {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
                         <Container className="content">
                             <Row>
-                                Tessera
+                                Tessera{deliveryToEdit.deliveryId}
                             </Row>
                             <Row>
                                 {customer.code ? <b>{customer.code}</b> : <em>tessera non assegnata</em>}
@@ -167,7 +173,7 @@ function CustomerPage() {
                             }
                         </Container>
                         <Container>
-                            
+
                             <ButtonActionsComponent
                                 left={<SecondaryLinkComponent link={"/customers"} text={'Elenco Persone'} title={`Torna all'elenco delle persone`} />}
                                 right={<PrimaryLinkComponent link={`/edit/${customerId}`} text={'Modifica'} title={`Modifica Persona`} />}

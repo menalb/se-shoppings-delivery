@@ -11,6 +11,7 @@ export interface CustomerDeliveryModalProps {
     onHide: () => void;
     onSave: () => void;
     show: boolean;
+    canDelete?: boolean;
     customerId: string;
     delivery: CustomerDelivery;
 }
@@ -158,7 +159,11 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
             </Modal.Body>
             <Modal.Footer className="customer-delivery-actions buttons">
                 <Button onClick={props.onHide}>Annulla</Button>
-                <Button className="btn-secondary" onClick={remove}>Elimina</Button>
+                {!!props.canDelete ?
+                    <Button className="btn-secondary" onClick={remove}>Elimina</Button>
+                    :
+                    ''
+                }
                 <Button onClick={save}>Save</Button>
             </Modal.Footer>
         </Modal>

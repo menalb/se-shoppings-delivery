@@ -1,12 +1,12 @@
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { Customer, CustomerApi, CustomerDelivery } from "../model";
+import { Customer, CustomerDelivery } from "../model";
 import { getCustomer } from "./customers-query";
 
 export const updateCustomer = async (customer: Customer): Promise<void> => {
     const docRef = doc(db, 'customers', customer.id);
 
-    const model: CustomerApi = mapToApi(customer);
+    const model: CustomerCommand = buildUpdateCommand(customer);
 
     await setDoc(docRef, model);
 }
@@ -14,25 +14,27 @@ export const updateCustomer = async (customer: Customer): Promise<void> => {
 export const addCustomer = async (customer: Customer): Promise<Customer> => {
     const collectionRef = collection(db, 'customers');
 
-    const model: CustomerApi = mapToApi(customer);
+    const model: CustomerCommand = buildUpdateCommand(customer);
 
     const docRef = await addDoc(collectionRef, model);
 
     console.log(docRef.id);
 
-    return ({
-        ...model,
-        kind: 'customer',
-        id: docRef.id
-    });
+    return mapToCustomer(model, docRef.id);
 }
+
+const mapToCustomer = (command: CustomerCommand, id: string): Customer => ({
+    ...command,
+    kind: 'customer',
+    id: id,
+});
 
 export const logDelivery = async (delivery: CustomerDelivery, userId: string): Promise<void> => {
     const deliveryToStore = { ...delivery, userId: userId, creationDate: new Date(Date.now()) };
     console.log(delivery.deliveryId)
     const customer = await getCustomer(delivery.customerId);
     if (customer.kind === 'customer') {
-        const model: CustomerApi = mapToApi(customer);
+        const model: CustomerCommand = buildUpdateCommand(customer);
 
         if (model.deliveries && model.deliveries.length > 0) {
             model.deliveries = model.deliveries.filter(d => d.deliveryId !== delivery.deliveryId);
@@ -41,7 +43,6 @@ export const logDelivery = async (delivery: CustomerDelivery, userId: string): P
         else {
             model.deliveries = [deliveryToStore];
         }
-
 
         const docRef = doc(db, 'customers', delivery.customerId);
 
@@ -52,7 +53,7 @@ export const logDelivery = async (delivery: CustomerDelivery, userId: string): P
 export const removeDelivery = async (delivery: CustomerDelivery, userId: string): Promise<void> => {
     const customer = await getCustomer(delivery.customerId);
     if (customer.kind === 'customer') {
-        const model: CustomerApi = mapToApi(customer);
+        const model: CustomerCommand = buildUpdateCommand(customer);
 
         if (model.deliveries && model.deliveries.length > 0) {
             model.deliveries = model.deliveries.filter(d => d.deliveryId !== delivery.deliveryId);
@@ -64,7 +65,7 @@ export const removeDelivery = async (delivery: CustomerDelivery, userId: string)
     }
 }
 
-const mapToApi = (customer: Customer): CustomerApi => ({
+const buildUpdateCommand = (customer: Customer): CustomerCommand => ({
     customerId: customer.customerId,
     code: customer.code ? customer.code : 0,
     name: customer.name,
@@ -80,5 +81,24 @@ const mapToApi = (customer: Customer): CustomerApi => ({
     children: customer.children ? customer.children : 0,
     standby: customer.standby ? customer.standby : false,
     linkMaps: customer.linkMaps,
-    deliveries: customer.deliveries,
+    deliveries: customer.deliveries ?? [],
 });
+
+interface CustomerCommand {
+    name: string,
+    customerId?: number,
+    code?: number,
+    area: string,
+    creationDate: Date,
+    reference: string,
+    familyStructure: string,
+    adults: number,
+    children: number,
+    homeDelivery: boolean,
+    note: string,
+    address: string,
+    phone: string,
+    standby: boolean,
+    linkMaps: string,
+    deliveries: CustomerDelivery[]
+}

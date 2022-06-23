@@ -13,21 +13,21 @@ type CustomersListSelect = Customer & { selected: boolean };
 export const CustomersList = () => {
 
     const searchTextRef = useRef({} as HTMLInputElement)
-    const fake: Customer[] = [{
-        id: '1',
-        kind: 'customer',
-        code: 123,
-        name: 'dd',
-        address: 'via del pratello'
-    },
-    {
-        id: '2',
-        kind: 'customer',
-        code: 456,
-        name: 'aaa',
-        address: 'via del farneto',
-        standby: false
-    }];
+    // const fake: Customer[] = [{
+    //     id: '1',
+    //     kind: 'customer',
+    //     code: 123,
+    //     name: 'dd',
+    //     address: 'via del pratello'
+    // },
+    // {
+    //     id: '2',
+    //     kind: 'customer',
+    //     code: 456,
+    //     name: 'aaa',
+    //     address: 'via del farneto',
+    //     standby: false
+    // }];
     const [isLoading, setIsLoading] = useState(false);
     const [includeStandby, setIncludeStandby] = useState(false);
     const [customers, setCustomers] = useState([] as CustomersListSelect[]);
