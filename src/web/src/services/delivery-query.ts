@@ -1,6 +1,6 @@
-import { addDoc, collection, doc, DocumentData, getDoc, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { Delivery, DeliveryApi, NotFound } from "../model";
+import { Delivery, NotFound } from "../model";
 
 export const deliveriesQuery = async (): Promise<Delivery[]> => {
     const q = query(collection(db, 'deliveries'), orderBy('day', 'desc'));

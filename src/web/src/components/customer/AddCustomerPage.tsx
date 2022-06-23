@@ -101,4 +101,5 @@ const emptyCustomer: Customer = {
     reference: '',
     homeDelivery: false,
     standby: false,
+    deliveries:[]
 }

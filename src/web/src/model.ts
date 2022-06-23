@@ -1,4 +1,4 @@
-export interface Customer{ //extends CustomerBase {
+export interface Customer {
     kind: 'customer',
     id: string,
     name: string,
@@ -16,17 +16,12 @@ export interface Customer{ //extends CustomerBase {
     phone: string,
     standby: boolean,
     linkMaps: string,
-    deliveries?: CustomerDelivery[]
+    deliveries: CustomerDelivery[]
 }
 
-export interface Delivery extends DeliveryBase {
+export interface Delivery {
     kind: 'delivery',
-    id: string
-}
-
-export type DeliveryApi = DeliveryBase & { userId?: string }
-
-interface DeliveryBase {
+    id: string,
     code: string,
     day: Date,
     creationDate: Date,
@@ -40,11 +35,6 @@ export interface CustomerDelivery {
     userId?: string,
     deliveryDate: Date,
     deliveredBy: string,
-    creationDate?: Date,
-}
-
-export interface CustomerDeliveryApi extends CustomerDelivery {
-    userId: string;
     creationDate?: Date,
 }
 
