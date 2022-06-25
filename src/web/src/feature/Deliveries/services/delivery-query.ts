@@ -1,4 +1,4 @@
-import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 import { NotFound, secondsToDate } from "../../../model";
 import { Delivery } from "../model";
@@ -20,6 +20,20 @@ export const getDelivery = async (deliveryId: string): Promise<Delivery | NotFou
     else {
         console.log('unable to find delivery ' + deliveryId);
         return { kind: 'not-found' };
+    }
+}
+
+export const getDeliveryByDay = async (day: Date): Promise<Delivery | NotFound> => {    
+    const dtFrom = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+    const dtTo = new Date(day.getFullYear(), day.getMonth(), day.getDate()+1);
+    const q = query(collection(db, 'deliveries'), where('day', '>=', dtFrom), where('day', '<', dtTo));
+
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+        return { kind: 'not-found' };
+    }
+    else {
+        return querySnapshot.docs.map(e => map(e.data(), e.id))[0];
     }
 }
 

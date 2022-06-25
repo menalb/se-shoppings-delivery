@@ -6,6 +6,7 @@ import { addDelivery } from "./services/delivery-command";
 import { DeliveryForm } from "./DeliveryForm";
 import { formatDeliveryCode } from "../../model";
 import { useAuth } from "../../context";
+import { getDeliveryByDay } from "./services/delivery-query";
 
 
 export const AddDeliveryPage = () => {
@@ -29,12 +30,19 @@ export const AddDeliveryPage = () => {
 
     async function handleSubmit(d: Delivery) {
 
-
         setIsUpdating(true);
+        setDelivery(d);
         try {
             setError("")
-            await addDelivery(d, currentUser?.uid ?? '');
-            navigate("/deliveries");
+
+            const exists = await getDeliveryByDay(d.day);
+            if (exists.kind !== 'not-found') {
+                setError('Esiste gia per questa data!')                
+            }
+            else {
+                await addDelivery(d, currentUser?.uid ?? '');
+                navigate("/deliveries");   
+            }                    
         }
         catch (e) {
             console.error(e);

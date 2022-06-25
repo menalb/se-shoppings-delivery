@@ -13,8 +13,7 @@ interface DeliveryFormProps {
     handleSubmit: (delivery: Delivery) => void,
 };
 
-export const DeliveryForm = (props: DeliveryFormProps) => {
-    const [customers, setCustomers] = useState([] as Customer[]);
+export const DeliveryForm = (props: DeliveryFormProps) => {    
     const [delivery, setDelivery] = useState(props.delivery);
     const [errors, setErrors] = useState(new Map<string, string>());
 
