@@ -11,7 +11,7 @@ import { Customer } from "../model";
 import './EditCustomerPage.css';
 
 
-function EditCustomerPage() {
+const EditCustomerPage = () =>{
     const { customerId } = useParams();
     const [customer, setCustomer] = useState({} as Customer)
     const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,6 @@
 .head-container {
   position: relative;
+  margin-bottom: 0.5rem;
 }
 
 .head-container .buttons div {
@@ -14,57 +15,18 @@
   margin-left: 1rem;
 }
 
-.standby {
-  background-color: lightyellow !important;
-}
-
-.customer-link {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.customer-item-xs {
-  display: grid;
-  width: 95%;
-  grid-template-columns: 1fr 0.5fr;
-}
-
-.customer-item {
-  display: grid;
-  width: 95%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.125fr;
-}
-
-.customer-item-select {
-  display: grid;
-  width: 95%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.125fr;
-}
-
-.customer-link a .area {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.customers-list {
-  padding-bottom: 4rem;
-}
-
 @media only screen and (min-width: 992px) {
   .head-container .buttons .add {
     position: absolute;
     right: 0;
   }
 
-  .customers-page-actions .actions-row{
-    position:absolute;
-    right:0;
+  .customers-page-actions .actions-row {
+    position: absolute;
+    right: 0.75rem;
     width: 35%;
     padding: 0;
   }
-
 }
 
 @media only screen and (max-width: 992px) {
@@ -96,14 +58,5 @@
   }
   .button-action-left {
     padding-left: 1rem !important;
-  }
-
-  
-  .customer-item {
-    grid-template-columns: 1fr 1fr 0.125fr;
-  }
-
-  .customer-item-select {
-    grid-template-columns: 1fr 1fr 1fr 0.125fr;
   }
 }
