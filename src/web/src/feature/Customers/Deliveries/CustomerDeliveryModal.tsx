@@ -128,10 +128,10 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
             <Modal.Body>
                 <Loader isLoading={isLoading}></Loader>
                 {error && <Alert variant="danger">{error}</Alert>}
-                {isUpdateOk ?
+                {isUpdateOk &&
                     <p className="update-ok">
                         <em>Aggiornameto completato con successo</em>
-                    </p> : ''}
+                    </p>}
                 <Form>
                     <Form.Group as={Row} className="mb-3" controlId="day">
                         <Form.Label column sm="2" xs="12">Data</Form.Label>
@@ -160,10 +160,8 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
             </Modal.Body>
             <Modal.Footer className="customer-delivery-actions buttons">
                 <Button onClick={props.onHide}>Annulla</Button>
-                {!!props.canDelete ?
+                {!!props.canDelete &&
                     <Button className="btn-secondary" onClick={remove}>Elimina</Button>
-                    :
-                    ''
                 }
                 <Button onClick={save}>Save</Button>
             </Modal.Footer>

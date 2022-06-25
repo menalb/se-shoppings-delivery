@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Card } from "react-bootstrap";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Customer } from "../model";
 import { addCustomer } from "../services/customer-command";
 import { getNextCustomerCode } from "../services/customers-query";
@@ -8,7 +8,7 @@ import CustomerForm from "../CustomerForm";
 import { SaveCancelButtonsComponent } from "../../ActionButtons";
 
 const AddCustomerPage = () => {
-  
+
     const [customer, setCustomer] = useState(emptyCustomer)
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
@@ -52,14 +52,14 @@ const AddCustomerPage = () => {
 
     return (
         <>
-            {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
+            {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div>}
             <Card>
                 <Card.Body>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    {isUpdateOk ?
+                    {isUpdateOk &&
                         <p className="update-ok">
                             <em>Aggiornameto completato con successo</em>
-                        </p> : ''}
+                        </p>}
                     <CustomerForm
                         customer={customer}
                         handleSubmit={handleSubmit}
@@ -100,5 +100,5 @@ const emptyCustomer: Customer = {
     reference: '',
     homeDelivery: false,
     standby: false,
-    deliveries:[]
+    deliveries: []
 }

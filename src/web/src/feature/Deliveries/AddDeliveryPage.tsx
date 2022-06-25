@@ -54,16 +54,16 @@ export const AddDeliveryPage = () => {
             <Card>
                 <Card.Body>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    {isUpdateOk ?
+                    {isUpdateOk &&
                         <p className="update-ok">
                             <em>Aggiornameto completato con successo</em>
-                        </p> : ''}
+                        </p>}
                     <DeliveryForm
                         delivery={delivery}
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
                         disabled={isUpdating}
-                    />                         
+                    />
 
                 </Card.Body>
             </Card>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Alert, Card} from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Alert, Card } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { Delivery } from "./model";
 import { updateDelivery } from "./services/delivery-command";
 import { getDelivery } from "./services/delivery-query";
@@ -17,6 +17,7 @@ function EditDeliveryPage() {
     const [isUpdateOk, setIsUpdateOk] = useState(false);
     const { currentUser, roles } = useAuth();
     const [error, setError] = useState("")
+    const navigate = useNavigate();
 
     const fetchDelivery = async () => {
         if (deliveryId) {
@@ -45,6 +46,7 @@ function EditDeliveryPage() {
                 await updateDelivery(d, currentUser.uid);
                 setDelivery(d);
                 setIsUpdateOk(true);
+                navigate('/deliveries');
             }
         }
         catch (e) {
@@ -62,15 +64,15 @@ function EditDeliveryPage() {
     return (
         <>
             <Loader isLoading={isLoading || isUpdating}></Loader>
-            {isLoading ? '' :
+            {!isLoading &&
                 <Card>
                     <Card.Body>
                         <h2 className="text-center mb-4">{delivery.code}</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
-                        {isUpdateOk ?
+                        {isUpdateOk &&
                             <p className="update-ok">
                                 <em>Aggiornameto completato con successo</em>
-                            </p> : ''}
+                            </p>}
                         <DeliveryForm delivery={delivery} handleSubmit={handleSubmit} handleChange={handleChange} disabled={isUpdating}></DeliveryForm>
                     </Card.Body>
                 </Card>

@@ -65,16 +65,16 @@ function EditCustomerPage() {
     return (
         <>
             <Loader isLoading={isLoading || isUpdating}></Loader>
-            {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
-            {isLoading ? '' :
+            {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div> }
+            {!isLoading &&
                 <Card>
                     <Card.Body>
                         <h2 className="text-center mb-4">{customer.name}</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
-                        {isUpdateOk ?
+                        {isUpdateOk &&
                             <p className="update-ok">
                                 <em>Aggiornameto completato con successo</em>
-                            </p> : ''}
+                            </p> }
                         <CustomerForm
                             customer={customer}
                             handleSubmit={handleSubmit}

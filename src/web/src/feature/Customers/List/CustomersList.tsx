@@ -99,7 +99,7 @@ export const CustomersList = () => {
                     <Col xs="6" md="4">
                         <Form.Check name="standby" onChange={handleChangeStandby} checked={includeStandby} type="switch" />
                     </Col>
-                    {canSelect ?
+                    {canSelect &&
                         <>
                             <Col xs="4" md="2" className="text-left text-md-end">
                                 Selezionati:
@@ -107,26 +107,25 @@ export const CustomersList = () => {
                             <Col xs="6" md="4" className="text-center text-md-start">
                                 <b>{filtered.reduce((n, val) => n + (val.selected ? 1 : 0), 0)}</b>/{customers.length}
                             </Col> </>
-                        : ''}
+                        }
 
                 </Form.Group>
             </Container>
             <Loader isLoading={isLoading}></Loader>
             <ListGroup as="ul">
-                {!isMobile ?
+                {!isMobile &&
                     <ListGroup.Item as="li" key={'header'}>
                         <CustomerListItemLargeHeader canSelect={canSelect} ></CustomerListItemLargeHeader>
-                    </ListGroup.Item>
-                    : ''}
+                    </ListGroup.Item>}
                 {filtered.map((e, index) => (<ListGroup.Item as="li" key={index} className={e.standby ? 'standby' : ''} >
                     {canSelect ?
                         <span className={!!canSelect ? "customer-item-select" : "customer-item"} >
-                            {!!(canSelect) ?
+                            {!!(canSelect) &&
                                 <span>
                                     <Form.Group id={"selected_" + e.id} className="text-left">
                                         <Form.Check name="selected" type="switch" onChange={(ev) => handleSelection(e)} checked={e.selected} />
                                     </Form.Group>
-                                </span> : ''
+                                </span>
                             }
                             <CustomerListItem customer={e} isMobile={isMobile}></CustomerListItem >
                         </span>
@@ -161,11 +160,11 @@ const CustomerListItemSmall = (props: { customer: Customer }) => {
         <>
             <span>
                 {customer.name}</span>
-            <span className="area" title={'Zona: ' + (customer.area ? customer.area : '')}>
-                {customer.area ? customer.area : ''}
+            <span className="area" title={'Zona: ' + customer.area}>
+                {customer.area}
             </span>
 
-            {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
+            {customer.standby && <em title="Attualmente in standby">[S]</em>}
         </>
     );
 }
@@ -173,8 +172,8 @@ const CustomerListItemSmall = (props: { customer: Customer }) => {
 const CustomerListItemLargeHeader = (props: { canSelect?: boolean }) => {
     return (
         <span className={!!props.canSelect ? "customer-item-select" : "customer-item"}>
-            {!!(props.canSelect) ?
-                <span><b>Seleziona</b></span> : ''
+            {!!(props.canSelect) &&
+                <span><b>Seleziona</b></span>
             }
             <span className={"customer-item"}>
                 <b>Name</b></span>
@@ -200,20 +199,20 @@ const CustomerListItemLarge = (props: { customer: Customer }) => {
     return (<>
         <span>
             {customer.name}</span>
-        <span className="area" title={'Zona: ' + (customer.area ? customer.area : '')}>
-            {customer.area ? customer.area : ''}
+        <span className="area" title={'Zona: ' + customer.area}>
+            {customer.area}
         </span>
         <span title="Indirizzo">
-            {customer.address ? customer.address : ''}
+            {customer.address}
         </span>
         <span title="Referente">
-            {customer.reference ? customer.reference : ''}
+            {customer.reference}
         </span>
-        <span title={'Telefono: ' + (customer.phone ? customer.phone : '')}>
-            {customer.phone ? customer.phone : ''}
+        <span title={'Telefono: ' + customer.phone}>
+            {customer.phone}
         </span>
 
-        {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
+        {customer.standby && <em title="Attualmente in standby">[S]</em>}
     </>
     );
 }

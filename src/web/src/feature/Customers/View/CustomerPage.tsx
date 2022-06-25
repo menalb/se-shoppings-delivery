@@ -67,7 +67,7 @@ function CustomerPage() {
         <>
             <Loader isLoading={isLoading}></Loader>
 
-            {isLoading ? '' :
+            {!isLoading &&
                 <Card className="customer-page">
                     <Card.Body>
                         <h2 className="text-lg-center mb-4">
@@ -75,7 +75,7 @@ function CustomerPage() {
                                 {customer.name}
                             </span>
                             <span className="buttons">
-                                {currentUser ? <>
+                                {currentUser && <>
                                     <Button variant="primary" onClick={() => newDeliveryClick()}>
                                         <span className="button-name">
                                             Consegna
@@ -90,12 +90,10 @@ function CustomerPage() {
                                         delivery={deliveryToEdit}
                                         canDelete={deliveryToEdit.deliveryId !== ''}
                                     />
-                                </>
-                                    : ''
-                                }
+                                </>}
                             </span>
                         </h2>
-                        {customer.standby ? <div className="standby">Attenzione: Attualmente in Stand By</div> : ''}
+                        {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div>}
                         <Container className="content">
                             <Row>
                                 Tessera{deliveryToEdit.deliveryId}

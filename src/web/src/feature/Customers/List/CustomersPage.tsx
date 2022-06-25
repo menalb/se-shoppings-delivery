@@ -11,7 +11,7 @@ import { useAuth } from "../../../context";
 
 import './CustomersPage.css'
 
-const CustomersPage = ()=> {
+const CustomersPage = () => {
 
     const searchTextRef = useRef({} as HTMLInputElement)
 
@@ -49,12 +49,11 @@ const CustomersPage = ()=> {
 
     return (<>
         <Container className="head-container customers-page-actions">
-            {isAdmin() ?
+            {isAdmin() &&
                 <ButtonActionsComponent
                     left={<DeliveriesButton />}
                     right={<AddButton />}
-                />
-                : ''}
+                />}
             <Row className="search">
                 <Col xs={9} md={4}><FormControl className="mb-6"
                     placeholder="Nome"
@@ -69,11 +68,11 @@ const CustomersPage = ()=> {
         </Container>
         <Loader isLoading={isLoading}></Loader>
         <ListGroup as="ul" className="customers-list">
-            {!isMobile ?
+            {!isMobile &&
                 <ListGroup.Item as="li" key={'header'}>
                     <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
                 </ListGroup.Item>
-                : ''}
+            }
             {filtered.map((e, index) => (<ListGroup.Item as="li" key={index} className={e.standby ? 'standby' : ''} >
                 {isMobile ?
                     <CustomerListItem customer={e} ></CustomerListItem>
@@ -155,7 +154,7 @@ const CustomerListItemLarge = (props: { customer: Customer }) => {
                     {deliveryDateFormatted()}
                 </span>
             </Link >
-            {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
+            {customer.standby && <em title="Attualmente in standby">[S]</em>}
         </span >
     );
 }
