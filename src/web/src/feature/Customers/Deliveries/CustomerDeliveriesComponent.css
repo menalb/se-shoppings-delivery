@@ -1,7 +1,7 @@
-.deliveries-list .list-group-item{
+.customer-deliveries-list .list-group-item{
     padding-left: 0;    
 }
 
-.deliveries-list .list-group-item-action{
+.customer-deliveries-list .list-group-item-action{
     cursor: pointer;
 }

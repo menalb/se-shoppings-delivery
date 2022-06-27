@@ -15,6 +15,7 @@ import { UserProfileButton } from './Buttons';
 import { DeliveriesPage } from './Deliveries/DeliveriesPage';
 import { AddDeliveryPage } from './Deliveries/AddDeliveryPage';
 import EditDeliveryPage from './Deliveries/EditDeliveryPage';
+import DeliveriesBoardPage from './Deliveries/Board/DeliveriesBoardPage';
 
 function App() {
   return (<>
@@ -44,10 +45,16 @@ function App() {
                   <Route path="/edit/:customerId" element={<EditCustomerPage />} />
                 </Route>
                 <Route path="/deliveries" element={<DeliveriesPage />} />
+                <Route path="/deliveries" element={<AdminRoutes />} >
+                  <Route path="board" element={<DeliveriesBoardPage />} ></Route>
+                  <Route path="add" element={<AddDeliveryPage />} />
+                  <Route path="edit/:deliveryId" element={<EditDeliveryPage />} ></Route>
+                </Route>
                 <Route path="/" element={<AdminRoutes />} >
                   <Route path="/add" element={<AddCustomerPage />} />
-                  <Route path="/add-delivery" element={<AddDeliveryPage />} />
-                  <Route path="/edit-delivery/:deliveryId" element={<EditDeliveryPage />} ></Route>
+                  {/* <Route path="/add-delivery" element={<AddDeliveryPage />} /> */}
+                  {/* <Route path="/edit-delivery/:deliveryId" element={<EditDeliveryPage />} ></Route> */}
+
                 </Route>
               </Route>
 

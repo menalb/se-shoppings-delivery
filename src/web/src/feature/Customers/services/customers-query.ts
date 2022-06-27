@@ -1,6 +1,7 @@
 import { collection, doc, DocumentData, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 import { NotFound, secondsToDate } from "../../../model";
+import { getDeliveryByDay } from "../../Deliveries";
 import { Customer, CustomerDelivery } from "../model";
 
 
@@ -33,6 +34,49 @@ export const getCustomer = async (customerId: string): Promise<Customer | NotFou
         console.log('unable to find customer ' + customerId);
         return { kind: 'not-found' };
     }
+}
+
+export const customersQueryByDate = async (day: Date): Promise<CustomerDelilveryDay[]> => {
+    const q = query(collection(db, 'customers'), orderBy('name', 'asc'));
+    const delivery = await getDeliveryByDay(day);
+
+    if (delivery.kind === 'delivery') {
+        const querySnapshot = await getDocs(q);
+
+        return querySnapshot.docs.map(e => {
+            const data = e.data();
+
+            if (data.deliveries) {
+                const any = (data.deliveries.map(mapCustomerDelivery) as CustomerDelivery[]).find(d => d.deliveryId === delivery.id);;
+
+                return {
+                    kind: 'customer-delivery-day',
+                    id: e.id,
+                    name: data.name,
+                    area: data.area,
+                    day: any?.deliveryDate,
+                    deliveryId: any?.deliveryId
+                }
+            }
+            return {
+                kind: 'customer-delivery-day',
+                id: e.id,
+                name: data.name,
+                area: data.area,
+                
+            }
+        });
+    }
+    return [];
+}
+
+export interface CustomerDelilveryDay {
+    kind: 'customer-delivery-day',
+    id: string,
+    name: string,
+    area: string,
+    day?: Date,
+    deliveryId?: string
 }
 
 const map = (data: DocumentData, id: string): Customer => ({

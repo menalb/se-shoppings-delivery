@@ -4,7 +4,7 @@ import './CustomerDeliveriesComponent.css'
 
 export const CustomerDeliveriesComponent = (props: { customerDeliveries: CustomerDelivery[], onDeliveryClick: (cd: CustomerDelivery) => void; }) => {
     return (
-        <ListGroup as="ul" variant="flush" className="deliveries-list" >
+        <ListGroup as="ul" variant="flush" className="customer-deliveries-list" >
             {props.customerDeliveries.map(cd =>
 
                 <ListGroup.Item as="li" key={cd.deliveryId} className="list-group-item-action" onClick={e => props.onDeliveryClick(cd)}>

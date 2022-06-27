@@ -1,0 +1,27 @@
+@media only screen and (max-width: 991px) {
+  .deliveries-list {
+    height: 70vh;
+    overflow-y: scroll;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .deliveries-container {
+    position: relative;
+  }
+
+  .deliveries-container .actions-row {
+    position: absolute;
+    top: 0;
+    padding-top: 0;
+    width: 100%;
+  }
+  .deliveries-container .button-action-left {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .deliveries-container .button-action-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
