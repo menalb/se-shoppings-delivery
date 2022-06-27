@@ -29,7 +29,7 @@ const mapToCustomer = (command: CustomerCommand, id: string): Customer => ({
     id: id,
 });
 
-export const logDelivery = async (delivery: CustomerDelivery, userId: string): Promise<void> => {
+export const logDelivery = async (delivery: CustomerDelivery, userId: string): Promise<CustomerDelivery> => {
     const deliveryToStore = { ...delivery, userId: userId, creationDate: new Date(Date.now()) };
     console.log(delivery.deliveryId)
     const customer = await getCustomer(delivery.customerId);
@@ -48,6 +48,7 @@ export const logDelivery = async (delivery: CustomerDelivery, userId: string): P
 
         await setDoc(docRef, model);
     }
+    return deliveryToStore;
 }
 
 export const removeDelivery = async (delivery: CustomerDelivery, userId: string): Promise<void> => {

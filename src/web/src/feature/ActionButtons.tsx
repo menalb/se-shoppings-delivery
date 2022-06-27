@@ -40,4 +40,17 @@ export const ButtonActionsComponent = (props:
         <Col className="button-action button-action-right">
             {props.right}
         </Col>
-    </Row>    
+    </Row>
+
+
+export const DeliveryButton = (props: {onClick: ()=>void}) => <Button variant="primary" onClick={props.onClick}>
+    <span className="button-name">
+        Consegna
+    </span>
+</Button>
+
+export const RemoveDeliveryButton = (props: { onClick: () => void }) => <Button variant="danger" onClick={props.onClick}>
+    <span className="button-name">
+        Rimuovi
+    </span>
+</Button>

@@ -9,7 +9,7 @@ import { CustomerDeliveryModal } from "../Deliveries/CustomerDeliveryModal";
 import { CustomerDeliveriesComponent } from "../Deliveries/CustomerDeliveriesComponent";
 
 import './CustomerPage.css';
-import { ButtonActionsComponent, PrimaryLinkComponent, SaveCancelButtonsComponent, SecondaryLinkComponent } from "../../ActionButtons";
+import { ButtonActionsComponent, DeliveryButton, PrimaryLinkComponent, SaveCancelButtonsComponent, SecondaryLinkComponent } from "../../ActionButtons";
 
 function CustomerPage() {
     const { customerId } = useParams();
@@ -75,12 +75,8 @@ function CustomerPage() {
                                 {customer.name}
                             </span>
                             <span className="buttons">
-                                {currentUser && <>
-                                    <Button variant="primary" onClick={() => newDeliveryClick()}>
-                                        <span className="button-name">
-                                            Consegna
-                                        </span>
-                                    </Button>
+                                {currentUser && <>                                   
+                                    <DeliveryButton onClick={() => newDeliveryClick()} />
 
                                     <CustomerDeliveryModal
                                         show={deliveryShow}

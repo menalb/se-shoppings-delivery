@@ -18,12 +18,12 @@ h1 {
   margin-right: 1rem;
 }
 
-.btn {
+.btn-primary {
   background-color: rgb(18, 33, 64) !important;
   border-color: black !important;
 }
 
-.btn:hover {
+.btn-primary:hover {
   background-color: lightgray !important;
   border-color: black !important;
   color: black !important;

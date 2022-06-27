@@ -47,6 +47,7 @@ function App() {
                 <Route path="/deliveries" element={<DeliveriesPage />} />
                 <Route path="/deliveries" element={<AdminRoutes />} >
                   <Route path="board" element={<DeliveriesBoardPage />} ></Route>
+                  <Route path="board/:deliveryId" element={<DeliveriesBoardPage />} ></Route>
                   <Route path="add" element={<AddDeliveryPage />} />
                   <Route path="edit/:deliveryId" element={<EditDeliveryPage />} ></Route>
                 </Route>

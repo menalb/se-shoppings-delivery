@@ -1,4 +1,14 @@
-.customers-deliveries-list .delivered{
-    width: 1.5rem;
-    color: green;
+.customers-deliveries-list .delivered {
+  width: 1.5rem;
+  color: green;
+}
+
+.customer-delivery-item {
+  display: grid;
+  width: 95%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.customers-deliveries-list .btn {
+  width: 8rem;
 }

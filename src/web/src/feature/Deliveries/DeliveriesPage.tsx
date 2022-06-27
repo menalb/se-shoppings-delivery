@@ -46,6 +46,9 @@ export const DeliveriesPage = () => {
                             <Col xs={6}>
                                 <b><Link to={"/deliveries/edit/" + d.id}>{d.day.toDateString()}</Link></b>
                             </Col>
+                            <Col xs={4}>
+                                <Link to={"/deliveries/board/" + d.id}>Dettaglio</Link>
+                            </Col>
                         </Row>
                         <Row><Col xs={2}>
                             Note:
