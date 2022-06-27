@@ -35,37 +35,40 @@ export const getCustomer = async (customerId: string): Promise<Customer | NotFou
         return { kind: 'not-found' };
     }
 }
-
-export const customersQueryByDate = async (day: Date): Promise<CustomerDelilveryDay[]> => {
+export const customersQueryByDelivery = async (deliveryId: string): Promise<CustomerDelilveryDay[]> => { 
     const q = query(collection(db, 'customers'), orderBy('name', 'asc'));
-    const delivery = await getDeliveryByDay(day);
+    const querySnapshot = await getDocs(q);
 
-    if (delivery.kind === 'delivery') {
-        const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(e => {
+        const data = e.data();
 
-        return querySnapshot.docs.map(e => {
-            const data = e.data();
+        if (data.deliveries) {
+            const any = (data.deliveries.map(mapCustomerDelivery) as CustomerDelivery[]).find(d => d.deliveryId === deliveryId);;
 
-            if (data.deliveries) {
-                const any = (data.deliveries.map(mapCustomerDelivery) as CustomerDelivery[]).find(d => d.deliveryId === delivery.id);;
-
-                return {
-                    kind: 'customer-delivery-day',
-                    id: e.id,
-                    name: data.name,
-                    area: data.area,
-                    day: any?.deliveryDate,
-                    deliveryId: any?.deliveryId
-                }
-            }
             return {
                 kind: 'customer-delivery-day',
                 id: e.id,
                 name: data.name,
                 area: data.area,
-                
+                day: any?.deliveryDate,
+                deliveryId: any?.deliveryId
             }
-        });
+        }
+        return {
+            kind: 'customer-delivery-day',
+            id: e.id,
+            name: data.name,
+            area: data.area,
+
+        }
+    });
+}
+export const customersQueryByDate = async (day: Date): Promise<CustomerDelilveryDay[]> => {
+    
+    const delivery = await getDeliveryByDay(day);
+
+    if (delivery.kind === 'delivery') {
+        return customersQueryByDelivery(delivery.id);
     }
     return [];
 }
