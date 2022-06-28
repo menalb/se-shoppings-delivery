@@ -118,6 +118,7 @@ const mapCustomerDeliveries = (deliveries: any): CustomerDelivery[] => {
 const mapCustomerDelivery = (data: any): CustomerDelivery => ({
     creationDate: secondsToDate(data.creationDate.seconds),
     deliveryDate: secondsToDate(data.deliveryDate.seconds),
+    deliveryDay: secondsToDate(data.deliveryDay?.seconds ?? data.deliveryDate.seconds),
     note: data.note ?? '',
     customerId: data.customerId,
     deliveredBy: data.deliveredBy ? data.deliveredBy : '',

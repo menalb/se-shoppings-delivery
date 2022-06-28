@@ -7,6 +7,7 @@ import { Loader } from "../../Loader";
 import { useAuth } from "../../../context";
 
 import './CustomerDeliveryModal.css'
+import { formatDateCalendar } from "../../../model";
 
 interface CustomerDeliveryModalProps {
     onHide: () => void;
@@ -48,7 +49,8 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
                 ...customerDelivery,
                 deliveryId: deliveries[0].id,
                 customerId: props.customerId,
-                deliveryDate: deliveries[0].day
+                deliveryDate: deliveries[0].day,
+                deliveryDay: deliveries[0].day,
             });
         }
         else {
@@ -92,7 +94,8 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
 
         const { target } = event;
         const { name } = target;
-        const value = target.value;
+
+        const value = name == 'deliveryDay' ? new Date(target.value) : target.value;
         let deliveryDate = customerDelivery.deliveryDate;
 
         if (name === 'deliveryId' && deliveries.some(d => d.id === value)) {
@@ -140,6 +143,13 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
                             <Form.Select name="deliveryId" aria-label="Seleziona data di consegna" onChange={handleChange} value={customerDelivery.deliveryId}>
                                 {deliveries.map(d => <option key={d.id} value={d.id}>{d.day.toDateString()}</option>)}
                             </Form.Select>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="date">
+                        <Form.Label column sm="2" xs="12">Data effettiva consegna</Form.Label>
+
+                        <Col sm="10" xs="12">
+                            <Form.Control name="deliveryDay" onChange={handleChange} value={formatDateCalendar(customerDelivery.deliveryDay)} type="date" required />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="deliveredBy">

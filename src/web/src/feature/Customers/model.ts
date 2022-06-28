@@ -24,6 +24,7 @@ export interface CustomerDelivery {
     note: string;
     userId?: string,
     deliveryDate: Date,
+    deliveryDay: Date,
     deliveredBy: string,
     creationDate?: Date,
 }

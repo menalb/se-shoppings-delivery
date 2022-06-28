@@ -69,6 +69,7 @@ const DeliveriesBoardPage = () => {
                     {
                         deliveredBy: '',
                         deliveryId: selectedDelivery.id,
+                        deliveryDay: selectedDelivery.day,
                         deliveryDate: selectedDelivery.day,
                         note: '',
                         customerId: customerId
@@ -94,6 +95,7 @@ const DeliveriesBoardPage = () => {
                     deliveredBy: '',
                     deliveryId: selectedDelivery.id,
                     deliveryDate: selectedDelivery.day,
+                    deliveryDay: selectedDelivery.day,
                     note: '',
                     customerId: customerId
                 }, currentUser.uid);

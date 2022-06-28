@@ -19,7 +19,8 @@ function CustomerPage() {
         customerId: customerId ?? '',
         note: '',
         deliveredBy: '',
-        deliveryDate: new Date(Date.now())
+        deliveryDate: new Date(Date.now()),
+        deliveryDay: new Date(Date.now())
     };
 
     const [customer, setCustomer] = useState({} as Customer)
