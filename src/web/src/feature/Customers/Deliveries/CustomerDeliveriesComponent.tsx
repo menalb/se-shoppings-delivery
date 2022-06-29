@@ -18,9 +18,11 @@ export const CustomerDeliveriesComponent = (props: { customerDeliveries: Custome
                             <Col>
                                 <b>{cd.deliveredBy}</b>
                             </Col></>}
-                    </Row>                    
-                    {!(cd.deliveryDate >= cd.deliveryDay && cd.deliveryDate <= cd.deliveryDay) &&
-                        <Row><Col><em>Consegnato il: {cd.deliveryDate.toDateString() }</em></Col></Row>
+                    </Row>
+                    {!(cd.deliveryDate.getFullYear() === cd.deliveryDay.getFullYear() &&
+                        cd.deliveryDate.getMonth() === cd.deliveryDay.getMonth() &&
+                        cd.deliveryDate.getDate() === cd.deliveryDay.getDate()) &&
+                        <Row><Col><em>Consegnato il: {cd.deliveryDay.toDateString()}</em></Col></Row>
                     }
                     {cd.note !== '' &&
                         <Row>
