@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
 
 export const ListButton = (props: { to: string }) =>
@@ -38,7 +40,7 @@ export const ListDeliveriesButton = () => (
 
 export const EditButton = (props: { customerId: string }) =>
 (
-    <Link className="link btn btn-primary mb-4" title="Modifica dati" to={"/edit/" + props.customerId}>        
+    <Link className="link btn btn-primary mb-4" title="Modifica dati" to={"/edit/" + props.customerId}>
         <span className="button-name">
             Modifica
         </span>
@@ -89,3 +91,13 @@ export const UserProfileButton = () => (
         </span>
     </a>
 )
+
+export const ExportReactCSV: React.FC<{ csvData: any, fileName: string }> = ({ csvData, fileName }) => {
+    return (
+        <Button variant="secondary" className="export-button">
+            <CSVLink data={csvData} filename={fileName}>
+                Esporta
+            </CSVLink>
+        </Button>
+    )
+}

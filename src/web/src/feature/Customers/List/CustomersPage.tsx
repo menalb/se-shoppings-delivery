@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Form, FormControl, Row } from "react-bootstrap";
+import {  Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import { Customer } from "../model";
 import { Loader } from "../../Loader";
 import { customersQuery } from "../services/customers-query";
 import { useCheckMobileScreen } from "../../../services/utils";
-import { AddButton, DeliveriesButton } from "../../Buttons";
+import { AddButton, DeliveriesButton, ExportReactCSV } from "../../Buttons";
 import { ButtonActionsComponent } from "../../ActionButtons";
 import { useAuth } from "../../../context";
 import CustomerList from "./CustomersList";
@@ -32,6 +32,18 @@ const CustomersPage = () => {
         return !!currentUser && roles.some(r => r === 'admin');
     }
 
+    const mapToExport = () => customers.map(c => ({
+        Nr: c.code ? isNaN(c.code) ? '' : c.code : '',
+        Tessera: c.customerId ? isNaN(c.customerId) ? '' : c.customerId : '',
+        Quartiere: c.area,
+        Nome: c.name,
+        Referente: c.reference,
+        Famiglia: c.familyStructure,
+        RichiesteParticolari: c.note,
+        Indirizzo: c.address,
+        Telefono: c.phone,
+    }));
+
     useEffect(() => {
         fetchCustomers();
     }, [currentUser]);
@@ -46,8 +58,11 @@ const CustomersPage = () => {
                     right={<AddButton />}
                 />}
             <Row className="search">
-                <Col xs={9} md={4}>
+                <Col xs={9} md={4}>                    
                     <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
+                </Col>
+                <Col>
+                    <ExportReactCSV csvData={mapToExport()} fileName={'foo.csv'} />
                 </Col>
             </Row>
         </Container>
