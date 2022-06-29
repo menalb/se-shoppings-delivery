@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Form, ListGroup, Row } from "react-bootstrap";
+import { Alert, Col, Form, FormControl, ListGroup, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../../context";
 import { DeliveryButton, RemoveDeliveryButton } from "../../ActionButtons";
@@ -14,6 +14,8 @@ import './DeliveriesBoardPage.css'
 const DeliveriesBoardPage = () => {
 
     const { deliveryId } = useParams();
+    const [searchText, setSearchText] = useState('')
+    const [error, setError] = useState("")
 
     const [isLoading, setIsLoading] = useState(false);
     const { currentUser, roles } = useAuth();
@@ -43,6 +45,12 @@ const DeliveriesBoardPage = () => {
     }, [currentUser]);
 
     useEffect(() => {
+        if (isLoading) {
+            setError('');
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
         if (deliveries.length > 0) {
             let delivery = deliveryId ? deliveries.find(d => d.id === deliveryId) : deliveries[0];
             if (!delivery) {
@@ -62,6 +70,7 @@ const DeliveriesBoardPage = () => {
     }
 
     const deliver = async (customerId: string) => {
+        setIsLoading(true);
         if (currentUser) {
 
             try {
@@ -81,30 +90,46 @@ const DeliveriesBoardPage = () => {
             }
             catch (e) {
                 console.error(e);
+                setError('Operazione fallita');
             }
         }
         else {
+            setIsLoading(false);
+            setError('Utente non valido');
             throw new Error('Invalid user');
         }
+        setIsLoading(false);
     }
 
     const undeliver = async (customerId: string) => {
+        setIsLoading(true);
         if (currentUser) {
-            await removeDelivery(
-                {
-                    deliveredBy: '',
-                    deliveryId: selectedDelivery.id,
-                    deliveryDate: selectedDelivery.day,
-                    deliveryDay: selectedDelivery.day,
-                    note: '',
-                    customerId: customerId
-                }, currentUser.uid);
+            try {
 
-            setCustomers(customers.map(c => c.id === customerId ?
-                ({ ...c, deliveryId: undefined, day: undefined }) : c
-            ));
+
+                await removeDelivery(
+                    {
+                        deliveredBy: '',
+                        deliveryId: selectedDelivery.id,
+                        deliveryDate: selectedDelivery.day,
+                        deliveryDay: selectedDelivery.day,
+                        note: '',
+                        customerId: customerId
+                    }, currentUser.uid);
+
+                setCustomers(customers.map(c => c.id === customerId ?
+                    ({ ...c, deliveryId: undefined, day: undefined }) : c
+                ));
+            }
+            catch (e) {
+                console.error(e);
+                setError('Operazione fallita');
+            }
         }
+        setIsLoading(false);
     }
+
+    const filterCustomers = () => customers.filter(c => c.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()));
 
     return (<>
         <Form>
@@ -117,11 +142,31 @@ const DeliveriesBoardPage = () => {
                     </Form.Select>
                 </Col>
             </Form.Group>
+
+            <Form.Group as={Row} className="mb-3" controlId="day">
+
+                <Col xs={9} md={4}>
+                    <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
+                </Col>
+                <Col>
+                    <Loader isLoading={isLoading} />
+                </Col>
+            </Form.Group>
         </Form>
-        <Loader isLoading={isLoading} />
-        <CustomerDeliveryList customers={customers} deliver={deliver} removeDelivery={undeliver} />
+        {error && <Alert variant="danger">{error}</Alert>}
+
+        <CustomerDeliveryList customers={filterCustomers()} deliver={deliver} removeDelivery={undeliver} />
     </>);
 }
+
+const SearchBar: React.FC<{ searchText: string, onSearchTextChange: (text: string) => void }> =
+    ({ searchText, onSearchTextChange }) =>
+        <FormControl className="mb-6"
+            placeholder="cerca per nome"
+            aria-label="Nome"
+            value={searchText}
+            onChange={(e) => onSearchTextChange(e.target.value)}
+        />
 
 const CustomerDeliveryList: React.FC<{
     customers: CustomerDelilveryDay[],
@@ -141,7 +186,7 @@ const CustomerDeliveryList: React.FC<{
 const CustomerListItemLargeHeader = () =>
     <span className="customer-delivery-item">
         <span>
-            <b>Name</b></span>
+            <b>Nome</b></span>
         <span className="area" title="Zona in cui abita">
             <b>Zona</b>
         </span>

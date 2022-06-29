@@ -26,7 +26,7 @@ const CustomerList: React.FC<{ customers: Customer[], isMobile: boolean }> = ({ 
 const CustomerListItemLargeHeader = () =>
     <span className="customer-item">
         <span>
-            <b>Name</b></span>
+            <b>Nome</b></span>
         <span className="area" title="Zona in cui abita">
             <b>Zona</b>
         </span>

@@ -46,6 +46,7 @@ export const logDelivery = async (delivery: CustomerDelivery, userId: string): P
 
         const docRef = doc(db, 'customers', delivery.customerId);
 
+
         await setDoc(docRef, model);
     }
     return deliveryToStore;

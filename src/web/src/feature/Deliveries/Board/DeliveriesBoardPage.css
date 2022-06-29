@@ -12,3 +12,10 @@
 .customers-deliveries-list .btn {
   width: 8rem;
 }
+
+
+  .customers-deliveries-list{
+    height: 70vh;
+    overflow-y: scroll;
+  }
+
