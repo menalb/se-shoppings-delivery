@@ -37,6 +37,11 @@ h1 {
   color: black !important;
 }
 
+.btn-secondary {
+  color: rgb(18, 33, 64) !important;
+  background-color: white !important;
+}
+
 .buttons .btn-secondary {
   color: rgb(18, 33, 64) !important;
   background-color: white !important;

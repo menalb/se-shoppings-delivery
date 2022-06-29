@@ -11,6 +11,19 @@ export const deliveriesQuery = async (): Promise<Delivery[]> => {
     return querySnapshot.docs.map(e => map(e.data(), e.id));
 }
 
+export const deliveriesQueryByYear = async (year: number): Promise<Delivery[]> => {
+    const dtFrom = new Date(year, 0, 1);
+    const dtTo = new Date(year + 1, 0, 1);
+    const q = query(collection(db, 'deliveries'),
+        where('day', '>=', dtFrom), where('day', '<', dtTo),
+        orderBy('day', 'desc')
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map(e => map(e.data(), e.id));
+}
+
 export const getDelivery = async (deliveryId: string): Promise<Delivery | NotFound> => {
     const docRef = doc(db, 'deliveries', deliveryId);
     const docSnap = await getDoc(docRef);
@@ -23,9 +36,9 @@ export const getDelivery = async (deliveryId: string): Promise<Delivery | NotFou
     }
 }
 
-export const getDeliveryByDay = async (day: Date): Promise<Delivery | NotFound> => {    
+export const getDeliveryByDay = async (day: Date): Promise<Delivery | NotFound> => {
     const dtFrom = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-    const dtTo = new Date(day.getFullYear(), day.getMonth(), day.getDate()+1);
+    const dtTo = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1);
     const q = query(collection(db, 'deliveries'), where('day', '>=', dtFrom), where('day', '<', dtTo));
 
     const querySnapshot = await getDocs(q);

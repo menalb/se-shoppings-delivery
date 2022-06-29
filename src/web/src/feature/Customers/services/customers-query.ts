@@ -115,6 +115,7 @@ const mapCustomerDeliveries = (deliveries: any): CustomerDelivery[] => {
         return 0;
     });
 }
+
 const mapCustomerDelivery = (data: any): CustomerDelivery => ({
     creationDate: secondsToDate(data.creationDate.seconds),
     deliveryDate: secondsToDate(data.deliveryDate.seconds),

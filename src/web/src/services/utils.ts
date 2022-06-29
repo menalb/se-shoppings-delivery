@@ -15,3 +15,6 @@ export const useCheckMobileScreen = () => {
 
     return (width <= 768);
 }
+
+
+export const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];

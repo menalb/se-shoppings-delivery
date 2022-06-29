@@ -81,7 +81,7 @@ const buildUpdateCommand = (customer: Customer): CustomerCommand => ({
     adults: customer.adults ? customer.adults : 0,
     children: customer.children ? customer.children : 0,
     standby: customer.standby ? customer.standby : false,
-    linkMaps: customer.linkMaps,
+    linkMaps: customer.linkMaps ?? '',
     deliveries: customer.deliveries ?? [],
 });
 
