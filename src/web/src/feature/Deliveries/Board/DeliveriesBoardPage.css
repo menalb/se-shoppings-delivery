@@ -9,6 +9,12 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+.customer-delivery-item-xs {
+  display: grid;
+  width: 95%;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .customers-deliveries-list .btn {
   width: 8rem;
 }

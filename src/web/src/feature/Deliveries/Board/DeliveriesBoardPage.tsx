@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Form, FormControl, ListGroup, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../../context";
+import { useCheckMobileScreen } from "../../../services/utils";
 import { DeliveryButton, RemoveDeliveryButton } from "../../ActionButtons";
 import { CustomerDelilveryDay, customersQueryByDelivery } from "../../Customers";
-import { CustomerDelivery } from "../../Customers/model";
+
 import { logDelivery, removeDelivery } from "../../Customers/services/customer-command";
 import { Loader } from "../../Loader";
 import { Delivery } from "../model";
 import { deliveriesQuery } from "../services/delivery-query";
 import './DeliveriesBoardPage.css'
 
-const DeliveriesBoardPage = () => {
+const DeliveriesBoardPage = () => {    
 
+    const isMobile = useCheckMobileScreen();
+    
     const { deliveryId } = useParams();
     const [searchText, setSearchText] = useState('')
     const [error, setError] = useState("")
@@ -155,7 +158,7 @@ const DeliveriesBoardPage = () => {
         </Form>
         {error && <Alert variant="danger">{error}</Alert>}
 
-        <CustomerDeliveryList customers={filterCustomers()} deliver={deliver} removeDelivery={undeliver} />
+        <CustomerDeliveryList customers={filterCustomers()} deliver={deliver} removeDelivery={undeliver} isMobile={isMobile} />
     </>);
 }
 
@@ -171,30 +174,33 @@ const SearchBar: React.FC<{ searchText: string, onSearchTextChange: (text: strin
 const CustomerDeliveryList: React.FC<{
     customers: CustomerDelilveryDay[],
     deliver: (customerId: string) => void,
-    removeDelivery: (customerId: string) => void
-}> = ({ customers, deliver, removeDelivery }) =>
+    removeDelivery: (customerId: string) => void,
+    isMobile:boolean
+}> = ({ customers, deliver, removeDelivery,isMobile }) =>
         <ListGroup as="ul" className="customers-deliveries-list">
 
             <ListGroup.Item as="li" key={'header'}>
-                <CustomerListItemLargeHeader></CustomerListItemLargeHeader>
+                <CustomerListItemLargeHeader isMobile={isMobile}></CustomerListItemLargeHeader>
             </ListGroup.Item>
             {customers.map((e, index) => (<ListGroup.Item as="li" key={index}>
-                <CustomerDeliveryListItem customer={e} deliver={deliver} removeDelivery={removeDelivery} />
+                <CustomerDeliveryListItem customer={e} deliver={deliver} removeDelivery={removeDelivery} isMobile={isMobile} />
             </ListGroup.Item>))}
         </ListGroup>
 
-const CustomerListItemLargeHeader = () =>
-    <span className="customer-delivery-item">
+const CustomerListItemLargeHeader = (props:{isMobile:boolean}) =>
+    <span className={props.isMobile ? 'customer-delivery-item-xs' : 'customer-delivery-item'} >
         <span>
             <b>Nome</b></span>
         <span className="area" title="Zona in cui abita">
             <b>Zona</b>
         </span>
-        <span className="text-center" title="Data ultima consegna">
-            <b>Consegnato</b>
-        </span>
-        <span title="Data ultima consegna">
-            <b>Azione</b>
+        {!props.isMobile &&
+            <span className="text-center"  title="Data ultima consegna">
+                <b>Consegnato</b>
+            </span>
+        }
+        <span>
+            
         </span>
     </span>
 
@@ -202,13 +208,14 @@ const CustomerDeliveryListItem: React.FC<{
     customer: CustomerDelilveryDay,
     deliver: (customerId: string) => void,
     removeDelivery: (customerId: string) => void,
+    isMobile:boolean
 }> =
-    ({ customer, deliver, removeDelivery }) => {
+    ({ customer, deliver, removeDelivery, isMobile }) => {
         const deliveryDateFormatted = () =>
             customer.deliveryId && customer.day ? customer.day.toDateString() : '';
 
         return (
-            <span className="customer-link customer-delivery-item">
+            <span className={"customer-link " + (isMobile ? 'customer-delivery-item-xs' : 'customer-delivery-item')}>
                 <Link to={"/customer/" + customer.id}>
                     <span>
                         {customer.name}</span>
@@ -216,10 +223,10 @@ const CustomerDeliveryListItem: React.FC<{
                 <span className="area" title={'Zona: ' + (customer.area ? customer.area : '')}>
                     {customer.area ? customer.area : ''}
                 </span>
-
-                <span title={'Consegna: ' + deliveryDateFormatted()} className="text-center">
-                    {customer.deliveryId && <DeliveredIcon />}
-                </span>
+                {!isMobile &&
+                    <span title={'Consegna: ' + deliveryDateFormatted()} className="text-center">
+                        {customer.deliveryId && <DeliveredIcon />}
+                    </span>}
                 <span title={'Consegna: '} >
                     {customer.deliveryId ?
                         <RemoveDeliveryButton onClick={() =>

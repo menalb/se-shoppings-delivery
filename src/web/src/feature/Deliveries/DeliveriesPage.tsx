@@ -74,7 +74,7 @@ export const DeliveriesPage = () => {
             <Loader isLoading={isLoading}></Loader>
             <div className="deliveries-list">
             {Object.entries(groupByMonth(deliveries)).reverse().map(m =>
-                <>
+                <div key={ getMonthFromGroup(m)}>
                     <h4>{getMonthFromGroup(m)}</h4>
                     <ListGroup as="ul">
                         {getDeliveryFromGroup(m).map(d =>
@@ -101,7 +101,7 @@ export const DeliveriesPage = () => {
                             </ListGroup.Item>
                         )}
                     </ListGroup>
-                </>
+                </div>
                 
                 )}
             </div>
