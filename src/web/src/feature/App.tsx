@@ -16,6 +16,7 @@ import { DeliveriesPage } from './Deliveries/DeliveriesPage';
 import { AddDeliveryPage } from './Deliveries/AddDeliveryPage';
 import EditDeliveryPage from './Deliveries/EditDeliveryPage';
 import DeliveriesBoardPage from './Deliveries/Board/DeliveriesBoardPage';
+import { TestPage } from './Deliveries/Board/Test';
 
 function App() {
   return (<>
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/deliveries" element={<DeliveriesPage />} />
                 <Route path="/deliveries" element={<AdminRoutes />} >
                   <Route path="board" element={<DeliveriesBoardPage />} ></Route>
+                  <Route path="charts" element={<TestPage />} ></Route>
                   <Route path="board/:deliveryId" element={<DeliveriesBoardPage />} ></Route>
                   <Route path="add" element={<AddDeliveryPage />} />
                   <Route path="edit/:deliveryId" element={<EditDeliveryPage />} ></Route>
