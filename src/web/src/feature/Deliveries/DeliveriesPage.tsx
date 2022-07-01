@@ -5,7 +5,7 @@ import { Delivery } from "./model";
 import { deliveriesQueryByYear } from "./services/delivery-query";
 import { ButtonActionsComponent, SecondaryLinkComponent } from "../ActionButtons";
 import { Loader } from "../Loader";
-import { AddDeliveryButton } from "../Buttons";
+import { AddDeliveryButton, DeliveriesChartsButton } from "../Buttons";
 import { useAuth } from "../../context";
 import './DeliveriesPage.css'
 import { months } from "../../services/utils";
@@ -68,41 +68,45 @@ export const DeliveriesPage = () => {
     return (<>
         <Container className="deliveries-container">
             <h2 className="text-center">Giri</h2>
-            <div className="year-picker">
+            <Row className="year-picker"><Col xs={10}>
                 <YearsSelector yearFrom={2020} yearTo={currentYear} onclick={yearsSelected} selectedYear={selectedYear} />
-            </div>
+            </Col>
+                <Col xs={2} className="d-flex flex-row-reverse">
+                    <DeliveriesChartsButton />
+                </Col>
+            </Row>
             <Loader isLoading={isLoading}></Loader>
             <div className="deliveries-list">
-            {Object.entries(groupByMonth(deliveries)).reverse().map(m =>
-                <div key={ getMonthFromGroup(m)}>
-                    <h4>{getMonthFromGroup(m)}</h4>
-                    <ListGroup as="ul">
-                        {getDeliveryFromGroup(m).map(d =>
-                            <ListGroup.Item as="li" key={d.id}>
+                {Object.entries(groupByMonth(deliveries)).reverse().map(m =>
+                    <div key={getMonthFromGroup(m)}>
+                        <h4>{getMonthFromGroup(m)}</h4>
+                        <ListGroup as="ul">
+                            {getDeliveryFromGroup(m).map(d =>
+                                <ListGroup.Item as="li" key={d.id}>
 
-                                <Row><Col xs={2}>
-                                    Giorno:
-                                </Col>
-                                    <Col xs={6}>
-                                        <b><Link to={"/deliveries/edit/" + d.id}>{d.day.toDateString()}</Link></b>
+                                    <Row><Col xs={2}>
+                                        Giorno:
                                     </Col>
-                                    <Col xs={4}>
-                                        <Link to={"/deliveries/board/" + d.id}>Distribuzioni</Link>
+                                        <Col xs={6}>
+                                            <b><Link to={"/deliveries/edit/" + d.id}>{d.day.toDateString()}</Link></b>
+                                        </Col>
+                                        <Col xs={4}>
+                                            <Link to={"/deliveries/board/" + d.id}>Distribuzioni</Link>
+                                        </Col>
+                                    </Row>
+                                    <Row><Col xs={2}>
+                                        Note:
                                     </Col>
-                                </Row>
-                                <Row><Col xs={2}>
-                                    Note:
-                                </Col>
-                                    <Col xs={8}>{d.note}
+                                        <Col xs={8}>
+                                            {d.note}
+                                        </Col>
+                                    </Row>
 
-                                    </Col>
-                                </Row>
+                                </ListGroup.Item>
+                            )}
+                        </ListGroup>
+                    </div>
 
-                            </ListGroup.Item>
-                        )}
-                    </ListGroup>
-                </div>
-                
                 )}
             </div>
 

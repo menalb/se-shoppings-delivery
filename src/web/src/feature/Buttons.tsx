@@ -80,6 +80,14 @@ export const DeliveriesButton = () => (
     </Link>
 )
 
+export const DeliveriesChartsButton = () => (
+    <Link className="link btn btn-secondary" to="/deliveries/charts" title="Visualizza Grafici Consegne">        
+        <span className="button-name">
+            Grafici
+        </span>
+    </Link>
+)
+
 
 export const UserProfileButton = () => (
     <a href="/profile" title="Profilo utente">

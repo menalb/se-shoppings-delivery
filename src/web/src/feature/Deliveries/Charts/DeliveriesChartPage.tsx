@@ -7,7 +7,7 @@ import { CustomerDelilveryDay, customersQuery, customersQueryByDelivery } from "
 import { Customer } from "../../Customers/model";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, ScatterChart, Scatter, BarChart, Bar } from 'recharts';
 
-export const TestPage = () => {
+export const DeliveriesChartPage = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const { currentUser, roles } = useAuth();
