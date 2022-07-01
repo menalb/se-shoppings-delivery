@@ -73,6 +73,20 @@ export const customersQueryByDate = async (day: Date): Promise<CustomerDelilvery
     return [];
 }
 
+// export const customersQueryByYear = async (year: number): Promise<Customer[]> => {
+
+//     const dtFrom = new Date(year, 0, 1);
+//     const dtTo = new Date(year + 1, 0, 1);
+
+//     const q = query(collection(db, 'customers'),
+//         where('day', '>=', dtFrom), where('day', '<', dtTo),
+//         orderBy('name', 'asc'));
+
+//     const querySnapshot = await getDocs(q);
+
+//     return querySnapshot.docs.map(e => map(e.data(), e.id));
+// }
+
 export interface CustomerDelilveryDay {
     kind: 'customer-delivery-day',
     id: string,
