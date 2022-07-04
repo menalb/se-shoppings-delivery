@@ -87,9 +87,8 @@ const map = (data: DocumentData, id: string): Customer => ({
     area: data.area ? data.area : '',
     note: data.note ? data.note : '',
     address: data.address ? data.address : '',
-    familyStructure: data.familyStructure ? data.familyStructure : '',
-    adults: data.adults ? data.adults : 0,
-    children: data.children ? data.children : 0,
+    familyStructure: data.familyStructure ? data.familyStructure : '',    
+    familyMembers: data.familyMembers ? data.familyMembers : 0,
     standby: data.standby,
     linkMaps: data.linkMaps,
     deliveries: data.deliveries ? mapCustomerDeliveries(data.deliveries) : []

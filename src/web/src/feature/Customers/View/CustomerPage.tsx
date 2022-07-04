@@ -76,7 +76,7 @@ function CustomerPage() {
                                 {customer.name}
                             </span>
                             <span className="buttons">
-                                {currentUser && <>                                   
+                                {currentUser && <>
                                     <DeliveryButton onClick={() => newDeliveryClick()} />
 
                                     <CustomerDeliveryModal
@@ -91,7 +91,7 @@ function CustomerPage() {
                             </span>
                         </h2>
                         {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div>}
-                        <Container className="content">                            
+                        <Container className="content">
                             <Row>
                                 Zona
                             </Row>
@@ -106,7 +106,7 @@ function CustomerPage() {
                             </Row>
                             <Row>
                                 Viene lui
-                            </Row>                            
+                            </Row>
                             <Row>
                                 Indirizzo
                             </Row>
@@ -129,19 +129,10 @@ function CustomerPage() {
                                 Componenti Famiglia
                             </Row>
                             <Row>
+                                <b>{customer.familyMembers ? customer.familyMembers : ' '}</b>
+                            </Row>
+                            <Row>
                                 <b>{customer.familyStructure ? customer.familyStructure : ' '}</b>
-                            </Row>
-                            <Row>
-                                Adulti
-                            </Row>
-                            <Row>
-                                <b>{customer.adults ? customer.adults : ' '}</b>
-                            </Row>
-                            <Row>
-                                Bambini
-                            </Row>
-                            <Row>
-                                <b>{customer.children ? customer.children : ' '}</b>
                             </Row>
                             <Row>
                                 Richieste Particolari

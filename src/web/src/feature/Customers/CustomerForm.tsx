@@ -102,23 +102,16 @@ const CustomerForm = (props: CustomerFormProps) => {
                             <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
                         </Col>
                     </Form.Group>
-                    <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
+                    <Form.Group controlId="familyMembers" as={Row} className="mb-3" >
                         <Form.Label column xs={12}>Componenti Famiglia</Form.Label>
+                        <Col xs={4} lg={2} xl={1}>
+                            <Form.Control name="familyMembers" onChange={handleChange} value={customer.familyMembers} type="number" />
+                        </Col>
+                        
+                    </Form.Group>
+                    <Form.Group controlId="familyStructure" as={Row} className="mb-3" >                        
                         <Col xs={12}>
                             <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
-                        </Col>
-
-                    </Form.Group>
-                    <Form.Group controlId="adults" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Adulti</Form.Label>
-                        <Col xs={4} lg={2} xl={1}>
-                            <Form.Control name="adults" onChange={handleChange} value={customer.adults} type="number" />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group controlId="children" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Bambini</Form.Label>
-                        <Col xs={4} lg={2} xl={1}>
-                            <Form.Control name="children" onChange={handleChange} value={customer.children} type="number" />
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="note">
