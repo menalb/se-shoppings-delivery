@@ -5,8 +5,9 @@ import { getDeliveryByDay } from "../../Deliveries";
 import { Customer, CustomerDelivery } from "../model";
 
 
-export const customersQuery = async (): Promise<Customer[]> => {
-    const q = query(collection(db, 'customers'), orderBy('name', 'asc'));
+export const customersQuery = async (sortBy?: string, direction?: string): Promise<Customer[]> => {
+
+    const q = query(collection(db, 'customers'), orderBy(sortBy ?? 'name', !(direction) || (direction.toUpperCase() === 'ASC') ? 'asc' : 'desc'));
 
     const querySnapshot = await getDocs(q);
 
@@ -35,7 +36,7 @@ export const getCustomer = async (customerId: string): Promise<Customer | NotFou
         return { kind: 'not-found' };
     }
 }
-export const customersQueryByDelivery = async (deliveryId: string): Promise<CustomerDelilveryDay[]> => { 
+export const customersQueryByDelivery = async (deliveryId: string): Promise<CustomerDelilveryDay[]> => {
     const q = query(collection(db, 'customers'), orderBy('name', 'asc'));
     const querySnapshot = await getDocs(q);
 
@@ -64,7 +65,7 @@ export const customersQueryByDelivery = async (deliveryId: string): Promise<Cust
     });
 }
 export const customersQueryByDate = async (day: Date): Promise<CustomerDelilveryDay[]> => {
-    
+
     const delivery = await getDeliveryByDay(day);
 
     if (delivery.kind === 'delivery') {

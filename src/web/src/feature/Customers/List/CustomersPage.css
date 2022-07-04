@@ -20,6 +20,16 @@
     position: absolute;
     right: 0;
   }
+  
+  .customers-page-actions {
+    position: relative;
+  }
+
+  .customers-page-actions .loader{
+    position: absolute;
+    top:0;
+    left:45%
+  }
 
   .customers-page-actions .actions-row {
     position: absolute;
