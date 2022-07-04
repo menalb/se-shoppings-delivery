@@ -91,13 +91,7 @@ function CustomerPage() {
                             </span>
                         </h2>
                         {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div>}
-                        <Container className="content">
-                            <Row>
-                                Tessera{deliveryToEdit.deliveryId}
-                            </Row>
-                            <Row>
-                                {customer.code ? <b>{customer.code}</b> : <em>tessera non assegnata</em>}
-                            </Row>
+                        <Container className="content">                            
                             <Row>
                                 Zona
                             </Row>
@@ -112,10 +106,7 @@ function CustomerPage() {
                             </Row>
                             <Row>
                                 Viene lui
-                            </Row>
-                            {/* <Row>
-                                <b>{!!customer.homeDelivery ? 'SI' : 'NO'}</b>
-                            </Row> */}
+                            </Row>                            
                             <Row>
                                 Indirizzo
                             </Row>

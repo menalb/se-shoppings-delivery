@@ -14,20 +14,11 @@ export const customersQuery = async (sortBy?: string, direction?: string): Promi
     return querySnapshot.docs.map(e => map(e.data(), e.id));
 }
 
-export const getNextCustomerCode = async (): Promise<number> => {
-    const collectionRef = collection(db, 'customers')
-    const q = query(collectionRef, where("code", "!=", NaN));
-    const querySnapshot = await getDocs(q);
-
-    const codes: number[] = querySnapshot.docs.map(e => e.data().code);
-
-    return codes.reduce((p, c) => c > p ? c : p) + 1;
-}
-
 export const getCustomer = async (customerId: string): Promise<Customer | NotFound> => {
     const docRef = doc(db, 'customers', customerId);
 
     const docSnap = await getDoc(docRef);
+
     if (docSnap.exists()) {
         return map(docSnap.data(), customerId);
     }
@@ -74,20 +65,6 @@ export const customersQueryByDate = async (day: Date): Promise<CustomerDelilvery
     return [];
 }
 
-// export const customersQueryByYear = async (year: number): Promise<Customer[]> => {
-
-//     const dtFrom = new Date(year, 0, 1);
-//     const dtTo = new Date(year + 1, 0, 1);
-
-//     const q = query(collection(db, 'customers'),
-//         where('day', '>=', dtFrom), where('day', '<', dtTo),
-//         orderBy('name', 'asc'));
-
-//     const querySnapshot = await getDocs(q);
-
-//     return querySnapshot.docs.map(e => map(e.data(), e.id));
-// }
-
 export interface CustomerDelilveryDay {
     kind: 'customer-delivery-day',
     id: string,
@@ -106,10 +83,10 @@ const map = (data: DocumentData, id: string): Customer => ({
     creationDate: data.creationDdate,
     reference: data.reference,
     homeDelivery: data.homeDelivery ? data.homeDelivery : false,
-    phone: data.phone,
-    area: data.area,
+    phone: data.phone ? data.phone : '',
+    area: data.area ? data.area : '',
     note: data.note ? data.note : '',
-    address: data.address,
+    address: data.address ? data.address : '',
     familyStructure: data.familyStructure ? data.familyStructure : '',
     adults: data.adults ? data.adults : 0,
     children: data.children ? data.children : 0,

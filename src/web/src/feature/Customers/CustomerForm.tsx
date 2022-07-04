@@ -77,13 +77,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                         <Form.Control.Feedback type='invalid'>
                             {errors.get('name')}
                         </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group controlId="code" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Tessera</Form.Label>
-                        <Col xs={6} lg={4} xl={2}>
-                            <Form.Control name="code" onChange={handleChange} value={customer.code} type="number" />
-                        </Col>
-                    </Form.Group>
+                    </Form.Group>                
                     <Form.Group controlId="area" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={1}>Zona</Form.Label>
                         <Col xs={8} lg={4} xl={4}>
@@ -95,13 +89,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                         <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
                         </Col>
-                    </Form.Group>
-                    {/* <Form.Group controlId="homeDelivery" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Viene lui</Form.Label>
-                        <Col xs={6} lg={4} xl={2}>
-                            <Form.Check name="homeDelivery" onChange={handleChange} checked={customer.homeDelivery} type="switch" />
-                        </Col>
-                    </Form.Group> */}
+                    </Form.Group>            
                     <Form.Group controlId="address" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={1}>Indirizzo</Form.Label>
                         <Col xs={8} lg={4} xl={6}>

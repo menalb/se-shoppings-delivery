@@ -3,7 +3,6 @@ import { Alert, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Customer } from "../model";
 import { addCustomer } from "../services/customer-command";
-import { getNextCustomerCode } from "../services/customers-query";
 import CustomerForm from "../CustomerForm";
 import { SaveCancelButtonsComponent } from "../../ActionButtons";
 
@@ -34,21 +33,6 @@ const AddCustomerPage = () => {
     const handleChange = (event: React.ChangeEvent<any>) => {
         setIsUpdateOk(false);
     }
-
-    const nextCustomerCode = async () => {
-        const code = await getNextCustomerCode();
-
-        setCustomer({
-            ...customer,
-            code: code
-        });
-    }
-
-    useEffect(() => {
-        if (!(customer.code && customer.code > 0)) {
-            nextCustomerCode();
-        }
-    }, []);
 
     return (
         <>
