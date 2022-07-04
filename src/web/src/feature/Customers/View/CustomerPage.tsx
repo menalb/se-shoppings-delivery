@@ -113,9 +113,9 @@ function CustomerPage() {
                             <Row>
                                 Viene lui
                             </Row>
-                            <Row>
+                            {/* <Row>
                                 <b>{!!customer.homeDelivery ? 'SI' : 'NO'}</b>
-                            </Row>
+                            </Row> */}
                             <Row>
                                 Indirizzo
                             </Row>

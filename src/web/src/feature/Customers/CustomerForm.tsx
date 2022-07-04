@@ -96,12 +96,12 @@ const CustomerForm = (props: CustomerFormProps) => {
                             <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
                         </Col>
                     </Form.Group>
-                    <Form.Group controlId="homeDelivery" as={Row} className="mb-3" >
+                    {/* <Form.Group controlId="homeDelivery" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={1}>Viene lui</Form.Label>
                         <Col xs={6} lg={4} xl={2}>
                             <Form.Check name="homeDelivery" onChange={handleChange} checked={customer.homeDelivery} type="switch" />
                         </Col>
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group controlId="address" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={1}>Indirizzo</Form.Label>
                         <Col xs={8} lg={4} xl={6}>
