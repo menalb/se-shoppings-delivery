@@ -31,7 +31,7 @@ const CustomerListItemLargeHeader: React.FC<{ canSort: boolean }> = (canSort) =>
 
     const buildDirection = (name: string) => sort === name ? direction : 'ASC';
     const buildTo = (name: string) => `?sort=${name}&direction=${buildDirection(name)}`;
-    
+
     useEffect(() => {
         if (searchParams && searchParams.get('sort') && searchParams.get('direction')) {
             const nextSort = searchParams.get('sort') ?? 'name';
@@ -83,8 +83,8 @@ const CustomerListItemLargeHeader: React.FC<{ canSort: boolean }> = (canSort) =>
             <span className="latestDelivery" title="Data ultima consegna">
                 <b>Consegna</b>
             </span>
-            <span title="Richieste particolari">
-                
+            <span className="note" title="Richieste particolari">
+                <SpecialIcon />
             </span>
         </span>
     )
@@ -129,7 +129,7 @@ const CustomerListItemLarge: React.FC<{ customer: Customer }> =
                     </span>
                 </Link >
                 <span className="note" title={'Richieste particolari'}>
-                    {(customer.note && customer.note !=='') && <span title={customer.note}><SpecialIcon /></span>}
+                    {(customer.note && customer.note !== '') && <span title={customer.note}><SpecialIcon /></span>}
                 </span>
                 {customer.standby && <em title="Attualmente in standby">[S]</em>}
             </span >
