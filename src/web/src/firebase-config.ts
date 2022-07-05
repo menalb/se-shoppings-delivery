@@ -13,6 +13,7 @@ import {
     collection,
     where,
     addDoc,
+    initializeFirestore,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -35,7 +36,8 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     }
 };
 
-const db = getFirestore(app);
+const db = initializeFirestore(app, { ignoreUndefinedProperties: true });
+//const db = getFirestore(app, { ignoreUndefinedProperties: true });
 
 const googleProvider = new GoogleAuthProvider();
 

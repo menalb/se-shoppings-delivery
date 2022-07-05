@@ -82,6 +82,7 @@ const buildUpdateCommand = (customer: Customer): CustomerCommand => ({
     familyMembers: customer.familyMembers ? customer.familyMembers : 0,    
     standby: customer.standby ? customer.standby : false,
     linkMaps: customer.linkMaps ?? '',
+    documentationDeliveredOn: customer.documentationDeliveredOn,
     deliveries: customer.deliveries ?? [],
 });
 
@@ -100,5 +101,6 @@ interface CustomerCommand {
     phone: string,
     standby: boolean,
     linkMaps: string,
+    documentationDeliveredOn?:Date,
     deliveries: CustomerDelivery[]
 }

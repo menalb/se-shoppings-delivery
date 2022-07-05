@@ -91,6 +91,7 @@ const map = (data: DocumentData, id: string): Customer => ({
     familyMembers: data.familyMembers ? data.familyMembers : 0,
     standby: data.standby,
     linkMaps: data.linkMaps,
+    documentationDeliveredOn: data.documentationDeliveredOn ? secondsToDate(data.documentationDeliveredOn.seconds) : data.documentationDeliveredOn,
     deliveries: data.deliveries ? mapCustomerDeliveries(data.deliveries) : []
 });
 

@@ -8,13 +8,14 @@ export interface Customer {
     creationDate: Date,
     reference: string,
     familyStructure: string,
-    familyMembers:number,
+    familyMembers: number,
     homeDelivery?: boolean,
     note: string,
     address: string,
     phone: string,
     standby: boolean,
     linkMaps: string,
+    documentationDeliveredOn?: Date,
     deliveries: CustomerDelivery[]
 }
 export interface CustomerDelivery {

@@ -140,6 +140,12 @@ function CustomerPage() {
                             <Row>
                                 <b>{customer.note ? customer.note : ' '}</b>
                             </Row>
+                            <Row>
+                                Data consegna ISEE
+                            </Row>
+                            <Row>
+                                <b>{customer.documentationDeliveredOn ? customer.documentationDeliveredOn.toDateString() : 'ISEE non consegnato'}</b>
+                            </Row>
                             <h3 className="text-center">Consegne ({customer.deliveries ? customer.deliveries.length : 0})</h3>
                             <Row>
                                 <em className="text-center">Selezionare la riga per modificare</em>

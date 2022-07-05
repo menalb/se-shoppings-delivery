@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { Customer } from "./model";
 
 import './CustomerForm.css'
+import { formatDateCalendar } from "../../model";
 
 interface CustomerFormProps {
     customer: Customer,
@@ -24,7 +25,12 @@ const CustomerForm = (props: CustomerFormProps) => {
 
         const { target } = event;
         const { name } = target;
-        const value = name === "standby" || name === "homeDelivery" ? target.checked : target.value;
+        let value = name === "standby" || name === "homeDelivery"
+            ? target.checked : target.value;
+
+        value = name === 'documentationDeliveredOn' ?
+            target.value !== '' ? new Date(target.value) : undefined :
+            value;
 
         setCustomer({
             ...customer,
@@ -37,6 +43,13 @@ const CustomerForm = (props: CustomerFormProps) => {
         }
         props.handleChange(event);
     };
+
+    const resetDocumentationDeliveryDate = () => {
+        setCustomer({
+            ...customer,
+            documentationDeliveredOn: undefined,
+        });
+    }
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -77,7 +90,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                         <Form.Control.Feedback type='invalid'>
                             {errors.get('name')}
                         </Form.Control.Feedback>
-                    </Form.Group>                
+                    </Form.Group>
                     <Form.Group controlId="area" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={1}>Zona</Form.Label>
                         <Col xs={8} lg={4} xl={4}>
@@ -89,7 +102,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                         <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
                         </Col>
-                    </Form.Group>            
+                    </Form.Group>
                     <Form.Group controlId="address" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={1}>Indirizzo</Form.Label>
                         <Col xs={8} lg={4} xl={6}>
@@ -103,22 +116,38 @@ const CustomerForm = (props: CustomerFormProps) => {
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="familyMembers" as={Row} className="mb-3" >
-                        <Form.Label column xs={12}>Componenti Famiglia</Form.Label>
+                        <Form.Label column xs={4} lg={2}>Componenti Famiglia</Form.Label>
                         <Col xs={4} lg={2} xl={1}>
                             <Form.Control name="familyMembers" onChange={handleChange} value={customer.familyMembers} type="number" />
                         </Col>
-                        
+
                     </Form.Group>
-                    <Form.Group controlId="familyStructure" as={Row} className="mb-3" >                        
+                    <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
                         <Col xs={12}>
                             <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
                         </Col>
                     </Form.Group>
-                    <Form.Group controlId="note">
-                        <Form.Label>Richieste Particolari</Form.Label>
-                        <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
+                    <Form.Group controlId="note" as={Row} className="mb-3" >
+                        <Form.Label column xs={12}>Richieste Particolari</Form.Label>
+                        <Col xs={12}>
+                            <Form.Control name="note" as="textarea" onChange={handleChange} value={customer.note} type="text" />
+                        </Col>
                     </Form.Group>
-                    <Form.Group controlId="linkMaps">
+
+                    <Form.Group controlId="documentationDeliveryDate" as={Row} className="mb-3" >
+                        <Form.Label column xs={12} lg={2}>Data consegna ISEE</Form.Label>
+                        <Col xs={8} lg={2}>
+                            <Form.Control
+                                name="documentationDeliveredOn"
+                                onChange={handleChange}
+                                value={customer.documentationDeliveredOn ? formatDateCalendar(customer.documentationDeliveredOn) : ''}
+                                type="date" />
+                        </Col>
+                        <Col xs={2} lg={4}>
+                            <Button className="btn-secondary" title="Azzera data consegna ISEE" onClick={resetDocumentationDeliveryDate}>X</Button>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group controlId="linkMaps" as={Row} className="mb-3" >
                         <Form.Label column xs={10} >GoogleMaps link</Form.Label>
                         <Col xs={10}>
                             <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
