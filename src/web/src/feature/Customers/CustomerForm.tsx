@@ -4,22 +4,24 @@ import { Customer } from "./model";
 
 import './CustomerForm.css'
 import { formatDateCalendar } from "../../model";
+import { useCheckMobileScreen } from "../../services/utils";
+import { ActionComponentProps, LinkComponentProps, SaveCancelButtonsComponent, SecondaryLinkComponent } from "../ActionButtons";
 
 interface CustomerFormProps {
     customer: Customer,
     disabled: boolean,
     handleChange: (event: React.ChangeEvent<any>) => void,
     handleSubmit: (customer: Customer) => void,
-    SaveCancelButtons: JSX.Element
+    buttons: {
+        cancel: LinkComponentProps,
+        submit: ActionComponentProps
+    }
 };
 
 const CustomerForm = (props: CustomerFormProps) => {
     const [customer, setCustomer] = useState(props.customer);
     const [errors, setErrors] = useState(new Map<string, string>());
-
-    useEffect(() => {
-
-    }, []);
+    const isMobile = useCheckMobileScreen();
 
     const handleChange = (event: React.ChangeEvent<any>) => {
 
@@ -80,7 +82,20 @@ const CustomerForm = (props: CustomerFormProps) => {
 
     return (
         <>
-            <Form className="customer-form " onSubmit={handleSubmit}>
+            <Form className="customer-form" onSubmit={handleSubmit}>
+                <h2 className="text-center mb-4">
+                    {!isMobile &&
+                        <SecondaryLinkComponent {...props.buttons.cancel} />
+                    }
+                    {customer.name}
+                    {!isMobile &&
+                        <Button
+                            type="submit"
+                            title={props.buttons.submit.title}>
+                            {props.buttons.submit.text}
+                        </Button>
+                    }
+                </h2>
                 <fieldset className="content" disabled={props.disabled}>
                     <Form.Group controlId="name" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={2}>Nome</Form.Label>
@@ -137,7 +152,7 @@ const CustomerForm = (props: CustomerFormProps) => {
 
                     <Form.Group controlId="birthDay" as={Row} className="mb-3" >
                         <Form.Label column xs={12} lg={2}>Compleanno</Form.Label>
-                        <Col xs={8} lg={2}>
+                        <Col xs={8} lg={4}>
                             <Form.Control
                                 name="birthDay"
                                 onChange={handleChange}
@@ -150,7 +165,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                     </Form.Group>
                     <Form.Group controlId="documentationDeliveryDate" as={Row} className="mb-3" >
                         <Form.Label column xs={12} lg={2}>Data consegna ISEE</Form.Label>
-                        <Col xs={8} lg={2}>
+                        <Col xs={8} lg={4}>
                             <Form.Control
                                 name="documentationDeliveredOn"
                                 onChange={handleChange}
@@ -173,7 +188,11 @@ const CustomerForm = (props: CustomerFormProps) => {
                     </Form.Group>
 
                 </fieldset>
-                {props.SaveCancelButtons}
+                {isMobile &&
+                    <SaveCancelButtonsComponent
+                        cancel={props.buttons.cancel}
+                        submit={props.buttons.submit}
+                    />}
             </Form>
         </>);
 }

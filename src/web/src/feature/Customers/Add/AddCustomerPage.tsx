@@ -48,13 +48,12 @@ const AddCustomerPage = () => {
                         customer={customer}
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
-                        disabled={isUpdating}
-                        SaveCancelButtons={<SaveCancelButtonsComponent
-                            cancel={
-                                { link: '/customers', text: 'Annulla', title: `Annulla e torna all'elenco delle persone` }
-                            }
-                            submit={{ text: 'Salva', title: 'Salva nuova persona' }}
-                        />}
+                        disabled={isUpdating}                        
+                        buttons={{
+                            cancel: { link: '/customers', text: 'Annulla', title: `Annulla e torna all'elenco delle persone` },
+                            submit: { text: 'Salva', title: 'Salva nuova persona' }
+                        }}
+
                     />
 
                 </Card.Body>

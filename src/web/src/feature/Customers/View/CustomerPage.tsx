@@ -10,9 +10,11 @@ import { CustomerDeliveriesComponent } from "../Deliveries/CustomerDeliveriesCom
 
 import './CustomerPage.css';
 import { ButtonActionsComponent, DeliveryButton, PrimaryLinkComponent, SaveCancelButtonsComponent, SecondaryLinkComponent } from "../../ActionButtons";
+import { useCheckMobileScreen } from "../../../services/utils";
 
 function CustomerPage() {
     const { customerId } = useParams();
+    const isMobile = useCheckMobileScreen();
 
     const emptyCustomerDelivery: CustomerDelivery = {
         deliveryId: '',
@@ -72,11 +74,18 @@ function CustomerPage() {
                 <Card className="customer-page">
                     <Card.Body>
                         <h2 className="text-lg-center mb-4">
+                            {!isMobile &&
+                                <SecondaryLinkComponent link={"/customers"} text={'Elenco Persone'} title={`Torna all'elenco delle persone`} />
+                            }
                             <span>
                                 {customer.name}
                             </span>
                             <span className="buttons">
                                 {currentUser && <>
+                                    {!isMobile &&
+                                        <PrimaryLinkComponent link={`/edit/${customerId}`} text={'Modifica'} title={`Modifica Persona`} />
+                                    }
+
                                     <DeliveryButton onClick={() => newDeliveryClick()} />
 
                                     <CustomerDeliveryModal
@@ -183,13 +192,14 @@ function CustomerPage() {
                                 </em></Row>
                             }
                         </Container>
-                        <Container>
+                        {isMobile &&
+                            <Container>
 
-                            <ButtonActionsComponent
-                                left={<SecondaryLinkComponent link={"/customers"} text={'Elenco Persone'} title={`Torna all'elenco delle persone`} />}
-                                right={<PrimaryLinkComponent link={`/edit/${customerId}`} text={'Modifica'} title={`Modifica Persona`} />}
-                            />
-                        </Container>
+                                <ButtonActionsComponent
+                                    left={<SecondaryLinkComponent link={"/customers"} text={'Elenco Persone'} title={`Torna all'elenco delle persone`} />}
+                                    right={<PrimaryLinkComponent link={`/edit/${customerId}`} text={'Modifica'} title={`Modifica Persona`} />}
+                                />
+                            </Container>}
                     </Card.Body>
                 </Card>
             }

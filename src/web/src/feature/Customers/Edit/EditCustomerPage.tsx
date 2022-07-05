@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Alert, Card } from "react-bootstrap";
-import { useParams,useNavigate } from "react-router-dom";
+import { Alert, Button, Card } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
 import { Loader } from "../../Loader";
 import { getCustomer } from "../services/customers-query";
 import { updateCustomer } from "../services/customer-command";
@@ -10,8 +10,7 @@ import { Customer } from "../model";
 
 import './EditCustomerPage.css';
 
-
-const EditCustomerPage = () =>{
+const EditCustomerPage = () => {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState({} as Customer)
     const [isLoading, setIsLoading] = useState(false);
@@ -65,27 +64,27 @@ const EditCustomerPage = () =>{
     return (
         <>
             <Loader isLoading={isLoading || isUpdating}></Loader>
-            {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div> }
+            {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div>}
             {!isLoading &&
-                <Card>
+                <Card className="edit-customer-page">
                     <Card.Body>
-                        <h2 className="text-center mb-4">{customer.name}</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
                         {isUpdateOk &&
                             <p className="update-ok">
                                 <em>Aggiornameto completato con successo</em>
-                            </p> }
+                            </p>}
                         <CustomerForm
                             customer={customer}
                             handleSubmit={handleSubmit}
                             handleChange={handleChange}
-                            disabled={isUpdating}
-                            SaveCancelButtons={<SaveCancelButtonsComponent
-                                cancel={
-                                    { link: `/customer/${customer.id}`, text: 'Annulla', title: `Annulla modifica e torna ai dettagli persona` }
+                            disabled={isUpdating}                
+
+                            buttons={
+                                {
+                                    cancel: { link: `/customer/${customer.id}`, text: 'Annulla', title: 'Annulla modifica e torna ai dettagli persona' },
+                                    submit: { text: 'Salva', title: 'Salva modifiche persona' }
                                 }
-                                submit={{ text: 'Salva', title: 'Salva modifiche persona' }}
-                            />}
+                            }
                         ></CustomerForm>
 
                     </Card.Body>

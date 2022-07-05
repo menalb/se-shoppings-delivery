@@ -2,14 +2,19 @@
   font-size: 1.5em;
 }
 
-.customer-form .content{
+.customer-form .content {
   padding-right: 1rem;
+}
+
+.customer-form h2 {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 992px) {
   .customer-form {
-    margin-bottom: 2rem;
-    overflow-y: scroll;
+    /* margin-bottom: 2rem; */
+    /* overflow-y: scroll; */
   }
 
   .customer-form fieldset {

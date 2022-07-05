@@ -11,8 +11,8 @@ export const SaveCancelButtonsComponent = (props:
         right={<Button type="submit" title={props.submit.title}>{props.submit.text}</Button>}
     />
 
-type LinkComponentProps = ActionComponentProps & { link: string }
-type ActionComponentProps = { text?: string, title?: string }
+export type LinkComponentProps = ActionComponentProps & { link: string }
+export type ActionComponentProps = { text?: string, title?: string }
 
 
 export const SecondaryLinkComponent = (props: LinkComponentProps) =>

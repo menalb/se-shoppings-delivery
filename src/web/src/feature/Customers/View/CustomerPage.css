@@ -21,6 +21,10 @@
   margin: 0;
 }
 
+.customer-page h2 .buttons button {
+  margin-left: 0.5rem;
+}
+
 .customer-page .no-delivery {
   padding-top: 0.5rem;
 }
