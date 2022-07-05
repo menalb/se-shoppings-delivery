@@ -139,8 +139,8 @@ function CustomerPage() {
                                 </Col>
                             </Row>
                             <Row className="mb-3">
-                                <Col xs={12} className="offset-lg-4">
-                                    <b>{customer.familyStructure ? customer.familyStructure : ' '}</b>
+                                <Col xs={8} className="offset-lg-4">
+                                    <b title="Descrizione struttura famiglia">{customer.familyStructure ? customer.familyStructure : ' '}</b>
                                 </Col>
                             </Row>
                             <Row className="mb-3">

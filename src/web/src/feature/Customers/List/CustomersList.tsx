@@ -31,9 +31,7 @@ const CustomerListItemLargeHeader: React.FC<{ canSort: boolean }> = (canSort) =>
 
     const buildDirection = (name: string) => sort === name ? direction : 'ASC';
     const buildTo = (name: string) => `?sort=${name}&direction=${buildDirection(name)}`;
-    const buildSortIndicator = (name: string) =>
-        sort === name ? <SortIndicator name={name} direction={'ASC'} /> : '';
-
+    
     useEffect(() => {
         if (searchParams && searchParams.get('sort') && searchParams.get('direction')) {
             const nextSort = searchParams.get('sort') ?? 'name';
@@ -49,7 +47,7 @@ const CustomerListItemLargeHeader: React.FC<{ canSort: boolean }> = (canSort) =>
     }, [searchParams]);
 
     return (
-        <span className="customer-item">
+        <span className="customer-item-head">
             <span>
                 <Link to={buildTo('name')}>
                     <b>
@@ -85,6 +83,9 @@ const CustomerListItemLargeHeader: React.FC<{ canSort: boolean }> = (canSort) =>
             <span className="latestDelivery" title="Data ultima consegna">
                 <b>Consegna</b>
             </span>
+            <span title="Richieste particolari">
+                
+            </span>
         </span>
     )
 }
@@ -101,27 +102,14 @@ const SortIndicator: React.FC<{ name: string, direction: string }> = ({ name, di
             <path d="M4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z" />
         </svg>
 
-const CustomerListItemSmall: React.FC<{ customer: Customer }> =
-    ({ customer }) =>
-        <span className="customer-link">
-            <Link to={"/customer/" + customer.id} className={"customer-item-xs"}>
-                <span>
-                    {customer.name}</span>
-                <span className="area" title={'Zona: ' + (customer.area ? customer.area : '')}>
-                    {customer.area ? customer.area : ''}
-                </span>
-            </Link>
-            {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
-        </span>
-
 const CustomerListItemLarge: React.FC<{ customer: Customer }> =
     ({ customer }) => {
         const deliveryDateFormatted = () =>
             customer.deliveries && customer.deliveries.length > 0 ? customer.deliveries[0].deliveryDate.toDateString() : '';
 
         return (
-            <span className="customer-link">
-                <Link to={"/customer/" + customer.id} className={"customer-item"}>
+            <span className="customer-item">
+                <Link to={"/customer/" + customer.id} className={"customer-link"}>
                     <span>
                         {customer.name}</span>
                     <span className="area" title={'Zona: ' + (customer.area ? customer.area : '')}>
@@ -140,9 +128,31 @@ const CustomerListItemLarge: React.FC<{ customer: Customer }> =
                         {deliveryDateFormatted()}
                     </span>
                 </Link >
+                <span className="note" title={'Richieste particolari'}>
+                    {(customer.note && customer.note !=='') && <span title={customer.note}><SpecialIcon /></span>}
+                </span>
                 {customer.standby && <em title="Attualmente in standby">[S]</em>}
             </span >
         );
     }
+
+const SpecialIcon = () =>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star-fill" viewBox="0 0 16 16">
+        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+    </svg>
+
+const CustomerListItemSmall: React.FC<{ customer: Customer }> =
+    ({ customer }) =>
+        <span className="customer-item-xs">
+            <Link to={"/customer/" + customer.id} className={"customer-link-xs"}>
+                <span>
+                    {customer.name}</span>
+                <span className="area" title={'Zona: ' + (customer.area ? customer.area : '')}>
+                    {customer.area ? customer.area : ''}
+                </span>
+            </Link>
+            {customer.standby ? <em title="Attualmente in standby">[S]</em> : ''}
+        </span>
+
 
 export default CustomerList;
