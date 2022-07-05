@@ -33,11 +33,9 @@ const CustomersPage = () => {
         return !!currentUser && roles.some(r => r === 'admin');
     }
 
-    const mapToExport = () => customers.map(c => ({
-        Nr: c.code ? isNaN(c.code) ? '' : c.code : '',
-        Tessera: c.customerId ? isNaN(c.customerId) ? '' : c.customerId : '',
-        Quartiere: c.area,
+    const mapToExport = () => customers.map(c => ({        
         Nome: c.name,
+        Quartiere: c.area,
         Referente: c.reference,
         Famiglia: c.familyStructure,
         RichiesteParticolari: c.note,
