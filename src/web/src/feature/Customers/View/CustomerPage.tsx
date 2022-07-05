@@ -144,6 +144,16 @@ function CustomerPage() {
                                 </Col>
                             </Row>
                             <Row className="mb-3">
+                                <Col lg={4}>
+                                    Compleanno
+                                </Col>
+                                <Col>
+                                    <b>
+                                        {customer.birthDay && !isNaN(customer.birthDay.valueOf()) ? <span>{customer.birthDay.toDateString()} </span> : ''}
+                                    </b>
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
                                 <Col xs={12}>
                                     Richieste Particolari
                                 </Col>

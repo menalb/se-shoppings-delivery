@@ -10,6 +10,7 @@ export interface Customer {
     familyStructure: string,
     familyMembers: number,
     homeDelivery?: boolean,
+    birthDay?: Date,
     note: string,
     address: string,
     phone: string,

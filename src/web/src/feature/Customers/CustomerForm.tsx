@@ -32,6 +32,8 @@ const CustomerForm = (props: CustomerFormProps) => {
             target.value !== '' ? new Date(target.value) : undefined :
             value;
 
+        value = name === 'birthDay' ? (target.value !== '' ? new Date(target.value) : undefined) : value;
+
         setCustomer({
             ...customer,
             [name]: value,
@@ -44,10 +46,10 @@ const CustomerForm = (props: CustomerFormProps) => {
         props.handleChange(event);
     };
 
-    const resetDocumentationDeliveryDate = () => {
+    const resetDateField = (fieldName: string) => {
         setCustomer({
             ...customer,
-            documentationDeliveredOn: undefined,
+            [fieldName]: undefined,
         });
     }
 
@@ -120,7 +122,6 @@ const CustomerForm = (props: CustomerFormProps) => {
                         <Col xs={4} lg={2} xl={1}>
                             <Form.Control name="familyMembers" onChange={handleChange} value={customer.familyMembers} type="number" />
                         </Col>
-
                     </Form.Group>
                     <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
                         <Col xs={12}>
@@ -134,6 +135,19 @@ const CustomerForm = (props: CustomerFormProps) => {
                         </Col>
                     </Form.Group>
 
+                    <Form.Group controlId="birthDay" as={Row} className="mb-3" >
+                        <Form.Label column xs={12} lg={2}>Compleanno</Form.Label>
+                        <Col xs={8} lg={2}>
+                            <Form.Control
+                                name="birthDay"
+                                onChange={handleChange}
+                                value={customer.birthDay ? formatDateCalendar(customer.birthDay) : ''}
+                                type="date" />
+                        </Col>
+                        <Col xs={2} lg={4}>
+                            <Button className="btn-secondary" title="Azzera compleanno" onClick={(e) => resetDateField('birthDay')}>X</Button>
+                        </Col>
+                    </Form.Group>
                     <Form.Group controlId="documentationDeliveryDate" as={Row} className="mb-3" >
                         <Form.Label column xs={12} lg={2}>Data consegna ISEE</Form.Label>
                         <Col xs={8} lg={2}>
@@ -144,7 +158,7 @@ const CustomerForm = (props: CustomerFormProps) => {
                                 type="date" />
                         </Col>
                         <Col xs={2} lg={4}>
-                            <Button className="btn-secondary" title="Azzera data consegna ISEE" onClick={resetDocumentationDeliveryDate}>X</Button>
+                            <Button className="btn-secondary" title="Azzera data consegna ISEE" onClick={(e) => resetDateField('documentationDeliveredOn')}>X</Button>
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="linkMaps" as={Row} className="mb-3" >
