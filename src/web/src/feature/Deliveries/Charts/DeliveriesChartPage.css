@@ -1,0 +1,7 @@
+.year-deliveries-chart {
+  display: flex;
+}
+.year-deliveries-chart .charts-title {
+  text-align: center;
+  width: 100%;
+}

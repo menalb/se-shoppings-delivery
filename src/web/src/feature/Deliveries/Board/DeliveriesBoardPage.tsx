@@ -3,7 +3,7 @@ import { Alert, Col, Form, FormControl, ListGroup, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../../context";
 import { useCheckMobileScreen } from "../../../services/utils";
-import { DeliveryButton, RemoveDeliveryButton } from "../../ActionButtons";
+import { DeliveryButton, RemoveDeliveryButton, SecondaryLinkComponent } from "../../ActionButtons";
 import { CustomerDelilveryDay, customersQueryByDelivery } from "../../Customers";
 
 import { logDelivery, removeDelivery } from "../../Customers/services/customer-command";
@@ -12,10 +12,10 @@ import { Delivery } from "../model";
 import { deliveriesQuery } from "../services/delivery-query";
 import './DeliveriesBoardPage.css'
 
-const DeliveriesBoardPage = () => {    
+const DeliveriesBoardPage = () => {
 
     const isMobile = useCheckMobileScreen();
-    
+
     const { deliveryId } = useParams();
     const [searchText, setSearchText] = useState('')
     const [error, setError] = useState("")
@@ -137,12 +137,19 @@ const DeliveriesBoardPage = () => {
     return (<>
         <Form>
             <Form.Group as={Row} className="mb-3" controlId="day">
-                <Form.Label column sm="2" xs="12">Data</Form.Label>
+                <Col xs={12} sm={4}>
+                    <SecondaryLinkComponent link="/deliveries" text="Elenco consegne" title="Torna all'elenco delle consegne" />
+                </Col>
+                <Col>
+                    <Row>
+                        <Form.Label column xs={2} lg={1} >Data</Form.Label>
 
-                <Col sm="10" xs="12">
-                    <Form.Select name="deliveryId" aria-label="Seleziona data di consegna" onChange={handleChange} value={selectedDelivery.id} >
-                        {deliveries.map(d => <option key={d.id} value={d.id}>{d.day.toDateString()}</option>)}
-                    </Form.Select>
+                        <Col sm={6} lg={4}>
+                            <Form.Select name="deliveryId" aria-label="Seleziona data di consegna" onChange={handleChange} value={selectedDelivery.id} >
+                                {deliveries.map(d => <option key={d.id} value={d.id}>{d.day.toDateString()}</option>)}
+                            </Form.Select>
+                        </Col>
+                    </Row>
                 </Col>
             </Form.Group>
 
@@ -175,8 +182,8 @@ const CustomerDeliveryList: React.FC<{
     customers: CustomerDelilveryDay[],
     deliver: (customerId: string) => void,
     removeDelivery: (customerId: string) => void,
-    isMobile:boolean
-}> = ({ customers, deliver, removeDelivery,isMobile }) =>
+    isMobile: boolean
+}> = ({ customers, deliver, removeDelivery, isMobile }) =>
         <ListGroup as="ul" className="customers-deliveries-list">
 
             <ListGroup.Item as="li" key={'header'}>
@@ -187,7 +194,7 @@ const CustomerDeliveryList: React.FC<{
             </ListGroup.Item>))}
         </ListGroup>
 
-const CustomerListItemLargeHeader = (props:{isMobile:boolean}) =>
+const CustomerListItemLargeHeader = (props: { isMobile: boolean }) =>
     <span className={props.isMobile ? 'customer-delivery-item-xs' : 'customer-delivery-item'} >
         <span>
             <b>Nome</b></span>
@@ -195,12 +202,12 @@ const CustomerListItemLargeHeader = (props:{isMobile:boolean}) =>
             <b>Zona</b>
         </span>
         {!props.isMobile &&
-            <span className="text-center"  title="Data ultima consegna">
+            <span className="text-center" title="Data ultima consegna">
                 <b>Consegnato</b>
             </span>
         }
         <span>
-            
+
         </span>
     </span>
 
@@ -208,7 +215,7 @@ const CustomerDeliveryListItem: React.FC<{
     customer: CustomerDelilveryDay,
     deliver: (customerId: string) => void,
     removeDelivery: (customerId: string) => void,
-    isMobile:boolean
+    isMobile: boolean
 }> =
     ({ customer, deliver, removeDelivery, isMobile }) => {
         const deliveryDateFormatted = () =>

@@ -8,6 +8,8 @@ import { Customer } from "../../Customers/model";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, ScatterChart, Scatter, BarChart, Bar, AreaChart, ReferenceLine, Area, LabelList } from 'recharts';
 import { Col, Row } from "react-bootstrap";
 import { YearsSelector } from "../../YearsSelectorComponent";
+import { SecondaryLinkComponent } from "../../ActionButtons";
+import './DeliveriesChartPage.css'
 
 
 export const DeliveriesChartPage = () => {
@@ -118,7 +120,16 @@ export const DeliveriesChartPage = () => {
 
     return (
         <>
-            <h3>Consegne per anno</h3>
+            <Row>
+                <Col>
+                    <SecondaryLinkComponent link="/deliveries" text="Elenco consegne" title="Torna all'elenco delle consegne" />
+                </Col>
+            </Row>
+
+            <h3 className="text-center">
+                Consegne per anno
+            </h3>
+
             <Row className="year-picker"><Col xs={10}>
                 <YearsSelector yearFrom={2020} yearTo={currentYear} onclick={setSelectedYear} selectedYear={selectedYear} />
             </Col>
@@ -132,7 +143,7 @@ export const DeliveriesChartPage = () => {
                 <XAxis type="category" dataKey="dayText" height={80} tick={<CustomizedAxisTick />} />
                 <Tooltip />
             </BarChart>
-            <h3>Andamento negli anni</h3>
+            <h3 className="text-center">Andamento negli anni</h3>
             <LineChart
                 width={800}
                 height={300}
