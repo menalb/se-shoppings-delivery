@@ -81,7 +81,7 @@ const CustomerForm = (props: CustomerFormProps) => {
             <Form className="customer-form" onSubmit={handleSubmit}>
                 <fieldset disabled={props.disabled}>
                     <Form.Group controlId="name" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Nome</Form.Label>
+                        <Form.Label column xs={4} lg={2} xl={2}>Nome</Form.Label>
                         <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="name" onChange={handleChange} value={customer.name} type="text" required
                                 isInvalid={errors.has('name')}
@@ -92,25 +92,25 @@ const CustomerForm = (props: CustomerFormProps) => {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group controlId="area" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Zona</Form.Label>
+                        <Form.Label column xs={4} lg={2} xl={2}>Zona</Form.Label>
                         <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="area" onChange={handleChange} value={customer.area} type="text" />
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="reference" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1} title="Referente">Referente</Form.Label>
+                        <Form.Label column xs={4} lg={2} xl={2} title="Referente">Referente</Form.Label>
                         <Col xs={8} lg={4} xl={4}>
                             <Form.Control name="reference" onChange={handleChange} value={customer.reference} type="text" />
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="address" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Indirizzo</Form.Label>
+                        <Form.Label column xs={4} lg={2} xl={2}>Indirizzo</Form.Label>
                         <Col xs={8} lg={4} xl={6}>
                             <Form.Control name="address" onChange={handleChange} value={customer.address} type="text" />
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="phone" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Telefono</Form.Label>
+                        <Form.Label column xs={4} lg={2} xl={2}>Telefono</Form.Label>
                         <Col xs={8} lg={4} xl={2}>
                             <Form.Control name="phone" onChange={handleChange} value={customer.phone} type="text" />
                         </Col>
@@ -148,14 +148,14 @@ const CustomerForm = (props: CustomerFormProps) => {
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="linkMaps" as={Row} className="mb-3" >
-                        <Form.Label column xs={10} >GoogleMaps link</Form.Label>
-                        <Col xs={10}>
+                        <Form.Label column xs={12} lg={2}>GoogleMaps link</Form.Label>
+                        <Col xs={10} lg={8}>
                             <Form.Control name="linkMaps" onChange={handleChange} value={customer.linkMaps} type="text" />
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="standby" as={Row} className="mb-3" >
-                        <Form.Label column xs={4} lg={2} xl={1}>Stand By</Form.Label>
-                        <Col xs={6} lg={4} xl={2}><Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" /></Col>
+                        <Form.Label column xs={4} lg={2} xl={2}>Stand By</Form.Label>
+                        <Col xs={6} lg={2} xl={2}><Form.Check name="standby" onChange={handleChange} checked={customer.standby ? customer.standby : false} type="switch" /></Col>
                     </Form.Group>
 
                 </fieldset>

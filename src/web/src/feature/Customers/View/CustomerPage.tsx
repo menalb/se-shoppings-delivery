@@ -92,59 +92,72 @@ function CustomerPage() {
                         </h2>
                         {customer.standby && <div className="standby">Attenzione: Attualmente in Stand By</div>}
                         <Container className="content">
-                            <Row>
-                                Zona
+                            <Row className="mb-3">
+                                <Col lg={4}>
+                                    Zona
+                                </Col>
+                                <Col>
+                                    <b>{customer.area}</b>
+                                </Col>
                             </Row>
-                            <Row>
-                                <b>{customer.area}</b>
+                            <Row className="mb-3">
+                                <Col lg={4}>
+                                    Referente
+                                </Col>
+                                <Col>
+                                    <b>{customer.reference}</b>
+                                </Col>
                             </Row>
-                            <Row>
-                                Referente
+                            <Row className="mb-3">
+                                <Col lg={4}>
+                                    Indirizzo
+                                </Col>
+                                <Col>
+                                    <b>
+                                        {customer.linkMaps ?
+                                            <a title="indirizzo, fare click per aprire la mappa" href={customer.linkMaps}>{customer.address}</a>
+                                            :
+                                            customer.address
+                                        }
+                                    </b>
+                                </Col>
                             </Row>
-                            <Row>
-                                <b>{customer.reference}</b>
+                            <Row className="mb-3">
+                                <Col lg={4}>
+                                    Telefono
+                                </Col>
+                                <Col>
+                                    {customer.phone ? <b><a title="numero di telefono, avviare la telefonata" href={'tel:' + customer.phone}>{customer.phone}</a></b> : <em>numero di telefono non disponibile</em>}
+                                </Col>
                             </Row>
-                            <Row>
-                                Viene lui
+                            <Row className="mb-3">
+                                <Col lg={4}>
+                                    Componenti Famiglia
+                                </Col>
+                                <Col>
+                                    <b>{customer.familyMembers ? customer.familyMembers : ' '}</b>
+                                </Col>
                             </Row>
-                            <Row>
-                                Indirizzo
+                            <Row className="mb-3">
+                                <Col xs={12} className="offset-lg-4">
+                                    <b>{customer.familyStructure ? customer.familyStructure : ' '}</b>
+                                </Col>
                             </Row>
-                            <Row>
-                                <b>
-                                    {customer.linkMaps ?
-                                        <a title="indirizzo, fare click per aprire la mappa" href={customer.linkMaps}>{customer.address}</a>
-                                        :
-                                        customer.address
-                                    }
-                                </b>
+                            <Row className="mb-3">
+                                <Col xs={12}>
+                                    Richieste Particolari
+                                </Col>
+                                <Col>
+                                    <b>{customer.note ? customer.note : ' '}</b>
+                                </Col>
                             </Row>
-                            <Row>
-                                Telefono
-                            </Row>
-                            <Row>
-                                {customer.phone ? <b><a title="numero di telefono, avviare la telefonata" href={'tel:' + customer.phone}>{customer.phone}</a></b> : <em>numero di telefono non disponibile</em>}
-                            </Row>
-                            <Row>
-                                Componenti Famiglia
-                            </Row>
-                            <Row>
-                                <b>{customer.familyMembers ? customer.familyMembers : ' '}</b>
-                            </Row>
-                            <Row>
-                                <b>{customer.familyStructure ? customer.familyStructure : ' '}</b>
-                            </Row>
-                            <Row>
-                                Richieste Particolari
-                            </Row>
-                            <Row>
-                                <b>{customer.note ? customer.note : ' '}</b>
-                            </Row>
-                            <Row>
-                                Data consegna ISEE
-                            </Row>
-                            <Row>
-                                <b>{customer.documentationDeliveredOn ? customer.documentationDeliveredOn.toDateString() : 'ISEE non consegnato'}</b>
+                            <Row className="mb-3">
+                                <Col lg={4}>
+                                    Data consegna ISEE
+                                </Col>
+                                <Col>
+                                    <b>{customer.documentationDeliveredOn ? customer.documentationDeliveredOn.toDateString() : 'ISEE non consegnato'}</b>
+                                </Col>
                             </Row>
                             <h3 className="text-center">Consegne ({customer.deliveries ? customer.deliveries.length : 0})</h3>
                             <Row>
