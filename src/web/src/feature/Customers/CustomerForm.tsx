@@ -80,8 +80,8 @@ const CustomerForm = (props: CustomerFormProps) => {
 
     return (
         <>
-            <Form className="customer-form" onSubmit={handleSubmit}>
-                <fieldset disabled={props.disabled}>
+            <Form className="customer-form " onSubmit={handleSubmit}>
+                <fieldset className="content" disabled={props.disabled}>
                     <Form.Group controlId="name" as={Row} className="mb-3" >
                         <Form.Label column xs={4} lg={2} xl={2}>Nome</Form.Label>
                         <Col xs={8} lg={4} xl={4}>

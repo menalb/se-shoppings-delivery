@@ -55,7 +55,7 @@ const AddCustomerPage = () => {
                             }
                             submit={{ text: 'Salva', title: 'Salva nuova persona' }}
                         />}
-                    ></CustomerForm>
+                    />
 
                 </Card.Body>
             </Card>
