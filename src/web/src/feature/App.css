@@ -122,7 +122,10 @@ h1 {
   /* .content {
     margin-bottom: 4rem;
   } */
-  
+
+  .export .btn-secondary {
+    width: 4rem;
+  }
 }
 
 @media only screen and (min-width: 993px) {

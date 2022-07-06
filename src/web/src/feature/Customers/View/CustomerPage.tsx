@@ -131,19 +131,26 @@ function CustomerPage() {
                                     </b>
                                 </Col>
                             </Row>
-                            <Row className="mb-3">
+                            <Row className="mb-3 phone">
                                 <Col lg={4}>
                                     Telefono
                                 </Col>
-                                <Col className="phone">
+                                <Col sm={4}>
                                     {customer.phone ? <b>{customer.phone}</b> : <em>numero di telefono non disponibile</em>}
-
-                                    <a title="numero di telefono, avviare la telefonata" href={'tel:' + customer.phone}>
-                                        Chiama
-                                    </a>
-                                    <a title="numero di telefono, avviare la telefonata in anoninmo" href={`tel: #31#${customer.phone}`}>
-                                        Chiama Anonimo
-                                    </a>
+                                </Col>
+                                <Col xs={12} sm={6} lg={4}>
+                                    <Row className="text-center">
+                                        <Col>
+                                            <a title="numero di telefono, avviare la telefonata" href={'tel:' + customer.phone}>
+                                                Chiama
+                                            </a>
+                                        </Col>
+                                        <Col>
+                                            <a title="numero di telefono, avviare la telefonata in anoninmo" href={`tel: #31#${customer.phone}`}>
+                                                Chiama Anonimo
+                                            </a>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                             <Row className="mb-3">

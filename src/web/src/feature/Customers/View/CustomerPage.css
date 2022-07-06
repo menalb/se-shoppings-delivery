@@ -34,7 +34,6 @@
   margin-right: 1rem;
 }
 
-.customer-page .phone a {
-  font-size: 0.9em;
-  padding-left: 0.5rem;
+.customer-page .phone a {  
+  padding-right: 0.5rem;
 }
