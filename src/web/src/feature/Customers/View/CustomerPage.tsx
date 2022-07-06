@@ -135,16 +135,23 @@ function CustomerPage() {
                                 <Col lg={4}>
                                     Telefono
                                 </Col>
-                                <Col>
-                                    {customer.phone ? <b><a title="numero di telefono, avviare la telefonata" href={'tel:' + customer.phone}>{customer.phone}</a></b> : <em>numero di telefono non disponibile</em>}
+                                <Col className="phone">
+                                    {customer.phone ? <b>{customer.phone}</b> : <em>numero di telefono non disponibile</em>}
+
+                                    <a title="numero di telefono, avviare la telefonata" href={'tel:' + customer.phone}>
+                                        Chiama
+                                    </a>
+                                    <a title="numero di telefono, avviare la telefonata in anoninmo" href={`tel: #31#${customer.phone}`}>
+                                        Chiama Anonimo
+                                    </a>
                                 </Col>
                             </Row>
                             <Row className="mb-3">
-                                <Col lg={4}>
-                                    Componenti Famiglia
+                                <Col xs={4}>
+                                    Famiglia
                                 </Col>
                                 <Col>
-                                    <b>{customer.familyMembers ? customer.familyMembers : ' '}</b>
+                                    <b title={customer.familyMembers ? customer.familyMembers + ' componenti' : ''}>{customer.familyMembers ? customer.familyMembers : ' '}</b>
                                 </Col>
                             </Row>
                             <Row className="mb-3">

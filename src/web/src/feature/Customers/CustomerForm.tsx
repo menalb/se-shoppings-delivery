@@ -139,7 +139,8 @@ const CustomerForm = (props: CustomerFormProps) => {
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="familyStructure" as={Row} className="mb-3" >
-                        <Col xs={12}>
+                        <Form.Label column xs={4} lg={2}>Descrizione Famiglia</Form.Label>
+                        <Col xs={8} lg={10}>
                             <Form.Control name="familyStructure" onChange={handleChange} value={customer.familyStructure} type="text" />
                         </Col>
                     </Form.Group>
@@ -151,8 +152,8 @@ const CustomerForm = (props: CustomerFormProps) => {
                     </Form.Group>
 
                     <Form.Group controlId="birthDay" as={Row} className="mb-3" >
-                        <Form.Label column xs={12} lg={2}>Compleanno</Form.Label>
-                        <Col xs={8} lg={4}>
+                        <Form.Label column xs={4} lg={2}>Compleanno</Form.Label>
+                        <Col xs={6} lg={4}>
                             <Form.Control
                                 name="birthDay"
                                 onChange={handleChange}
@@ -164,8 +165,8 @@ const CustomerForm = (props: CustomerFormProps) => {
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="documentationDeliveryDate" as={Row} className="mb-3" >
-                        <Form.Label column xs={12} lg={2}>Data consegna ISEE</Form.Label>
-                        <Col xs={8} lg={4}>
+                        <Form.Label column xs={4} lg={2}>Data consegna ISEE</Form.Label>
+                        <Col xs={6} lg={4}>
                             <Form.Control
                                 name="documentationDeliveredOn"
                                 onChange={handleChange}
