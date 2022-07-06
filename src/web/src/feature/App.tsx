@@ -20,19 +20,21 @@ import { DeliveriesChartPage } from './Deliveries/Charts/DeliveriesChartPage';
 
 function App() {
   return (<>
-    <h1>
-      <a href="/" title="Home" className='page-title'>
-        <img className='logo' src={logo} aria-hidden="true" alt="Logo Comunita Sant'Egidio" />
-        <span className='text'>
-          Consegna Spesa
+    <header>
+      <h1>
+        <a href="/" title="Home" className='page-title'>
+          <img className='logo' src={logo} aria-hidden="true" alt="Logo Comunita Sant'Egidio" />
+          <span className='text'>
+            Consegna Spesa
+          </span>
+        </a>
+        <span className='user-profile'>
+          <UserProfileButton></UserProfileButton>
         </span>
-      </a>
-      <span className='user-profile'>
-        <UserProfileButton></UserProfileButton>
-      </span>
-    </h1>
+      </h1>
+    </header>
     <Container>
-      <div>
+      <main>
         <AuthProvider>
           <BrowserRouter>
             <Routes>
@@ -70,7 +72,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </AuthProvider>
-      </div>
+      </main>
     </Container>
   </>
   );

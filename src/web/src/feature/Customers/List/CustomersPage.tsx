@@ -65,7 +65,7 @@ const CustomersPage = () => {
                 <Col xs={9} md={4}>
                     <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
                 </Col>
-                <Col xs={2}>
+                <Col xs={2} className="export">
                     <ExportReactCSV csvData={mapToExport()} fileName={exportFileName()} />
                 </Col>
             </Row>

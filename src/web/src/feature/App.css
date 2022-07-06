@@ -51,7 +51,7 @@ h1 {
   background-color: lightgray !important;
 }
 
-.buttons svg {
+.btn svg {
   width: 1.5rem;
 }
 
@@ -94,10 +94,10 @@ h1 {
   color: white !important;
 }
 
- .content {
-    overflow-y: scroll;
-    height: 70vh;
-  }
+.content {
+  overflow-y: scroll;
+  height: 70vh;
+}
 
 @media only screen and (max-width: 992px) {
   .actions-row {
@@ -122,6 +122,7 @@ h1 {
   /* .content {
     margin-bottom: 4rem;
   } */
+  
 }
 
 @media only screen and (min-width: 993px) {
@@ -135,5 +136,9 @@ h1 {
 
   .actions-row a {
     width: 10rem;
+  }
+
+  .export .btn-secondary {
+    width: 8rem;
   }
 }
