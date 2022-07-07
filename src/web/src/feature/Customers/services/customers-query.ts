@@ -27,8 +27,8 @@ export const getCustomer = async (customerId: string): Promise<Customer | NotFou
         return { kind: 'not-found' };
     }
 }
-export const customersQueryByDelivery = async (deliveryId: string): Promise<CustomerDelilveryDay[]> => {
-    const q = query(collection(db, 'customers'), orderBy('name', 'asc'));
+export const customersQueryByDelivery = async (deliveryId: string, sortBy?: string, direction?: string): Promise<CustomerDelilveryDay[]> => {
+    const q = query(collection(db, 'customers'), orderBy(sortBy ?? 'name', !(direction) || (direction.toUpperCase() === 'ASC') ? 'asc' : 'desc'));
     const querySnapshot = await getDocs(q);
 
     return querySnapshot.docs.map(e => {

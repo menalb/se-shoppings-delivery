@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Col, Form, FormControl, ListGroup, Row } from "react-bootstrap";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../../context";
 import { parseYearFromQueryString, useCheckMobileScreen } from "../../../services/utils";
 import { DeliveryButton, RemoveDeliveryButton, SecondaryLinkComponent } from "../../ActionButtons";
@@ -8,6 +8,7 @@ import { CustomerDelilveryDay, customersQueryByDelivery } from "../../Customers"
 
 import { logDelivery, removeDelivery } from "../../Customers/services/customer-command";
 import { Loader } from "../../Loader";
+import { SortIndicator } from "../../SortIndicator";
 import { Delivery } from "../model";
 import { deliveriesQuery } from "../services/delivery-query";
 import './DeliveriesBoardPage.css'
@@ -28,10 +29,9 @@ const DeliveriesBoardPage = () => {
 
     const [customers, setCustomers] = useState([] as CustomerDelilveryDay[]);
 
-    const fetchCustomersAndDeliveries = async (deliveryId: string) => {
-        setIsLoading(true);
-
-        const customers = await customersQueryByDelivery(deliveryId);
+    const fetchCustomersAndDeliveries = async (deliveryId: string, sort: string, direction: string) => {
+        setIsLoading(true);        
+        const customers = await customersQueryByDelivery(deliveryId, sort, direction);
 
         setCustomers(customers);
         setIsLoading(false);
@@ -44,13 +44,12 @@ const DeliveriesBoardPage = () => {
         setIsLoading(false);
     }
 
-    const deliveriesListUrl = () => {
-        const base = '/deliveries';
+    const queryStringYear = () => {
         const parsedYear = parseYearFromQueryString(searchParams);
         if (parsedYear !== 'parse-error') {
-            return `${base}?year=${parsedYear}`;
+            return `year=${parsedYear}`;
         }
-        return base;
+        return '';
     }
 
     useEffect(() => {
@@ -70,15 +69,15 @@ const DeliveriesBoardPage = () => {
                 delivery = deliveries[0];
             }
             setSelectedDelivery(delivery);
-            fetchCustomersAndDeliveries(delivery.id);
+            fetchCustomersAndDeliveries(delivery.id, searchParams.get('sort') ?? 'name', searchParams.get('direction') ?? 'ASC');
         }
-    }, [deliveries]);
+    }, [searchParams, deliveries]);
 
     const handleChange = (event: React.ChangeEvent<any>) => {
         const delivery = deliveries.find(d => d.id === event.target.value);
         if (delivery) {
             setSelectedDelivery(delivery);
-            fetchCustomersAndDeliveries(delivery.id);
+            fetchCustomersAndDeliveries(delivery.id, searchParams.get('sort') ?? 'name', searchParams.get('direction') ?? 'ASC');
         }
     }
 
@@ -147,7 +146,7 @@ const DeliveriesBoardPage = () => {
         <Form>
             <Form.Group as={Row} className="mb-3" controlId="day">
                 <Col xs={12} sm={4}>
-                    <SecondaryLinkComponent link={deliveriesListUrl()} text="Elenco consegne" title="Torna all'elenco delle consegne" />
+                    <SecondaryLinkComponent link={'/deliveries?' + queryStringYear()} text="Elenco consegne" title="Torna all'elenco delle consegne" />
                 </Col>
                 <Col>
                     <Row>
@@ -174,7 +173,7 @@ const DeliveriesBoardPage = () => {
         </Form>
         {error && <Alert variant="danger">{error}</Alert>}
 
-        <CustomerDeliveryList customers={filterCustomers()} deliver={deliver} removeDelivery={undeliver} isMobile={isMobile} />
+        <CustomerDeliveryList customers={filterCustomers()} deliver={deliver} removeDelivery={undeliver} isMobile={isMobile} queryStringYear={queryStringYear()} />
     </>);
 }
 
@@ -191,34 +190,73 @@ const CustomerDeliveryList: React.FC<{
     customers: CustomerDelilveryDay[],
     deliver: (customerId: string) => void,
     removeDelivery: (customerId: string) => void,
-    isMobile: boolean
-}> = ({ customers, deliver, removeDelivery, isMobile }) =>
-        <ListGroup as="ul" className="customers-deliveries-list">
+    isMobile: boolean,
+    queryStringYear: string
+}> = ({ customers, deliver, removeDelivery, isMobile, queryStringYear }) =>
+        <>
+            <ListGroup as="ul">
 
-            <ListGroup.Item as="li" key={'header'}>
-                <CustomerListItemLargeHeader isMobile={isMobile}></CustomerListItemLargeHeader>
-            </ListGroup.Item>
-            {customers.map((e, index) => (<ListGroup.Item as="li" key={index}>
-                <CustomerDeliveryListItem customer={e} deliver={deliver} removeDelivery={removeDelivery} isMobile={isMobile} />
-            </ListGroup.Item>))}
-        </ListGroup>
+                <ListGroup.Item as="li" key={'header'} className="customers-deliveries-list-header">
+                    <CustomerListItemLargeHeader isMobile={isMobile} queryStringYear={queryStringYear}></CustomerListItemLargeHeader>
+                </ListGroup.Item>
 
-const CustomerListItemLargeHeader = (props: { isMobile: boolean }) =>
-    <span className={props.isMobile ? 'customer-delivery-item-xs' : 'customer-delivery-item'} >
-        <span>
-            <b>Nome</b></span>
-        <span className="area" title="Zona in cui abita">
-            <b>Zona</b>
-        </span>
-        {!props.isMobile &&
-            <span className="text-center" title="Data ultima consegna">
-                <b>Consegnato</b>
-            </span>
+            </ListGroup>
+            <ListGroup as="ul" className="customers-deliveries-list">
+                {customers.map((e, index) => (<ListGroup.Item as="li" key={index}>
+                    <CustomerDeliveryListItem customer={e} deliver={deliver} removeDelivery={removeDelivery} isMobile={isMobile} />
+                </ListGroup.Item>))}
+            </ListGroup>
+        </>
+
+const CustomerListItemLargeHeader = (props: { isMobile: boolean, queryStringYear: string }) => {
+    const [sort, setSort] = useState('name');
+    const [direction, setDirection] = useState('ASC');
+
+    const [searchParams] = useSearchParams();
+
+    const buildDirection = (name: string) => sort === name ? direction : 'ASC';
+    const buildTo = (name: string) => `?${props.queryStringYear}&sort=${name}&direction=${buildDirection(name)}`;
+
+    useEffect(() => {
+        if (searchParams && searchParams.get('sort') && searchParams.get('direction')) {
+            const nextSort = searchParams.get('sort') ?? 'name';
+            const d = searchParams.has('direction') && searchParams.get('direction') === 'ASC' ? 'DESC' : 'ASC';
+
+            setSort(nextSort);
+            setDirection(d);
         }
-        <span>
+        else {
+            setSort('name');
+            setDirection('DESC');
+        }
+    }, [searchParams]);
 
+    return (
+        <span className={props.isMobile ? 'customer-delivery-item-xs' : 'customer-delivery-item'} >
+            <span>
+                <Link to={buildTo('name')}>
+                    <b>Nome</b>
+                    {sort === 'name' && <SortIndicator name={'name'} direction={buildDirection('name')} />}
+                </Link>
+            </span>
+            <span className="area" title="Zona in cui abita">
+                <Link to={buildTo('area')}>
+                    <b>Zona</b>
+                    {sort === 'area' && <SortIndicator name={'area'} direction={buildDirection('area')} />}
+                </Link>
+            </span>
+            {
+                !props.isMobile &&
+                <span className="text-center" title="Data ultima consegna">
+                    <b>Consegnato</b>
+                </span>
+            }
+            <span>
+
+            </span>
         </span>
-    </span>
+    )
+}
 
 const CustomerDeliveryListItem: React.FC<{
     customer: CustomerDelilveryDay,
