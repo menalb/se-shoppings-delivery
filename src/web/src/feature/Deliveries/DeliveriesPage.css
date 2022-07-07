@@ -7,6 +7,11 @@
   margin-right: 1rem;
 }
 
+.deliveries-container .loader {
+  position: absolute;
+  left: 50%;
+}
+
 @media only screen and (max-width: 991px) {
   .deliveries-list {
     height: 60vh;
@@ -20,7 +25,7 @@
     position: relative;
   }
 
-  .deliveries-list {    
+  .deliveries-list {
     margin-bottom: 2rem;
   }
 

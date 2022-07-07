@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, ListGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Delivery } from "./model";
 import { deliveriesQueryByYear } from "./services/delivery-query";
 import { ButtonActionsComponent, SecondaryLinkComponent } from "../ActionButtons";
@@ -8,11 +8,13 @@ import { Loader } from "../Loader";
 import { AddDeliveryButton, DeliveriesChartsButton } from "../Buttons";
 import { useAuth } from "../../context";
 import './DeliveriesPage.css'
-import { months } from "../../services/utils";
+import { months, parseYearFromQueryString } from "../../services/utils";
 import { YearsSelector } from "../YearsSelectorComponent";
 
 export const DeliveriesPage = () => {
     const currentYear = new Date(Date.now()).getFullYear();
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const { currentUser, roles } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +35,8 @@ export const DeliveriesPage = () => {
     }
 
     const yearsSelected = (year: number) => {
-        setSelectedYear(year);
+        searchParams.set('year', year.toString());
+        setSearchParams(searchParams, { replace: true });
     }
 
     const groupByMonth = (deliveries: Delivery[]): Record<number, Delivery[]> => {
@@ -66,12 +69,20 @@ export const DeliveriesPage = () => {
         fetchDeliveries();
     }, [selectedYear]);
 
+    useEffect(() => {
+        const parsedYear = parseYearFromQueryString(searchParams);
+        if (parsedYear !== 'parse-error') {
+            setSelectedYear(parsedYear);
+        }
+    }, [searchParams])
+
     return (<>
         <Container className="deliveries-container">
             <h2 className="text-center">Giri</h2>
-            <Row className="year-picker"><Col xs={10}>
-                <YearsSelector yearFrom={2020} yearTo={currentYear} onclick={yearsSelected} selectedYear={selectedYear} />
-            </Col>
+            <Row className="year-picker">
+                <Col xs={10}>
+                    <YearsSelector yearFrom={2020} yearTo={currentYear} onclick={yearsSelected} selectedYear={selectedYear} />
+                </Col>
                 <Col xs={2} className="d-flex flex-row-reverse">
                     <DeliveriesChartsButton />
                 </Col>
@@ -92,7 +103,7 @@ export const DeliveriesPage = () => {
                                             <b><Link to={"/deliveries/edit/" + d.id}>{d.day.toDateString()}</Link></b>
                                         </Col>
                                         <Col xs={4}>
-                                            <Link to={"/deliveries/board/" + d.id}>Distribuzioni</Link>
+                                            <Link to={`/deliveries/board/${d.id}?year=${d.day.getFullYear()}`}>Distribuzioni</Link>
                                         </Col>
                                     </Row>
                                     <Row><Col xs={2}>

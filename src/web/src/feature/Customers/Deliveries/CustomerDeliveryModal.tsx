@@ -90,8 +90,7 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
         setIsUpdating(false);
     }
 
-    const handleChange = (event: React.ChangeEvent<any>) => {
-
+    const handleChange = (event: React.ChangeEvent<any>) => {        
         const { target } = event;
         const { name } = target;
 
@@ -100,13 +99,21 @@ export const CustomerDeliveryModal = (props: CustomerDeliveryModalProps) => {
 
         if (name === 'deliveryId' && deliveries.some(d => d.id === value)) {
             deliveryDate = deliveries.find(d => d.id === value)?.day ?? deliveryDate;
+            setCustomerDelivery({
+                ...customerDelivery,
+                [name]: value,
+                deliveryDate: deliveryDate,
+                deliveryDay: deliveryDate,
+            })
+        }
+        else {
+            setCustomerDelivery({
+                ...customerDelivery,
+                [name]: value
+            })
         }
 
-        setCustomerDelivery({
-            ...customerDelivery,
-            [name]: value,
-            deliveryDate: deliveryDate
-        })
+
     };
 
     const onShow = (): void => {

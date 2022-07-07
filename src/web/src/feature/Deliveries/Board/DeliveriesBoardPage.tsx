@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Alert, Col, Form, FormControl, ListGroup, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../../context";
-import { useCheckMobileScreen } from "../../../services/utils";
+import { parseYearFromQueryString, useCheckMobileScreen } from "../../../services/utils";
 import { DeliveryButton, RemoveDeliveryButton, SecondaryLinkComponent } from "../../ActionButtons";
 import { CustomerDelilveryDay, customersQueryByDelivery } from "../../Customers";
 
@@ -15,6 +15,7 @@ import './DeliveriesBoardPage.css'
 const DeliveriesBoardPage = () => {
 
     const isMobile = useCheckMobileScreen();
+    const [searchParams] = useSearchParams();
 
     const { deliveryId } = useParams();
     const [searchText, setSearchText] = useState('')
@@ -41,6 +42,15 @@ const DeliveriesBoardPage = () => {
         const deliveries = await deliveriesQuery();
         setDeliveries(deliveries);
         setIsLoading(false);
+    }
+
+    const deliveriesListUrl = () => {
+        const base = '/deliveries';
+        const parsedYear = parseYearFromQueryString(searchParams);
+        if (parsedYear !== 'parse-error') {
+            return `${base}?year=${parsedYear}`;
+        }
+        return base;
     }
 
     useEffect(() => {
@@ -109,7 +119,6 @@ const DeliveriesBoardPage = () => {
         if (currentUser) {
             try {
 
-
                 await removeDelivery(
                     {
                         deliveredBy: '',
@@ -138,7 +147,7 @@ const DeliveriesBoardPage = () => {
         <Form>
             <Form.Group as={Row} className="mb-3" controlId="day">
                 <Col xs={12} sm={4}>
-                    <SecondaryLinkComponent link="/deliveries" text="Elenco consegne" title="Torna all'elenco delle consegne" />
+                    <SecondaryLinkComponent link={deliveriesListUrl()} text="Elenco consegne" title="Torna all'elenco delle consegne" />
                 </Col>
                 <Col>
                     <Row>
