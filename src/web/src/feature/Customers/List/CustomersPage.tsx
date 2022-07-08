@@ -16,6 +16,7 @@ const CustomersPage = () => {
     const [searchParams] = useSearchParams();
 
     const [searchText, setSearchText] = useState('')
+    const [filterRequired, setFilterRequired] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
     const { currentUser, roles } = useAuth();
@@ -33,7 +34,7 @@ const CustomersPage = () => {
         return !!currentUser && roles.some(r => r === 'admin');
     }
 
-    const mapToExport = () => customers.map(c => ({        
+    const mapToExport = () => customers.map(c => ({
         Nome: c.name,
         Quartiere: c.area,
         Referente: c.reference,
@@ -48,11 +49,18 @@ const CustomersPage = () => {
         fetchCustomers(searchParams.get('sort') ?? 'name', searchParams.get('direction') ?? 'ASC');
     }, [searchParams]);
 
-    const filterCustomers = () => customers.filter(c => c.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()));
+    const filterCustomers = () =>
+        customers.filter(c =>
+            c.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) && (filterRequired ? !(c.documentationDeliveredOn) : c.documentationDeliveredOn === c.documentationDeliveredOn)
+        );
 
     const exportFileName = () => {
         const dt = new Date();
         return `EstrazionePersone_${dt.getFullYear()}_${dt.getMonth() + 1}_${dt.getDate()}`;
+    }
+
+    const filterRequiredChanged = () => {
+        setFilterRequired(!filterRequired);
     }
 
     return (<>
@@ -63,7 +71,7 @@ const CustomersPage = () => {
                     right={<AddButton />}
                 />}
             <Row className="search">
-                <Col xs={9} md={4}>
+                <Col xs={9} md={4} className="p-0">
                     <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
                 </Col>
                 <Col xs={1} className="export">
@@ -71,7 +79,14 @@ const CustomersPage = () => {
                 </Col>
             </Row>
             <Loader isLoading={isLoading} />
-        </Container>        
+            {!isMobile &&
+                <Form.Group controlId="filterRequired" as={Row} className="mb-3" >
+                    <Col sm={1} lg={1} xl={1}>
+                        <Form.Check name="filterRequired"  onChange={filterRequiredChanged} checked={filterRequired} type="switch" />
+                    </Col>                    
+                    <Form.Label column sm={4} xl={2}>ISEE non consegnato</Form.Label>
+                </Form.Group>}
+        </Container>
         <CustomerList customers={filterCustomers()} isMobile={isMobile} canSort={true} />
     </>
     )
