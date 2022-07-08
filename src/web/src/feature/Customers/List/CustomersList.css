@@ -11,13 +11,13 @@
 .customer-item-head {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.25fr 0.20fr 0.20fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.25fr 0.25fr 0.08fr;
 }
 
 .customer-item {
   display: grid;
   width: 100%;
-  grid-template-columns: 14fr 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 14fr 0.5fr 0.5fr 0.25fr;
 }
 
 .customer-link {
