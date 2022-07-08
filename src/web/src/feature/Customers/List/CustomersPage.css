@@ -10,7 +10,12 @@
 .search .export {
   margin-left: 1rem;
 }
-
+.filter-bdays {
+  margin-top: 1rem !important;
+}
+.text-right {
+  text-align: end;
+}
 @media only screen and (min-width: 992px) {
   .head-container .buttons .add {
     position: absolute;
@@ -69,4 +74,20 @@
   .search .export {
     margin-left: 1rem;
   }
+}
+
+.birthdays-list {
+  position: absolute;
+  right: 0.75rem;
+  z-index: 1;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.birthday-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;  
+}
+.birthday-item span{
+  padding-left: 1rem;
 }
