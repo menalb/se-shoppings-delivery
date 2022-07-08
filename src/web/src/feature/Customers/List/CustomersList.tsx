@@ -85,7 +85,10 @@ const CustomerListItemLargeHeader: React.FC = () => {
                 <b>Consegna</b>
             </span>
             <span className="note" title="Richieste particolari">
-                <SpecialIcon />
+                <Link to={buildTo('note')}>
+                    <SpecialIcon />
+                    {sort === 'note' && <SortIndicator name={'note'} direction={buildDirection('note')} />}
+                </Link>
             </span>
             <span className="" title="Dati mancanti per la persona">
                 <ExclamationTriangleIcon />

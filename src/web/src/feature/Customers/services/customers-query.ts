@@ -6,7 +6,6 @@ import { Customer, CustomerDelivery } from "../model";
 
 
 export const customersQuery = async (sortBy?: string, direction?: string): Promise<Customer[]> => {
-
     const q = query(collection(db, 'customers'), orderBy(sortBy ?? 'name', !(direction) || (direction.toUpperCase() === 'ASC') ? 'asc' : 'desc'));
 
     const querySnapshot = await getDocs(q);

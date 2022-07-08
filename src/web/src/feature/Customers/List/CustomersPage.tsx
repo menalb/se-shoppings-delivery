@@ -13,7 +13,7 @@ import './CustomersPage.css'
 
 const CustomersPage = () => {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     const [searchText, setSearchText] = useState('')
 
