@@ -41,6 +41,7 @@ const CustomersPage = () => {
         RichiesteParticolari: c.note,
         Indirizzo: c.address,
         Telefono: c.phone,
+        DataConsegnaISEE: c.documentationDeliveredOn ? c.documentationDeliveredOn.toDateString() : ''
     }));
 
     useEffect(() => {
