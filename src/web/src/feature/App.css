@@ -144,4 +144,8 @@ h1 {
   .export .btn-secondary {
     width: 8rem;
   }
+
+  .charts .btn-secondary {
+    width: 10rem;
+  }
 }

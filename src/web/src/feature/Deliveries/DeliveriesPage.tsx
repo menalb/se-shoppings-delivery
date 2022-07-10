@@ -80,10 +80,10 @@ export const DeliveriesPage = () => {
         <Container className="deliveries-container">
             <h2 className="text-center">Giri</h2>
             <Row className="year-picker">
-                <Col xs={10}>
+                <Col xs={12} sm={10}>
                     <YearsSelector yearFrom={2020} yearTo={currentYear} onclick={yearsSelected} selectedYear={selectedYear} />
                 </Col>
-                <Col xs={2} className="d-flex flex-row-reverse">
+                <Col xs={12} sm={2} className="d-flex flex-row-reverse charts">
                     <DeliveriesChartsButton />
                 </Col>
             </Row>

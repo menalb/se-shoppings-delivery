@@ -16,7 +16,7 @@ export type ActionComponentProps = { text?: string, title?: string }
 
 
 export const SecondaryLinkComponent = (props: LinkComponentProps) =>
-    <Link className=" link btn btn-secondary" title={props.title} to={props.link}>
+    <Link className="link btn btn-secondary mb-1" title={props.title} to={props.link}>
         <span className="button-name">
             {props.text}
         </span>
